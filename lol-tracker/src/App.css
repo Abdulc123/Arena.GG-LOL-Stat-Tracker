@@ -1,0 +1,67 @@
+.App {
+  text-align: center;
+}
+
+p {
+  font-size: 12px;
+  padding: 0px 0px;
+}
+
+.top-container {
+  display: flex;
+  justify-content:left;
+  width:100%;
+  height:325px;
+  border:1px solid #ccc;
+}
+
+.image-container {
+  display: flex;
+  width:100px;
+  height:100px;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid #ccc;
+  margin-top:90px;
+  margin-left:24.8%;
+
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  font-family:sans-serif;
+  font-size:35px;
+  font-weight:bold;
+  text-align:left;
+  margin-left:20px;
+  margin-top:90px;
+  padding: 0px 0px;
+}
+
+.rankedsolo-container{
+  display: flex;
+  border:1px solid #ccc;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 42.3% 57.7%;
+  border:1px solid #ccc;
+}
+
+.column {
+  padding: 0px;
+  border: 1px solid #ccc;
+}
+
+.box {
+  width:320px;
+  height:115px;
+  margin-left:59%;
+
+  border:1px solid #ccc;
+  font-size:18px;
+  float:left;
+}
+
