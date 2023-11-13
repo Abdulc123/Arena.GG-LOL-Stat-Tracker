@@ -2,6 +2,16 @@ import {useState} from 'react';
 import axios from 'axios';
 import './App.css';
 
+// Reusable function for handling API responses
+function handleAPIResponse(response, setDataFunction) {
+  setDataFunction(response.data);
+}
+
+// Reusable function for handling API errors
+function handleAPIErrors(error) {
+  console.log(error);
+}
+
 function App() {
   const [searchText, setSearchText] = useState("");
   const[gameList, setGameList] = useState("");
@@ -47,7 +57,7 @@ function App() {
       <div className='side-container'></div>
       <div className="top-container">
       {playerData ? (
-      <>
+      <> 
         <div class="image-container">
           <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/" + playerData.profileIconId + ".png"}></img>
         </div>
@@ -66,21 +76,32 @@ function App() {
       <div class="column">
       {rankedData ? (
       <>
+        {/* Display Solo/Duo ranked data */}
+        {rankedData[0] ? (
           <div class="box">
             <p>Solo/Duo</p>
             <p>{rankedData[0].tier} {rankedData[0].rank} {rankedData[0].leaguePoints} LP</p>
             <p>{rankedData[0].wins}W {rankedData[0].losses}L {getWinRate(rankedData[0].wins, rankedData[0].losses)}%</p>
-
           </div>
+        ) : (
+          //Error Handling Output if no solo/duo rank available
+          <p>Ranked Solo: Unranked </p>
+        )}
+        {/* Display Flex ranked data */}
+        {rankedData[1] ? (
           <div class="box">
             <p>Flex</p>
             <p>{rankedData[1].tier} {rankedData[1].rank} {rankedData[1].leaguePoints} LP</p>
             <p>{rankedData[1].wins}W {rankedData[1].losses}L {getWinRate(rankedData[1].wins, rankedData[1].losses)}%</p>
           </div>
+        ) : (
+          //Error Handling Output if no flex rank available
+          <p>Ranked Flex: Unranked</p>
+        )}
       </>
       ):(
       <>
-        <p>NO RANKED DATA</p>
+
       </>
       )
       }
@@ -93,7 +114,7 @@ function App() {
           {
             gameList.map((gameData, index) =>
               <>
-                <h2>Game {index + 1}</h2>
+                <h2>Match {index + 1}</h2>
                 <div>
                   {gameData.info.participants.map((data, participantIndex) =>
                     <p>{data.summonerName}, KDA: {data.kills}/{data.deaths}/{data.assists}</p>)
