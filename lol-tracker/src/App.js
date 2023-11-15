@@ -25,8 +25,6 @@ function App() {
         console.log(error)
       })
   }
-  
-
 
   function getRankedData(event) {
     axios.get("http://localhost:4000/ranked", {params: {username: searchText}})
@@ -106,8 +104,9 @@ function App() {
       <div className="right-container">
       <div className="dashboard-container">
         <div className="dashboard-title">Match History</div>
-        <div>
-          {gameList.length !== 0 ? (
+        
+        <div> 
+          {gameList.length !== 0 ? ( // FIX THIS FIX THIS FIX THIS FIX THIS FIX THIS
   <>        {gameList.map((gameData, index) => {
               let wins = 0; // Initialize wins outside the loop
               // Assuming playerData and gameData are accessible
