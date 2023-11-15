@@ -5,7 +5,7 @@ const axios = require('axios');
 var app = express();
 app.use(cors());
 
-const API_KEY = "RGAPI-b6d25d8a-a9af-490e-9e8d-f10a51dd564e";
+const API_KEY = "RGAPI-36604a80-bfb8-4067-951a-4d593a12a985";
 
 function getPlayerPUUID(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
@@ -43,9 +43,10 @@ app.get('/ranked', async (req, res) => {
 })
 
 
-// GET past5Games
-// GET localhost:4000/past5Games
-app.get('/past5Games', async (req, res) => {
+
+// GET recentGames
+// GET localhost:4000/recentGames
+app.get('/recentGames', async (req, res) => {
     const playerName = req.query.username;
     // PUUID
     const PUUID = await getPlayerPUUID(playerName);
@@ -58,7 +59,7 @@ app.get('/past5Games', async (req, res) => {
     console.log(gameIDs);
 
     var matchDataArray = [];
-    for (var i = 0; i < gameIDs.length - 15; i++) {
+    for (var i = 0; i < gameIDs.length; i++) {
         const matchID = gameIDs[i];
         const matchData = await axios.get("https://americas.api.riotgames.com" + "/lol/match/v5/matches/" + matchID + "?api_key=" + API_KEY)
             .then(response => response.data)
@@ -67,6 +68,7 @@ app.get('/past5Games', async (req, res) => {
     }
     res.json(matchDataArray);
 });
+
 
 app.listen(4000, function () {
     console.log("Server started on port 4000");

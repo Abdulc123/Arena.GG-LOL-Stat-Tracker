@@ -7,7 +7,7 @@ p {
   padding: 0px 0px;
 }
 
-.top-container {
+.top-container { 
   display: flex;
   justify-content:left;
   width:100%;
@@ -15,7 +15,8 @@ p {
   border:1px solid #ccc;
 }
 
-.image-container {
+/* For Summoner Icon */
+.image-container { 
   display: flex;
   width:100px;
   height:100px;
@@ -39,29 +40,69 @@ p {
   padding: 0px 0px;
 }
 
-.rankedsolo-container{
-  display: flex;
-  border:1px solid #ccc;
-}
-
 .container {
   display: grid;
   grid-template-columns: 42.3% 57.7%;
   border:1px solid #ccc;
 }
 
+
 .column {
   padding: 0px;
   border: 1px solid #ccc;
 }
 
-.box {
+.match-history-container {
+  width:680px;
+  border: 1px solid #ccc;
+}
+
+/* Container that holds Solo/Duo & Flex boxes, Champion Stats */
+.left-container {
+  border:1px solid #ccc;
+  width: 320px;
+  height: 230px;
+  margin-left:476px;
+}
+
+/* Solo/Duo Box */
+.solo-duo-box {
   width:320px;
   height:115px;
-  margin-left:59%;
+  margin-left:0%;
+  border:1px solid #ccc;
+  font-size:18px;
+  float:left;
+}
+
+/* Flex Box */
+.flex-box {
+  width:320px;
+  height:115px;
+  margin-left:0%;
+  margin-top:0%;
 
   border:1px solid #ccc;
   font-size:18px;
   float:left;
 }
 
+/* Container the holds Dashboard and Match History */
+.right-container{
+  border:1px solid #ccc;
+  width: 680px;
+  margin-left:5px;
+}
+
+/* Dashboard */
+.dashboard-container {
+  text-align: left;
+  height: 127px;
+  width: 680px;
+  border: 1px solid #ccc;
+}
+
+.dashboard-title {
+  margin-left: 33px;
+  margin-top: 25px;
+}
