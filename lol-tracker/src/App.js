@@ -10,6 +10,7 @@ function App() {
   
   function getPlayerGames(event) {
     axios.get("http://localhost:4000/recentGames", {params: {username: searchText}})
+    axios.get("http://localhost:4000/recentGames", {params: {username: searchText}})
       .then(function (response) {
         setGameList(response.data);
       }).catch (function (error) {
@@ -34,6 +35,7 @@ function App() {
         console.log(error)
       })
   }
+
 
   function getWinRate(wins, losses) {
     const winRate = (wins / (wins + losses)) * 100
