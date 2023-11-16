@@ -9,7 +9,7 @@ function App() {
   const[rankedData, setRankedData] = useState("");
   
   function getPlayerGames(event) {
-    axios.get("http://localhost:4000/past5Games", {params: {username: searchText}})
+    axios.get("http://localhost:4000/recentGames", {params: {username: searchText}})
       .then(function (response) {
         setGameList(response.data);
       }).catch (function (error) {
