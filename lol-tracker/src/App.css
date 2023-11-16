@@ -3,65 +3,288 @@
 }
 
 p {
-  font-size: 12px;
-  padding: 0px 0px;
+  font-size: 1em;
+  padding: 0;
 }
 
 .top-container {
   display: flex;
-  justify-content:left;
-  width:100%;
-  height:325px;
-  border:1px solid #ccc;
+  align-items: center;
+  width: 100%;
+  height: 120%;
+  border: 1px solid #ccc;
+  margin-top: 1%;
+  margin-bottom: 1%
 }
 
+/* Summoner Icon */
 .image-container {
   display: flex;
-  width:100px;
-  height:100px;
-  border-radius:10px;
-  overflow:hidden;
-  border:1px solid #ccc;
-  margin-top:90px;
-  margin-left:24.8%;
-
+  width: 100px;
+  height: 100px;
+  border-radius: 15%;
+  overflow: hidden;
+  border: 3px solid #4ec417;
+  margin-top: .5%;
+  margin-left: 2.48%;
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures that the image covers the entire container without cropping */
+}
+
+/* Summoner Top container text style */
 .text-container {
   display: flex;
   flex-direction: column;
-  font-family:sans-serif;
-  font-size:35px;
-  font-weight:bold;
-  text-align:left;
-  margin-left:20px;
-  margin-top:90px;
-  padding: 0px 0px;
+  font-family: sans-serif;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 1%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 0;
 }
 
-.rankedsolo-container{
+
+/* Navigation container below top container (fix this) */
+.nav-container {
   display: flex;
-  border:1px solid #ccc;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  border: 1px solid #af1919;
+  margin-bottom: 1%;
 }
 
-.container {
+.nav-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 23%;
+  height: auto;
+  border: 1px solid #191eaf;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+}
+
+.dashboard-bar{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75%;
+  height: auto;
+  border: 1px solid #afa019;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  margin-right: 1%;
+}
+
+
+
+/* Overall Bottom Container, holding the 2 column split with rank,champ stats, match summary */
+.bottom-container {
   display: grid;
-  grid-template-columns: 42.3% 57.7%;
-  border:1px solid #ccc;
-}
-
-.column {
-  padding: 0px;
+  grid-template-columns: 25% 75%;
   border: 1px solid #ccc;
 }
 
-.box {
-  width:320px;
-  height:115px;
-  margin-left:50%;
-
-  border:1px solid #ccc;
-  font-size:18px;
-  float:left;
+/* Section columns for rank and match summary */
+.column {
+  padding: 0;
+  border: 1px solid #18a542;
+  width: 100%; /* Equal width for both columns */
+  height: auto;
+  box-sizing: border-box; /* Include padding and border in the width */
 }
+
+/* Ranked box */
+.ranked-box {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  font-size: 1.2em;
+  margin-bottom: 2%; /* Add some spacing between boxes */
+}
+
+.champion-stats-side-container {
+  width: 100%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  margin-bottom: 2%;
+}
+
+.recently-played-with-container {
+  width: 100%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  margin-bottom: 2%;
+}
+/* Game boxes */
+.match-summary-box {
+  display: flex; /* Make the container a flex container */
+  flex-direction: column; /* Stack the child elements vertically */
+  margin-bottom: 2%;
+  width: 95%;
+  height: auto;
+  border: 2px solid #000000;
+  padding: 1%;
+  margin-left: 1%;
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow the items to wrap to the next line if they don't fit */
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border: 1px solid #f70707;
+}
+/* Mode,date,LP,Win/loss, Match Duration*/
+.group-one {
+  width: 12%;
+  height: auto; 
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  margin-left: 1%;
+  overflow: hidden;
+}
+
+/* Summoners champion, level, abilities, and runes*/
+.group-two {
+  width: 15%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+}
+
+/* K/D/A, KDA, CS, vision score */
+.group-three {
+  width: 13%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+}
+
+/* Items bought from shop */
+.group-four {
+  width: 16%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+}
+
+/* 5v5 player layout, with champion icons*/
+.group-five {
+  width: 30%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+}
+
+/* Column for champion icons and summoner names, holds the rows */
+.champion-icon-and-summoner-name-column {
+  border: 1px solid #182fa5;
+  width: 60%; /* Equal width for both columns */
+  height: auto;
+}
+
+/* Creates rows in the columns to hold the icon and name containers*/
+.champion-icon-and-summoner-name-row {
+  border: 1px solid #a51886;
+  width: 100%; /* Equal width for both columns */
+  height: auto;
+  margin-bottom: 1%;
+}
+
+.champion-img-container {
+  display: flex;
+  width: 80%;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #19b43d;
+  margin-top: .5%;
+  margin-left: 2.48%;
+}
+
+/* Style for the champion icons */
+.champion-img-container .icon {
+  width: 33%; /* Set your desired width */
+  height: auto; /* Set your desired height */
+  border-radius: 20px;
+}
+
+/* Style for the summoner-name-container */
+.summoner-name-container {
+  display: flex;
+  align-items: center; /* Center vertically within the container */
+  border: 1px solid #182fa5;
+  width: 70%; /* Adjust the width as needed */
+  height: auto;
+  overflow: hidden; /* Hide any content that overflows the container */
+}
+
+/* Style for the text inside the summoner-name-column */
+.summoner-name-container p {
+  margin: 0;
+  cursor: pointer; /* Add a pointer cursor to indicate the clickability */
+  font-size: 0.8em;
+  padding: 5px; /* Optional: Add padding for better appearance */
+  text-align: left;
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  text-overflow: ellipsis; /* Display an ellipsis (...) for overflow text */
+  overflow: hidden; /* Hide any content that overflows the container */
+}
+
+/* Underline the summoner name on hover */
+.summoner-name-container p:hover {
+  text-decoration: underline;
+}
+
+/* Style the summoner name in bold when it matches the search text */
+.summoner-name-container p.bold {
+  font-weight: bold;
+}
+
+/* Style for the summoner container */
+.summoner-name-container .summoner {
+  margin-bottom: 10%; /* Add spacing between summoner names */
+}
+
+
+.dropdown-container{
+  width: 3%;
+  height: auto; /* Add a fixed height for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #a5189c;
+}
+
 

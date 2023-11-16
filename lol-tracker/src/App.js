@@ -55,7 +55,7 @@ function App() {
           {playerData.name} <br />
           {playerData.summonerLevel}
         </div>
-      </>
+      </> 
       ) : (
         <p>No player data available</p>
       )}
@@ -81,7 +81,6 @@ function App() {
         )}
       </div>
 
-  
 
       <div class="bottom-container">
       <div class="column">
@@ -124,22 +123,33 @@ function App() {
       </>
       )
       }
-        <div className = "champion-stats-side-container">
-          <p> Champion Sats Placeholder</p>
-        </div>
+      
+      {playerData ? (
+  // Render navigation content when playerData is available
+  <>
+    <div className="champion-stats-side-container">
+      <p>Champion Stats Placeholder</p>
+    </div>
 
-        <div className = "recently-played-with-container">
-          <p> Recently Played with ____ in Past 20 Games</p>
-        </div>
+    <div className="recently-played-with-container">
+      <p>Recently Played with ____ in Past 20 Games Placeholder </p>
+    </div>
+    {/* Additional content related to playerData */}
+    </>
+    ) : (
+    // Render alternative content when playerData is not available
+    <p></p>
+    )}
+
       </div>
 
       <div class="column">
     {gameList.length !== 0 ? (
       <>
-        <p>We have data!</p>
+        
         {gameList.map((gameData, index) => (
           <div key={index} className="match-summary-box">
-            <h2>Game {index + 1}</h2>
+            <h2>Match {index + 1}</h2>
           <div className = "match-summary-box">
 
             <div className = "content-container">
@@ -152,46 +162,62 @@ function App() {
                 <p> Summoners champion, level, abilities, and runes</p>
               </div>
 
-              <div className = "post-stats">
+              <div className = "group-three">
                 <p> K/D/A, KDA, CS, vision score</p>
               </div>
               
-              <div className = "group-three">
+              <div className = "group-four">
                 <p> Items bought from shop</p>
               </div>
 
-              <div className = "group-four">
-                <div className="summoner-icon-name-column">
-                        {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
-                          <div key={participantIndex} className={`summoner ${searchText === data.summonerName ? "bold" : ""}`}>
-                            <img
-                              className="icon"
-                              src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
-                              alt={`${data.championName} Icon`}
-                            />
-                            <p>
-                              {data.summonerName}
-                            </p>
-                          </div>
-                        ))}
+              <div className = "group-five">
+
+                <div className="champion-icon-and-summoner-name-column">
+                  {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
+                    <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                      {/* Image container with champion icon */}
+                      <div className="champion-img-container">
+                        <img
+                          className="icon"
+                          src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                          alt={`${data.championName} Icon`}
+                        />
+                      
+
+                      {/* Summoner name container */}
+                      <div className="summoner-name-container">
+                        <p className={searchText === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
                       </div>
 
-                <div className="summoner-icon-name-column">
-                        {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
-                          <div key={participantIndex} className={`summoner ${searchText === data.summonerName ? "bold" : ""}`}>
-                            <img
-                              className="icon"
-                              src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
-                              alt={`${data.championName} Icon`}
-                            />
-                            <p>
-                              {data.summonerName} 
-                            </p>
-                          </div>
-                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="champion-icon-and-summoner-name-column">
+                  {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
+                    <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                      {/* Image container with champion icon */}
+                      <div className="champion-img-container">
+                        <img
+                          className="icon"
+                          src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                          alt={`${data.championName} Icon`}
+                        />
+                      
+
+                      {/* Summoner name container */}
+                      <div className="summoner-name-container">
+                        <p className={searchText === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                      </div>
+
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
               </div>
+
               <div className = "dropdown-container">
                 <p> V </p>
               </div>
