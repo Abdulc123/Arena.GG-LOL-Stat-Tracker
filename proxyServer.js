@@ -5,7 +5,7 @@ const axios = require('axios');
 var app = express();
 app.use(cors());
 
-const API_KEY = "RGAPI-fb279446-ad89-4fa4-8c3a-717ed2d0c82f";
+const API_KEY = "RGAPI-1f47ccd5-a878-4f9d-bae9-3c4f9333b8a6";
 
 function getPlayerPUUID(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
@@ -59,7 +59,7 @@ app.get('/recentGames', async (req, res) => {
     console.log(gameIDs);
 
     var matchDataArray = [];
-    for (var i = 0; i < gameIDs.length- 10; i++) {
+    for (var i = 0; i < gameIDs.length- 15; i++) {
         const matchID = gameIDs[i];
         const matchData = await axios.get("https://americas.api.riotgames.com" + "/lol/match/v5/matches/" + matchID + "?api_key=" + API_KEY)
             .then(response => response.data)

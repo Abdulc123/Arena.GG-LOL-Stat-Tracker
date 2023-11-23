@@ -2,6 +2,24 @@ import {useState} from 'react';
 import axios from 'axios';
 import './App.css';
 
+// queueIDS for determining what type of match
+const gameModes = {
+  420: 'Ranked Solo/Duo',
+  440: 'Ranked Flex',
+  430: 'Normal Blind Pick',
+  450: 'ARAM',
+  400: 'Normal Draft Pick',
+  490: 'Quickplay',
+  700: 'Clash',
+  830: 'Co-op vs AI Intro Bots',
+  840: 'Co-op vs AI Beginner Bots',
+  850: 'Co-op vs AI Intermediate Bots',
+  900: 'ARURF',
+  1020: 'One for All',
+  1300: 'Nexus Blitz',
+  // Add more if needed
+};
+
 function App() {
   const [searchText, setSearchText] = useState("");
   const[gameList, setGameList] = useState("");
@@ -36,10 +54,44 @@ function App() {
       })
   }
 
-
   function getWinRate(wins, losses) {
     const winRate = (wins / (wins + losses)) * 100
     return winRate.toFixed(2);
+  }
+
+  // Determines the game mode type based on unique queueID
+  function determineGameMode(queueId) {
+    return gameModes[queueId] || 'Unknown Mode';
+  }
+
+  // Determines how long match took place based on current time
+  function calculateTimeAgo(gameCreationTimestamp) {
+    const currentTimestamp = Date.now();
+    const gameCreationDate = new Date(gameCreationTimestamp);
+  
+    const timeDifference = currentTimestamp - gameCreationDate.getTime();
+    const secondsAgo = Math.floor(timeDifference / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+  
+    if (daysAgo > 0) {
+      return `${daysAgo + 1} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+    } else if (hoursAgo > 0) {
+      return `${hoursAgo} ${hoursAgo === 1 ? 'hour' : 'hours'} ago`;
+    } else if (minutesAgo > 0) {
+      return `${minutesAgo} ${minutesAgo === 1 ? 'minute' : 'minutes'} ago`;
+    } else {
+      return 'Just now';
+    }
+  }
+
+  function formatGameDuration(gameDurationInSeconds) {
+    const minutes = Math.floor(gameDurationInSeconds / 60)
+    const seconds = gameDurationInSeconds % 60
+
+    const formattedDuration = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return formattedDuration
   }
 
   return (
@@ -157,7 +209,35 @@ function App() {
             <div className = "content-container">
 
               <div className = "group-one">
-                <p> Mode,date,LP,Win/loss, Match Duration</p>
+                <div className = "g1-row-one">
+
+                  <div className = "queue-type-box">
+                  <p>{determineGameMode(gameData.info.queueId)}</p>
+                  </div>
+
+                  <div className = "date-box">
+                  <p>{calculateTimeAgo(gameData.info.gameCreation)}</p>                    
+                  </div> 
+                </div>
+
+                <div className = "g1-row-two">
+                    <p> ? LP * </p>
+                    
+                  </div>
+                
+                <div className = "g1-row-three">
+                  
+                  <div className = "win-or-loss-box">
+                    <p className={gameData.info.participants[index].win ? 'win' : 'loss'}>
+                      {gameData.info.participants[index].win ? 'Win' : 'Loss'}
+                    </p>
+                  </div>
+
+                  <div className = "match-duration-box">
+                    <p>{formatGameDuration(gameData.info.gameDuration)}</p>
+                  </div>
+                </div>
+
               </div>
 
               <div className = "group-two">

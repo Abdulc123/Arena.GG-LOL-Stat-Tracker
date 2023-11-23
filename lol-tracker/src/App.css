@@ -146,6 +146,7 @@ p {
   margin-left: 1%;
 }
 
+
 .content-container {
   display: flex;
   flex-wrap: wrap; /* Allow the items to wrap to the next line if they don't fit */
@@ -162,12 +163,81 @@ p {
   font-size: 12px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   border: 1px solid #18a542;
+}
+/* container for queue type and time since match occured boxes */
+.g1-row-one {
+  width: 100%;
+  height: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid #2b18a5;
   margin-left: 1%;
-  overflow: hidden;
 }
 
+.queue-type-box {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ff0000;
+  font-size: 1.2em;
+}
+
+.date-box {
+  width: 100%;
+  height: auto;
+  border: 1px solid #18a5a0;
+  font-size: 1.2em;
+}
+
+.g1-row-two {
+  width: 100%;
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #90a518;
+  margin-left: 1%;
+  font-size: 1.2em;
+}
+
+.g1-row-three {
+  width: 100%;
+  height: 20%; 
+  display: flex;
+  align-items: center;
+  border: 1px solid #a51895;
+  margin-left: 1%;
+}
+
+.win-or-loss-box {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #18a5a0;
+  font-size: 1.2em; /* Adjust the font size as needed */
+}
+
+/* Color the text based on win/loss */
+.win-or-loss-box p.win {
+  color: blue;
+  font-weight: bold;
+}
+
+.win-or-loss-box p.loss {
+  color: red;
+  font-weight: bold;
+}
+
+.match-duration-box {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #18a5a0;
+  font-size: 1.2em;
+}
 /* Summoners champion, level, abilities, and runes*/
 .group-two {
   width: 15%;
@@ -200,7 +270,7 @@ p {
 
 /* 5v5 player layout, with champion icons*/
 .group-five {
-  width: 30%;
+  width: 28%;
   height: auto; 
   display: flex;
   justify-content: center;
