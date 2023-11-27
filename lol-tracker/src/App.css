@@ -184,7 +184,8 @@ p {
   width: 100%;
   height: auto;
   border: 1px solid #ff0000;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 .date-box {
@@ -238,15 +239,79 @@ p {
   border: 1px solid #18a5a0;
   font-size: 1.2em;
 }
+
 /* Summoners champion, level, abilities, and runes*/
 .group-two {
-  width: 15%;
+  width: 18%;
   height: auto; 
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
 }
+
+.g2-row-one {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  border: 1px solid #1b22e7;
+}
+
+.g2-champion-img-container {
+  display: flex;
+  align-items: middle;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #b42e19;
+  margin-left: 3%;
+}
+
+/* Style for the champion face */
+.g2-champion-img-container .icon {
+  width: 90%; /* Set your desired width */
+  height: auto; /* Set your desired height */
+  border-radius: 30px;
+  margin: -8%;
+  transform: translateX(10%); /* Adjust the translateX and scale values as needed */
+}
+
+
+.champion-level {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 16px;
+  border-radius: 3px;
+  background-color: #21b9ca;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.summoner-spells-column {
+  width: 25%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2px;
+  border: 1px solid #27df0f;
+}
+
+
+
+.runes-column {
+  width: 25%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2px;
+  border: 1px solid #df0f0f;
+}
+
+
 
 /* K/D/A, KDA, CS, vision score */
 .group-three {

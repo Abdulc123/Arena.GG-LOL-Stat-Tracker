@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 // queueIDS for determining what type of match
+
 const gameModes = {
   420: 'Ranked Solo/Duo',
   440: 'Ranked Flex',
@@ -21,37 +22,38 @@ const gameModes = {
 };
 
 function App() {
-  const [searchText, setSearchText] = useState("");
-  const[gameList, setGameList] = useState("");
-  const[playerData, setPlayerData] = useState("");
-  const[rankedData, setRankedData] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [currentSummonerName, setCurrentSummonerName] = useState("");
+  const [gameList, setGameList] = useState("");
+  const [playerData, setPlayerData] = useState("");
+  const [rankedData, setRankedData] = useState("");
+
+  function handleInputChange(event) {
+    setSearchInput(event.target.value);
+  }
   
-  function getPlayerGames(event) {
-    axios.get("http://localhost:4000/recentGames", {params: {username: searchText}})
-    axios.get("http://localhost:4000/recentGames", {params: {username: searchText}})
+  function searchSummonerData() {
+    setCurrentSummonerName(searchInput);
+    axios.get("http://localhost:4000/recentGames", { params: { username: searchInput } })
       .then(function (response) {
         setGameList(response.data);
-      }).catch (function (error) {
+      }).catch(function (error) {
         console.log(error);
-      })
-  }
+      });
 
-  function getPlayerData(event) {
-    axios.get("http://localhost:4000/player", {params: {username: searchText}})
+    axios.get("http://localhost:4000/player", { params: { username: searchInput } })
       .then(function (response) {
         setPlayerData(response.data);
-      }).catch (function (error) {
-        console.log(error)
-      })
-  }
+      }).catch(function (error) {
+        console.log(error);
+      });
 
-  function getRankedData(event) {
-    axios.get("http://localhost:4000/ranked", {params: {username: searchText}})
+    axios.get("http://localhost:4000/ranked", { params: { username: searchInput } })
       .then(function (response) {
         setRankedData(response.data);
-      }).catch (function (error) {
-        console.log(error)
-      })
+      }).catch(function (error) {
+        console.log(error);
+      });
   }
 
   function getWinRate(wins, losses) {
@@ -74,9 +76,12 @@ function App() {
     const minutesAgo = Math.floor(secondsAgo / 60);
     const hoursAgo = Math.floor(minutesAgo / 60);
     const daysAgo = Math.floor(hoursAgo / 24);
+    const monthsAgo = Math.floor(daysAgo / 30);
   
-    if (daysAgo > 0) {
-      return `${daysAgo + 1} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+    if (monthsAgo > 0) {
+      return `${monthsAgo} ${monthsAgo === 1 ? 'month' : 'months'} ago`;
+    } else if (daysAgo > 0) {
+      return `${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago`;
     } else if (hoursAgo > 0) {
       return `${hoursAgo} ${hoursAgo === 1 ? 'hour' : 'hours'} ago`;
     } else if (minutesAgo > 0) {
@@ -94,26 +99,26 @@ function App() {
     return formattedDuration
   }
 
+  
   return (
     <div className="App">
-      <input type="text" onChange={e => setSearchText(e.target.value)}></input>
-      <button onClick={() => {getPlayerGames(); getPlayerData(); getRankedData();}}>Search</button>
+      <input type="text" value={searchInput} onChange={handleInputChange}></input>
+      <button onClick={searchSummonerData}>Search</button>
       <div className='side-container'></div>
-      <div className="top-container">
-      {playerData ? (
-      <>
-        <div className ="image-container">
-          <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/" + playerData.profileIconId + ".png"}></img>
-        </div>
-        <div class="text-container">
-          {playerData.name} <br />
-          {playerData.summonerLevel}
-        </div>
-      </> 
-      ) : (
-        <p>No player data available</p>
-      )}
-    
+      <div class="top-container">
+        {playerData ? (
+          <>
+            <div className="image-container">
+              <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/" + playerData.profileIconId + ".png"} alt="Profile Icon"></img>
+            </div>
+            <div class="text-container">
+              {playerData.name} <br />
+              {playerData.summonerLevel}
+            </div>
+          </>
+        ) : (
+          <p>No player data available</p>
+        )}
       </div>
 
       <div className="nav-container">
@@ -198,127 +203,140 @@ function App() {
       </div>
 
       <div class="column">
-    {gameList.length !== 0 ? (
-      <>
-        
-        {gameList.map((gameData, index) => (
-          <div key={index} className="match-summary-box">
-            <h2>Match {index + 1}</h2>
-          <div className = "match-summary-box">
+  {gameList.length !== 0 ? (
+    <>
+      {gameList.map((gameData, index) => {
+        const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
 
-            <div className = "content-container">
+        return (
+        <div key={index} className="match-summary-box">
+          <h2>Match {index + 1}</h2>
 
-              <div className = "group-one">
-                <div className = "g1-row-one">
+          <div className="content-container">
 
-                  <div className = "queue-type-box">
+            <div className="group-one">
+              <div className="g1-row-one">
+                <div className="queue-type-box">
                   <p>{determineGameMode(gameData.info.queueId)}</p>
-                  </div>
-
-                  <div className = "date-box">
-                  <p>{calculateTimeAgo(gameData.info.gameCreation)}</p>                    
-                  </div> 
                 </div>
 
-                <div className = "g1-row-two">
-                    <p> ? LP * </p>
-                    
-                  </div>
-                
-                <div className = "g1-row-three">
-                  
-                  <div className = "win-or-loss-box">
-                    <p className={gameData.info.participants[index].win ? 'win' : 'loss'}>
-                      {gameData.info.participants[index].win ? 'Win' : 'Loss'}
+                <div className="date-box">
+                  <p>{calculateTimeAgo(gameData.info.gameCreation)}</p>
+                </div>
+              </div>
+
+              <div className="g1-row-two">
+                <p> ? LP * </p>
+              </div>
+
+              <div className="g1-row-three">
+                <div className="win-or-loss-box">
+                  {searchedParticipant ? (
+                    <p className={searchedParticipant.win ? 'win' : 'loss'}>
+                      {searchedParticipant.win ? 'Win' : 'Loss'}
                     </p>
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
+
+                <div className="match-duration-box">
+                  <p>{formatGameDuration(gameData.info.gameDuration)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group-two">
+              <div className="g2-row-one">
+                <div className="g2-champion-img-container">
+                {searchedParticipant ? (
+                <>
+                  <img
+                    className="icon"
+                    src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${searchedParticipant.championName}.png`}
+                    alt={`${searchedParticipant.championName} Icon`}
+                  />
+                  <div className="champion-level">
+                    {/* ... other champion-related content ... */}
+                  </div>
+                      </>
+                    ) : (
+                      <p>Loading...</p>
+                    )}
                   </div>
 
-                  <div className = "match-duration-box">
-                    <p>{formatGameDuration(gameData.info.gameDuration)}</p>
+                <div className="summoner-spells-column">
+                  <p> spells</p>
+                </div>
+
+                <div className="runes-column">
+                  <p> runes</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group-three">
+              <p> K/D/A, KDA, CS, vision score</p>
+            </div>
+
+            <div className="group-four">
+              <p> Items bought from shop</p>
+            </div>
+
+            <div className="group-five">
+              <div className="champion-icon-and-summoner-name-column">
+                {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
+                  <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                    <div className="champion-img-container">
+                      <img
+                        className="icon"
+                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                        alt={`${data.championName} Icon`}
+                      />
+                      <div className="summoner-name-container">
+                        <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
+                ))}
               </div>
 
-              <div className = "group-two">
-                <p> Summoners champion, level, abilities, and runes</p>
-              </div>
-
-              <div className = "group-three">
-                <p> K/D/A, KDA, CS, vision score</p>
-              </div>
-              
-              <div className = "group-four">
-                <p> Items bought from shop</p>
-              </div>
-
-              <div className = "group-five">
-
-                <div className="champion-icon-and-summoner-name-column">
-                  {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
-                    <div key={participantIndex} className="champion-icon-and-summoner-name-row">
-                      {/* Image container with champion icon */}
-                      <div className="champion-img-container">
-                        <img
-                          className="icon"
-                          src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
-                          alt={`${data.championName} Icon`}
-                        />
-                      
-
-                      {/* Summoner name container */}
+              <div className="champion-icon-and-summoner-name-column">
+                {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
+                  <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                    <div className="champion-img-container">
+                      <img
+                        className="icon"
+                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                        alt={`${data.championName} Icon`}
+                      />
                       <div className="summoner-name-container">
-                        <p className={searchText === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
-                      </div>
-
+                        <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                <div className="champion-icon-and-summoner-name-column">
-                  {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
-                    <div key={participantIndex} className="champion-icon-and-summoner-name-row">
-                      {/* Image container with champion icon */}
-                      <div className="champion-img-container">
-                        <img
-                          className="icon"
-                          src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
-                          alt={`${data.championName} Icon`}
-                        />
-                      
-
-                      {/* Summoner name container */}
-                      <div className="summoner-name-container">
-                        <p className={searchText === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
-                      </div>
-
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
+                  </div>
+                ))}
               </div>
+            </div>
 
-              <div className = "dropdown-container">
-                <p> V </p>
-              </div>
-
+            <div className="dropdown-container">
+              <p> V </p>
             </div>
 
           </div>
-                </div>
-              ))}
-            </>
-          ) : (
-      <p>We have no data!</p>
-    )}
-  </div>
-</div>
+        </div>
+      );
+    })}
+                </>
+              ) : (
+          <p>We have no data!</p>
+        )}
+      </div>
     </div>
-  );
+        </div>
+      );
 
 
-}
+    }
 
-export default App;
+    export default App;
