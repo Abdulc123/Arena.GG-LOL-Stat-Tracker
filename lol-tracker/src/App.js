@@ -21,6 +21,29 @@ const gameModes = {
   // Add more if needed
 };
 
+const summonerSpellMapping = {
+  21: 'SummonerBarrier',
+  1: 'SummonerBoost',
+  2202: 'SummonerCherryFlash',
+  2201: 'SummonerCherryHold',
+  14: 'SummonerDot',
+  3: 'SummonerExhaust',
+  4: 'SummonerFlash',
+  6: 'SummonerHaste',
+  7: 'SummonerHeal',
+  13: 'SummonerMana',
+  30: 'SummonerPoroRecall',
+  31: 'SummonerPoroThrow',
+  11: 'SummonerSmite',
+  39: 'SummonerSnowURFSnowball_Mark',
+  32: 'SummonerSnowball',
+  12: 'SummonerTeleport',
+  54: 'Summoner_UltBookPlaceholder',
+  55: 'Summoner_UltBookSmitePlaceholder',
+  // Add more mappings as needed
+};
+
+
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [currentSummonerName, setCurrentSummonerName] = useState("");
@@ -231,12 +254,12 @@ function App() {
 
               <div className="g1-row-three">
                 <div className="win-or-loss-box">
-                  {searchedParticipant ? (
-                    <p className={searchedParticipant.win ? 'win' : 'loss'}>
-                      {searchedParticipant.win ? 'Win' : 'Loss'}
+                  {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                    <>
+                    <p className={searchedParticipant?.win ? 'win' : 'loss'}>
+                      {searchedParticipant?.win ? 'Win' : 'Loss'}
                     </p>
-                  ) : (
-                    <p>Loading...</p>
+                    </>
                   )}
                 </div>
 
@@ -248,31 +271,51 @@ function App() {
 
             <div className="group-two">
               <div className="g2-row-one">
-                <div className="g2-champion-img-container">
-                {searchedParticipant ? (
-                <>
-                  <img
-                    className="icon"
-                    src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${searchedParticipant.championName}.png`}
-                    alt={`${searchedParticipant.championName} Icon`}
-                  />
-                  <div className="champion-level">
-                    {/* ... other champion-related content ... */}
-                  </div>
-                      </>
-                    ) : (
-                      <p>Loading...</p>
-                    )}
-                  </div>
+                <div className = "g2-champion-container">
+                <div className="g2-champion-face">
+                  {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                    <>
+                      <img
+                        className="icon"
+                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${searchedParticipant?.championName}.png`}
+                        alt={`${searchedParticipant?.championName} Icon`}
+                      />
+                      <div className="champion-level">
+                        {searchedParticipant?.champLevel}
+                      </div>
+                    </>
+                  )}
+                </div>
+                </div>
+              </div>
 
+              <div className = "g2-row-two">
                 <div className="summoner-spells-column">
-                  <p> spells</p>
+                  {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                    <>
+                      <div className="summoner-spell">
+                        <img
+                        className = "icon1"
+                        src = {`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
+                        alt = {`${summonerSpellMapping[searchedParticipant?.summoner1Id]} Icon`}
+                        />
+                      </div>
+                      <div className="summoner-spell">
+                      <img
+                        className = "icon2"
+                        src = {`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
+                        alt = {`${summonerSpellMapping[searchedParticipant?.summoner2Id]} Icon`}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="runes-column">
-                  <p> runes</p>
+                  <p> </p>
                 </div>
               </div>
+              
             </div>
 
             <div className="group-three">

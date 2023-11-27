@@ -242,14 +242,16 @@ p {
 
 /* Summoners champion, level, abilities, and runes*/
 .group-two {
-  width: 18%;
+  width: 12%;
   height: auto; 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
 }
 
+/* Row for champion image and level*/
 .g2-row-one {
   display: flex;
   align-items: center;
@@ -259,40 +261,66 @@ p {
   border: 1px solid #1b22e7;
 }
 
-.g2-champion-img-container {
+/* Container for the champion image and level */
+.g2-champion-container {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container for the champion image */
+.g2-champion-face {
   display: flex;
-  align-items: middle;
-  width: 100%;
+  width: 65%;
   height: auto;
   overflow: hidden;
-  border: 1px solid #b42e19;
-  margin-left: 3%;
+  margin-top: .5%;
+  margin-left: 15%;
+  border-radius: 15%;
+  position: relative;
 }
 
 /* Style for the champion face */
-.g2-champion-img-container .icon {
-  width: 90%; /* Set your desired width */
-  height: auto; /* Set your desired height */
-  border-radius: 30px;
-  margin: -8%;
-  transform: translateX(10%); /* Adjust the translateX and scale values as needed */
+.g2-champion-face .icon {
+  width: 100%; /* Take the full width of the outer container */
+  height: auto;
+  overflow: hidden;
+  transform: scale(1.1);
+  object-fit: cover;
 }
 
-
+/* Style and layout for the champion level in bottom left */
 .champion-level {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 16px;
-  border-radius: 3px;
-  background-color: #21b9ca;
+  bottom: 0%;
+  left: 0%;
+  width: 28%;
+  height: 28%;
+  border-radius: 25%;
+  background-color: rgba(68, 82, 83, 0.7); /* Use rgba to set a transparent background */
   font-size: 12px;
   font-weight: 500;
+  overflow: hidden;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff; /* Set text color to white for better visibility */
 }
 
+/* Row for the summoner spells and runes */
+.g2-row-two {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e71b1b;
+}
+
+/* Column for summoner spells, contains 2 rows */
 .summoner-spells-column {
-  width: 25%;
+  width: 40%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -300,16 +328,61 @@ p {
   border: 1px solid #27df0f;
 }
 
+/* Container for the image of each summoner spell */
+.summoner-spell {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border: 1px solid #182fa5;
+  justify-content: center;
+  padding: 2%;
+}
+
+/* Summoner spell 1 image style  */
+.summoner-spell .icon1{
+  width: 80%;
+  height: auto;
+  border-radius: 20%;
+}
+
+/* Summoner spell 2 image style */
+.summoner-spell .icon2{
+  width: 80%;
+  height: auto;
+  border-radius: 20%;
+}
 
 
 .runes-column {
-  width: 25%;
+  width: 40%;
   height: auto;
   display: flex;
   flex-direction: column;
   margin-right: 2px;
   border: 1px solid #df0f0f;
 }
+
+.single-rune {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border: 1px solid #a0a518;
+  justify-content: center;
+  padding: 2%;
+}
+
+.single-rune .icon1{
+  width: 80%;
+  height: auto;
+  border-radius: 20%;
+}
+
+.single-rune .icon2{
+  width: 80%;
+  height: auto;
+  border-radius: 20%;
+}
+
 
 
 
