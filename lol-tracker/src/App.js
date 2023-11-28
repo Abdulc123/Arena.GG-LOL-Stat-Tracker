@@ -43,6 +43,34 @@ const summonerSpellMapping = {
   // Add more mappings as needed
 };
 
+const runeStyleMapping = {
+  8000: 'Precision',
+  8100: 'Domination',
+  8200: 'Sorcery',
+  8400: 'Resolve',
+  8300: 'Inspiration',
+};
+
+const keystoneMapping = {
+  8005: 'PressTheAttack', 
+  8008: 'LethalTempo', // good 1/2 LethalTempoTemp
+  8021: 'FleetFootwork', 
+  8010: 'Conqueror', 
+  8112: 'Electrocute', 
+  8124: 'Predator', 
+  8128: 'DarkHarvest', 
+  9923: 'HailOfBlades', 
+  8214: 'SummonAery', 
+  8229: 'ArcaneComet', 
+  8230: 'PhaseRush', 
+  8437: 'GraspOfTheUndying', 
+  8439: 'VeteranAftershock', 
+  8465: 'Guardian', 
+  8351: 'GlacialAugment', 
+  8360: 'UnsealedSpellbook', 
+  8369: 'FirstStrike', 
+};
+
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -231,6 +259,11 @@ function App() {
       {gameList.map((gameData, index) => {
         const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
 
+        const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
+        const runePrimaryKeystone = keystoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
+        
+
+
         return (
         <div key={index} className="match-summary-box">
           <h2>Match {index + 1}</h2>
@@ -310,10 +343,28 @@ function App() {
                     </>
                   )}
                 </div>
-
+                
                 <div className="runes-column">
-                  <p> </p>
+                {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                    <>
+                      <div className="single-rune"> 
+                        <img
+                        className = "icon1"
+                        src={`https://static.bigbrain.gg/assets/lol/riot_static/13.23.1/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
+                        alt = {`${runePrimaryKeystone} Icon`}
+                        />
+                      </div>
+                      <div className="single-rune">
+                      <img
+                        className = "icon2"
+                        src = {`https://static.bigbrain.gg/assets/lol/runes/${searchedParticipant.perks.styles[1].style}.png`}
+                        alt = {`${searchedParticipant.perks.styles[1].style} Icon`}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
+
               </div>
               
             </div>

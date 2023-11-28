@@ -266,6 +266,7 @@ p {
   position: relative;
   justify-content: center;
   align-items: center;
+  padding: 1%;
 }
 
 /* Container for the champion image */
