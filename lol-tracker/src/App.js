@@ -370,11 +370,27 @@ function App() {
             </div>
 
             <div className="group-three">
-              <p> K/D/A, KDA, CS, vision score</p>
+              <div className="kda">K/D/A</div>
+              <div className="kda-ratio">KDA</div>
+              <div className="cs">CS</div>
+              <div className="vision-score">Vision</div>
             </div>
 
             <div className="group-four">
-              <p> Items bought from shop</p>
+              <div className="item-container">
+                <div className="item-row-1">
+                  <div className="item-0"></div>
+                  <div className="item-1"></div>
+                  <div className="item-2"></div>
+                  <div className="item-6"></div>
+                </div>
+                <div className="item-row-2">
+                  <div className="item-3"></div>
+                  <div className="item-4"></div>
+                  <div className="item-5"></div>
+                </div>
+                
+              </div>
             </div>
 
             <div className="group-five">

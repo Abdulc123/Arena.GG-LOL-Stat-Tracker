@@ -392,20 +392,102 @@ p {
   width: 13%;
   height: auto; 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
 }
 
+.kda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 15%;
+  border: 1px solid #182fa5;
+}
+
+.kda-ratio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid #182fa5;
+}
+
+.cs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid #182fa5;
+}
+
+.vision-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid #182fa5;
+}
+
 /* Items bought from shop */
 .group-four {
   width: 16%;
-  height: auto; 
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
+  flex-wrap: wrap;
 }
+
+.item-container {
+  width:80%;
+  height:40%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #df0f0f;
+}
+
+.item-row-1 {
+  width:100%;
+  height:50%;
+  display:flex;
+  border: 1px solid #a0a518;
+}
+
+.item-row-2 {
+  width:100%;
+  height:50%;
+  display:flex;
+  border: 1px solid #a0a518;
+}
+
+.item-0,
+.item-1,
+.item-2,
+.item-6 {
+  width:25%;
+  height:100%;
+  border:1px solid #182fa5;
+}
+
+.item-3,
+.item-4,
+.item-5 {
+  width:25%;
+  height:100%;
+  border: 1px solid #182fa5;
+}
+
+
+
+
+
 
 /* 5v5 player layout, with champion icons*/
 .group-five {
