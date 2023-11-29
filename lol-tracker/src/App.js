@@ -2,8 +2,9 @@ import {useState} from 'react';
 import axios from 'axios';
 import './App.css';
 
-// queueIDS for determining what type of match
+const version = '13.23.1';
 
+// queueIDS for determining what type of match
 const gameModes = {
   420: 'Ranked Solo/Duo',
   440: 'Ranked Flex',
@@ -109,7 +110,7 @@ function App() {
 
   function getWinRate(wins, losses) {
     const winRate = (wins / (wins + losses)) * 100
-    return winRate.toFixed(2);
+    return Math.round(winRate);
   }
 
   // Determines the game mode type based on unique queueID
@@ -160,7 +161,10 @@ function App() {
         {playerData ? (
           <>
             <div className="image-container">
-              <img width="100" height="100" src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/" + playerData.profileIconId + ".png"} alt="Profile Icon"></img>
+              <img width="100" height="100" 
+              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/profileicon/${playerData.profileIconId}.png`}
+              alt={`${playerData.profileIconId}'s Profile Icon`}>
+              </img>
             </div>
             <div class="text-container">
               {playerData.name} <br />
@@ -198,32 +202,118 @@ function App() {
       <>
         {/* Display Solo/Duo ranked data */}
         {rankedData[0] ? (
-          <div class="ranked-box">
+          <div class="rank-content">
+            <div class = "queue-container">
+              <div class = "rank-content-header">
+                <div class ="title">
+                  <div class = "bluebar"></div>
+                  <div class = "queue-type"> Ranked Solo/Duo</div>
+                </div>
+                <div class = "button-placeholder"> <p> v </p> </div>
+              </div>
+            </div>
 
-            <p>Solo/Duo</p>
-            <p>{rankedData[0].tier} {rankedData[0].rank} {rankedData[0].leaguePoints} LP</p>
-            <p>{rankedData[0].wins}W {rankedData[0].losses}L {getWinRate(rankedData[0].wins, rankedData[0].losses)}%</p>
+            <div class = "rank-sub-content">
+              <div class="rank-image-container">
+                <img
+                  className="icon"
+                  src={`https://static.bigbrain.gg/assets/lol/ranks/s13/${rankedData[0]?.tier.toLowerCase()}.png`}
+                  alt={`${rankedData[0]?.tier} Icon`}
+                />
+              </div>
+              <div class = "text-container"> 
+                <div class = "rank-row">
+                  <div class = "rank-type-box">
+                    <p>{rankedData[0]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[0].rank} </p>
+                  </div>
+                  
+                  <div class = "rank-win-loss-box">
+                    <p> {rankedData[0].wins}W {rankedData[0].losses}L </p>
+                  </div>
+                </div>
+                
+                <div class = "lp-and-win-rate-row">
+                  <div class = "lp-box">
+                  <p>{rankedData[0].leaguePoints} LP </p>
+                  </div>
 
+                  <div class = "win-rate-box">
+                    <p> {getWinRate(rankedData[0].wins, rankedData[0].losses)}% </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           //Error Handling Output if no solo/duo rank available
-        <div class = "ranked-box">
-          <p>Ranked Solo: Unranked </p>
+        <div class="rank-content">
+          <div class = "queue-container">
+            <div class = "rank-content-header">
+              <div class ="title">
+                <div class = "bluebar"></div>
+                <div class = "queue-type"> Ranked Solo/Duo </div>
+              </div>
+              <div class = "unranked-box"> <p> Unranked </p> </div>
+            </div>
+          </div>
         </div>
         )}
         {/* Display Flex ranked data */}
         {rankedData[1] ? (
-          <div class="ranked-box">
+           <div class="rank-content">
+            <div class = "queue-container">
+              <div class = "rank-content-header">
+                <div class ="title">
+                  <div class = "bluebar"></div>
+                  <div class = "queue-type"> Ranked Flex</div>
+                </div>
+                <div class = "button-placeholder"> <p> v </p> </div>
+              </div>
+            </div>
 
-            <p>Flex</p>
-            <p>{rankedData[1].tier} {rankedData[1].rank} {rankedData[1].leaguePoints} LP</p>
-            <p>{rankedData[1].wins}W {rankedData[1].losses}L {getWinRate(rankedData[1].wins, rankedData[1].losses)}%</p>
+           <div class = "rank-sub-content">
+             <div class="rank-image-container">
+               <img
+                 className="icon"
+                 src={`https://static.bigbrain.gg/assets/lol/ranks/s13/${rankedData[1]?.tier.toLowerCase()}.png`}
+                 alt={`${rankedData[1]?.tier} Icon`}
+               />
+             </div>
+             <div class = "text-container"> 
+               <div class = "rank-row">
+                 <div class = "rank-type-box">
+                   <p>{rankedData[1]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[1].rank} </p>
+                 </div>
+                 
+                 <div class = "rank-win-loss-box">
+                   <p> {rankedData[1].wins}W {rankedData[1].losses}L </p>
+                 </div>
+               </div>
+               
+               <div class = "lp-and-win-rate-row">
+                 <div class = "lp-box">
+                 <p>{rankedData[1].leaguePoints} LP </p>
+                 </div>
 
-          </div>
+                 <div class = "win-rate-box">
+                   <p> {getWinRate(rankedData[1].wins, rankedData[1].losses)}% </p>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
         ) : (
           //Error Handling Output if no flex rank available
-        <div class = "ranked-box">
-          <p>Ranked Flex: Unranked</p>
+        <div class="rank-content">
+          <div class = "queue-container">
+            <div class = "rank-content-header">
+              <div class ="title">
+                <div class = "bluebar"></div>
+                <div class = "queue-type"> Ranked Flex</div>
+              </div>
+              <div class = "unranked-box"> <p> Unranked </p> </div>
+            </div>
+          </div>
         </div>
         )}
       </>
@@ -266,7 +356,6 @@ function App() {
 
         return (
         <div key={index} className="match-summary-box">
-          <h2>Match {index + 1}</h2>
 
           <div className="content-container">
 
@@ -310,7 +399,7 @@ function App() {
                     <>
                       <img
                         className="icon"
-                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${searchedParticipant?.championName}.png`}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${searchedParticipant?.championName}.png`}
                         alt={`${searchedParticipant?.championName} Icon`}
                       />
                       <div className="champion-level">
@@ -329,14 +418,14 @@ function App() {
                       <div className="summoner-spell">
                         <img
                         className = "icon1"
-                        src = {`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
+                        src = {`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
                         alt = {`${summonerSpellMapping[searchedParticipant?.summoner1Id]} Icon`}
                         />
                       </div>
                       <div className="summoner-spell">
                       <img
                         className = "icon2"
-                        src = {`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
+                        src = {`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
                         alt = {`${summonerSpellMapping[searchedParticipant?.summoner2Id]} Icon`}
                         />
                       </div>
@@ -350,7 +439,7 @@ function App() {
                       <div className="single-rune"> 
                         <img
                         className = "icon1"
-                        src={`https://static.bigbrain.gg/assets/lol/riot_static/13.23.1/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
+                        src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
                         alt = {`${runePrimaryKeystone} Icon`}
                         />
                       </div>
