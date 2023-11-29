@@ -104,13 +104,164 @@ p {
   box-sizing: border-box; /* Include padding and border in the width */
 }
 
-/* Ranked box */
-.ranked-box {
+/* Overall Ranked container box */
+.rank-content {
   width: 100%;
   height: auto;
   border: 1px solid #ccc;
-  font-size: 1.2em;
   margin-bottom: 2%; /* Add some spacing between boxes */
+}
+
+.queue-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rank-content-header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  width: 60%;
+  height: auto;
+  padding-left: 2%;
+  justify-content: left;
+  align-items: center;
+}
+
+.bluebar {
+  height: 50%;
+  width: 1.8%;
+  background: #3273fa;
+  border-radius: 20%;
+  margin-right: 12px;
+  margin-top: 1%;
+}
+
+.queue-type {
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.1em;
+}
+
+.button-placeholder{
+  width: 6%;
+  height: 5%; /* Add a fixed height for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #a5189c;
+}
+
+.unranked-box {
+  display: flex;
+  width: 50%;
+  height: auto;
+  font-size: 1em;
+  font-weight: 500;
+  justify-content: right;
+  align-items: center;
+  padding-right: 2%;
+}
+
+.rank-sub-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 300;
+  font-size: .5em;
+  line-height: 10%;
+  color: #000000;
+  margin-bottom: 1%;
+}
+
+.rank-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: .3%;
+  width: 30%;
+  height: auto;
+}
+
+.rank-image-container .icon {
+  width: 90%;
+  height: auto;
+  border-radius: 20%;
+}
+
+.text-container {
+  display: flex;
+  width: 90%;
+  margin-right: 1%;
+}
+
+.rank-row {
+  display: flex;
+  justify-items: flex-start;
+  flex-direction: row;
+}
+
+.rank-type-box {
+  display: flex;
+  width: 50%;
+  height: auto;
+  font-size: .9em;
+  font-weight: bold;
+  border: 1px solid #a5189c;
+  justify-content: left;
+  align-items: center;
+  padding-left: 1%;
+}
+
+.rank-win-loss-box {
+  display: flex;
+  width: 50%;
+  height: auto;
+  font-size: .8em;
+  font-weight: 500;
+  border: 1px solid #1d18a5;
+  justify-content: right;
+  align-items: center;
+  padding-right: 1%;
+}
+
+.lp-and-win-rate-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-items: center;
+  border: 1px solid #0901fb;
+}
+
+.lp-box {
+  display: flex;
+  width: 50%;
+  height: auto;
+  font-size: .8em;
+  font-weight: 300;
+  border: 1px solid #a5189c;
+  justify-content: left;
+  align-items: center;
+  padding-left: 1%;
+}
+
+.win-rate-box {
+  display: flex;
+  width: 50%;
+  height: auto;
+  font-size: .8em;
+  font-weight: 300;
+  border: 1px solid #1d18a5;
+  justify-content: right;
+  align-items: center;
+  padding-right: 1%;
 }
 
 .champion-stats-side-container {
@@ -353,7 +504,7 @@ p {
   border-radius: 20%;
 }
 
-
+/* Runes column container*/
 .runes-column {
   width: 40%;
   height: auto;
@@ -363,6 +514,7 @@ p {
   border: 1px solid #df0f0f;
 }
 
+/* Image containers for each rune */
 .single-rune {
   width: 100%;
   height: auto;
@@ -372,12 +524,14 @@ p {
   padding: 2%;
 }
 
+/* Attributes for rune 1 */
 .single-rune .icon1{
   width: 80%;
   height: auto;
   border-radius: 20%;
 }
 
+/* Attributes for rune 2 */
 .single-rune .icon2{
   width: 80%;
   height: auto;
@@ -489,10 +643,9 @@ p {
 
 .dropdown-container{
   width: 3%;
-  height: auto; /* Add a fixed height for better visibility */
+  height: 6%; /* Add a fixed height for better visibility */
   display: flex;
   justify-content: center;
-  align-items: center;
   border: 1px solid #a5189c;
 }
 
