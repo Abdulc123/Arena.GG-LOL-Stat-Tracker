@@ -19,6 +19,7 @@ const gameModes = {
   900: 'ARURF',
   1020: 'One for All',
   1300: 'Nexus Blitz',
+  1700: 'Arena'
   // Add more if needed
 };
 
@@ -156,19 +157,24 @@ function App() {
     <div className="App">
       <input type="text" value={searchInput} onChange={handleInputChange}></input>
       <button onClick={searchSummonerData}>Search</button>
-      <div className='side-container'></div>
+      <div className = "backdrop-container">
+        <div className = "champ-background-image"> </div>
       <div class="top-container">
         {playerData ? (
           <>
-            <div className="image-container">
+          <div className = "summoner-image-overall-container">
+            <div className= "image-container">
               <img width="100" height="100" 
               src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/profileicon/${playerData.profileIconId}.png`}
               alt={`${playerData.profileIconId}'s Profile Icon`}>
               </img>
+              <div className = "summoner-level-header">
+                {playerData.summonerLevel}
+              </div>
             </div>
-            <div class="text-container">
+          </div>
+            <div class="heading-summoner-text-container">
               {playerData.name} <br />
-              {playerData.summonerLevel}
             </div>
           </>
         ) : (
@@ -193,6 +199,7 @@ function App() {
           // Render alternative content when playerData is not available
           <p></p>
         )}
+      </div>
       </div>
 
 
@@ -221,7 +228,7 @@ function App() {
                   alt={`${rankedData[0]?.tier} Icon`}
                 />
               </div>
-              <div class = "text-container"> 
+              <div class = "rank-text-container"> 
                 <div class = "rank-row">
                   <div class = "rank-type-box">
                     <p>{rankedData[0]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[0].rank} </p>
@@ -234,7 +241,7 @@ function App() {
                 
                 <div class = "lp-and-win-rate-row">
                   <div class = "lp-box">
-                  <p>{rankedData[0].leaguePoints} LP </p>
+                    <p>{rankedData[0].leaguePoints} LP </p>
                   </div>
 
                   <div class = "win-rate-box">
@@ -279,7 +286,7 @@ function App() {
                  alt={`${rankedData[1]?.tier} Icon`}
                />
              </div>
-             <div class = "text-container"> 
+             <div class = "rank-text-container"> 
                <div class = "rank-row">
                  <div class = "rank-type-box">
                    <p>{rankedData[1]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[1].rank} </p>
@@ -319,6 +326,7 @@ function App() {
       </>
       ):(
       <>
+
 
       </>
       )
@@ -394,20 +402,21 @@ function App() {
             <div className="group-two">
               <div className="g2-row-one">
                 <div className = "g2-champion-container">
-                <div className="g2-champion-face">
-                  {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                    <>
-                      <img
-                        className="icon"
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${searchedParticipant?.championName}.png`}
-                        alt={`${searchedParticipant?.championName} Icon`}
-                      />
-                      <div className="champion-level">
-                        {searchedParticipant?.champLevel}
-                      </div>
-                    </>
-                  )}
-                </div>
+                  <div className="g2-champion-face">
+                    {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                      <>
+                        <img
+                          className="icon"
+                          src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${searchedParticipant?.championName === 'FiddleSticks' ? 'Fiddlesticks' :searchedParticipant?.championName}.png`}
+                          alt={`${searchedParticipant?.championName} Icon`}
+                        />
+                        <div className="champion-level">
+                          {searchedParticipant?.champLevel}
+                        </div>
+                      </>
+                      
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -489,7 +498,7 @@ function App() {
                     <div className="champion-img-container">
                       <img
                         className="icon"
-                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                        src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
                         alt={`${data.championName} Icon`}
                       />
                       <div className="summoner-name-container">
@@ -506,7 +515,7 @@ function App() {
                     <div className="champion-img-container">
                       <img
                         className="icon"
-                        src={`https://ddragon.leagueoflegends.com/cdn/13.22.1/img/champion/${data.championName}.png`}
+                        src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
                         alt={`${data.championName} Icon`}
                       />
                       <div className="summoner-name-container">

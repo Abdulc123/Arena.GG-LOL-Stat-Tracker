@@ -7,24 +7,59 @@ p {
   padding: 0;
 }
 
+
+.backdrop-container {
+  position: relative; /* Make the container a positioning context */
+  width: 100%;
+  height: auto;
+  border: 3px solid #ba1010;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.champ-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://static.bigbrain.gg/assets/lol/riot_static/13.23.1/img/splash/Kayn_1.jpg") center/cover no-repeat; /* Set background properties */
+  background-size: cover;
+  background-position: center top; /* Adjust the position */
+  filter: brightness(0.85); /* Adjust brightness as needed */
+  
+}
+
 .top-container { 
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
   height: 120%;
-  border: 1px solid #ccc;
-  margin-top: 1%;
+  margin-top: 8%;
   margin-bottom: 1%
+}
+
+.summoner-image-overall-container {
+  width: 125px;
+  height: auto;
+  position: relative;
+  display: flex; /* Added display: flex; to enable justify-content and align-items */
+  justify-content: left;
+  align-items: center;
+  padding: 1%;
+  margin-top: 1%;
+  z-index: 1;
 }
 
 /* Summoner Icon */
 .image-container {
   display: flex;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: auto;
   border-radius: 15%;
   overflow: hidden;
-  border: 3px solid #4ec417;
+  border: 3.1px solid #4ec417;
   margin-top: .5%;
   margin-left: 2.48%;
 }
@@ -36,17 +71,36 @@ p {
 }
 
 /* Summoner Top container text style */
-.text-container {
+.heading-summoner-text-container {
   display: flex;
-  flex-direction: column;
   font-family: sans-serif;
   font-size: 2.5em;
   font-weight: bold;
   text-align: left;
-  margin-left: 1%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  padding: 0;
+  padding: 1%;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Adjust values as needed */
+  z-index: 1;
+}
+
+
+.summoner-level-header {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 51%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 15%;
+  border-radius: 25%;
+  border: 2px solid #4ec417;
+  background-color: rgba(42, 47, 47, 0.978); /* Use rgba to set a transparent background */
+  color: #fff;
+  font-size: .8em;
+  font-weight: 700;
 }
 
 
@@ -59,6 +113,8 @@ p {
   height: auto;
   border: 1px solid #af1919;
   margin-bottom: 1%;
+  color: #ffffff;
+  z-index: 1;
 }
 
 .nav-bar {
@@ -67,10 +123,12 @@ p {
   align-items: center;
   width: 23%;
   height: auto;
+  font-size: 1.2em;
   border: 1px solid #191eaf;
   margin-left: 1%;
   margin-bottom: 1%;
   margin-top: 1%;
+  z-index: 1;
 }
 
 .dashboard-bar{
@@ -79,14 +137,14 @@ p {
   align-items: center;
   width: 75%;
   height: auto;
+  font-size: 1.2em;
   border: 1px solid #afa019;
   margin-left: 1%;
   margin-bottom: 1%;
   margin-top: 1%;
   margin-right: 1%;
+  z-index: 1;
 }
-
-
 
 /* Overall Bottom Container, holding the 2 column split with rank,champ stats, match summary */
 .bottom-container {
@@ -196,7 +254,16 @@ p {
   border-radius: 20%;
 }
 
-.text-container {
+.rank-text-container {
+  flex-direction: column;
+  font-family: sans-serif;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 1%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 0;
   display: flex;
   width: 90%;
   margin-right: 1%;
