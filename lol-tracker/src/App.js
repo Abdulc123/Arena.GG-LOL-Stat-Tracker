@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './App.css';
 import PlayerInfo from './components/PlayerInfo';
 import Dashboard from './components/Dashboard';
 import RankedInfo from './components/RankedInfo';
