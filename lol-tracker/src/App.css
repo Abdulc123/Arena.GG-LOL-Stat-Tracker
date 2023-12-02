@@ -104,8 +104,8 @@ p {
 }
 
 
-/* Navigation container below top container (fix this) */
-.nav-container {
+/* Dashboard container below top container (fix this) */
+.dashboard-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -117,7 +117,7 @@ p {
   z-index: 1;
 }
 
-.nav-bar {
+.overview-bar {
   display: flex;
   justify-content: flex-start;
   align-items: center;
