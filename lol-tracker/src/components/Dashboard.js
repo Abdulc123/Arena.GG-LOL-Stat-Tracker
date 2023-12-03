@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../css/App.css';
 
 const Dashboard = ({ playerData }) => (
   <div className="dashboard-container">

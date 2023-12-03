@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/App.css';
 
 function getWinRate(wins, losses) {
   const winRate = (wins / (wins + losses)) * 100
