@@ -223,24 +223,135 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                 </div>
 
                 <div className="group-three">
-                  <div className="kda">K/D/A</div>
-                  <div className="kda-ratio">KDA</div>
-                  <div className="cs">CS</div>
-                  <div className="vision-score">Vision</div>
+                  <div className="g3-kda">
+                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                        <>
+                            {searchedParticipant?.kills}/{searchedParticipant?.deaths}/{searchedParticipant?.assists}
+                        </>
+                      )}
+                  </div>
+                  <div className="g3-kda-ratio">
+                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                        <>
+                            {((searchedParticipant?.kills + searchedParticipant?.assists) / searchedParticipant?.deaths).toFixed(2)} KDA
+                        </>
+                      )}
+                  </div>
+                  <div className="g3-cs">
+                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                        <>
+                            {searchedParticipant?.totalMinionsKilled} CS
+                        </>
+                      )}
+                  </div>
+                  <div className="g3-vision-score">
+                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                        <>
+                            {searchedParticipant?.visionScore} Vision
+                        </>
+                      )}
+                  </div>
+
                 </div>
+
+  
 
                 <div className="group-four">
                   <div className="item-container">
                     <div className="item-row-1">
-                      <div className="item-0"></div>
-                      <div className="item-1"></div>
-                      <div className="item-2"></div>
-                      <div className="item-6"></div>
+                      <div className="item-0">
+                        {searchedParticipant.item0 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item0}.png`}
+                                alt={`${searchedParticipant.item0} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="item-1">
+                        {searchedParticipant.item1 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item1}.png`}
+                                alt={`${searchedParticipant.item1} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="item-2">
+                        {searchedParticipant.item2 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item2}.png`}
+                                alt={`${searchedParticipant.item2} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="item-6">
+                        {searchedParticipant.item6 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item6}.png`}
+                                alt={`${searchedParticipant.item6} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
                     <div className="item-row-2">
-                      <div className="item-3"></div>
-                      <div className="item-4"></div>
-                      <div className="item-5"></div>
+                      <div className="item-3">
+                        {searchedParticipant.item3 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item3}.png`}
+                                alt={`${searchedParticipant.item3} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="item-4">
+                        {searchedParticipant.item4 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item4}.png`}
+                                alt={`${searchedParticipant.item4} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="item-5">
+                        {searchedParticipant.item5 !== 0 && (
+                          <>
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                              <img
+                                className="item-image"
+                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item5}.png`}
+                                alt={`${searchedParticipant.item5} Icon`}
+                              />
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
 
                   </div>
