@@ -108,6 +108,13 @@ function formatGameDuration(gameDurationInSeconds) {
   return formattedDuration
 }
 
+
+function csperminute(gameDurationInSeconds) {
+  const minutes = Math.floor(gameDurationInSeconds / 60)
+  return minutes
+}
+
+
 const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) => (
   <div class="column">
     {gameList.length !== 0 ? (
@@ -240,7 +247,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                   <div className="g3-cs">
                       {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                         <>
-                            {searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled} CS
+                            {searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled} CS ({((searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled) / csperminute(gameData.info.gameDuration)).toFixed(1)})
                         </>
                       )}
                   </div>
