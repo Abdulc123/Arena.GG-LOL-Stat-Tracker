@@ -240,7 +240,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                   <div className="g3-cs">
                       {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                         <>
-                            {searchedParticipant?.totalMinionsKilled} CS
+                            {searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled} CS
                         </>
                       )}
                   </div>
