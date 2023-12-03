@@ -260,9 +260,9 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                   <div className="item-container">
                     <div className="item-row-1">
                       <div className="item-0">
-                        {searchedParticipant.item0 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item0 !== 0 && (
                           <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0 !== 0) && (
                               <img
                                 className="item-image"
                                 src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item0}.png`}
@@ -273,7 +273,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                         )}
                       </div>
                       <div className="item-1">
-                        {searchedParticipant.item1 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item1 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
@@ -286,7 +286,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                         )}
                       </div>
                       <div className="item-2">
-                        {searchedParticipant.item2 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item2 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
@@ -299,7 +299,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                         )}
                       </div>
                       <div className="item-6">
-                        {searchedParticipant.item6 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item6 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
@@ -314,7 +314,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                     </div>
                     <div className="item-row-2">
                       <div className="item-3">
-                        {searchedParticipant.item3 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item3 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
@@ -327,7 +327,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                         )}
                       </div>
                       <div className="item-4">
-                        {searchedParticipant.item4 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item4 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
@@ -340,7 +340,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                         )}
                       </div>
                       <div className="item-5">
-                        {searchedParticipant.item5 !== 0 && (
+                        {searchedParticipant && searchedParticipant.item5 !== 0 && (
                           <>
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
