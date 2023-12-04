@@ -1,6 +1,8 @@
 import React from 'react';
 import '../css/App.css';
 
+
+
 const PlayerInfo = ({ playerData, version }) => (
   <div class="top-container">
     {playerData ? (
@@ -19,6 +21,7 @@ const PlayerInfo = ({ playerData, version }) => (
         <div class="heading-summoner-text-container">
           {playerData.name} <br />
         </div>
+      
       </>
     ) : (
       <p>No player data available</p>

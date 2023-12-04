@@ -23,11 +23,26 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("https://static.bigbrain.gg/assets/lol/riot_static/13.23.1/img/splash/Kayn_1.jpg") center/cover no-repeat; /* Set background properties */
   background-size: cover;
-  background-position: center top; /* Adjust the position */
-  filter: brightness(0.85); /* Adjust brightness as needed */
-  
+  background-position: center top;
+  filter: brightness(0.85);
+}
+
+.loading-circle {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-top: 5%; 
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .top-container { 
@@ -41,7 +56,7 @@ p {
 }
 
 .summoner-image-overall-container {
-  width: 125px;
+  width: 150px;
   height: auto;
   position: relative;
   display: flex; /* Added display: flex; to enable justify-content and align-items */
@@ -55,7 +70,7 @@ p {
 /* Summoner Icon */
 .image-container {
   display: flex;
-  width: 120px;
+  width: 145px;
   height: auto;
   border-radius: 15%;
   overflow: hidden;
@@ -77,6 +92,7 @@ p {
   font-size: 2.5em;
   font-weight: bold;
   text-align: left;
+  margin-top: 1%;
   padding: 1%;
   color: #ffffff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Adjust values as needed */
@@ -713,6 +729,8 @@ p {
   max-width: 100%;
   height: 100%;
   display: block;
+  border-radius: 15%;
+  padding: 1%;
 }
 
 /* 5v5 player layout, with champion icons*/

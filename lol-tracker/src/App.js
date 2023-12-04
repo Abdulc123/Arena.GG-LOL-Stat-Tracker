@@ -48,8 +48,8 @@ function App() {
       <input type="text" value={searchInput} onChange={handleInputChange}></input>
       <button onClick={searchSummonerData}>Search</button>
 
-      <div className="backdrop-container">
-        <div className="champ-background-image"> </div>
+      <div className="backdrop-container">   
+        <div className = "champ-background-image"></div>     
         <PlayerInfo playerData={playerData} version={version} />
         <Dashboard playerData={playerData} />
       </div>
