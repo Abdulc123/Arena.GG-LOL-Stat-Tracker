@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import '../css/App.css';
-import Backdrop from '../components/Backdrop'
+import Backdrop from '../components/Backdrop';
 import PlayerInfo from '../components/PlayerInfo';
 import Dashboard from '../components/Dashboard';
 import RankedInfo from '../components/RankedInfo';
