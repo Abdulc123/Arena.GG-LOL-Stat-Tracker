@@ -7,7 +7,7 @@ import Dashboard from '../components/Dashboard';
 import RankedInfo from '../components/RankedInfo';
 import MatchHistory from '../components/MatchHistory';
 
-const version = '13.23.1';
+const version = '14.1.1';
 
 function App() {
   const [searchInput, setSearchInput] = useState("");

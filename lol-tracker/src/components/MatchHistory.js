@@ -272,7 +272,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0 !== 0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item0}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item0}.png`}
                                 alt={`${searchedParticipant.item0} Icon`}
                               />
                             )}
@@ -285,7 +285,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item1}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item1}.png`}
                                 alt={`${searchedParticipant.item1} Icon`}
                               />
                             )}
@@ -298,7 +298,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item2}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item2}.png`}
                                 alt={`${searchedParticipant.item2} Icon`}
                               />
                             )}
@@ -311,7 +311,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item6}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item6}.png`}
                                 alt={`${searchedParticipant.item6} Icon`}
                               />
                             )}
@@ -326,7 +326,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item3}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item3}.png`}
                                 alt={`${searchedParticipant.item3} Icon`}
                               />
                             )}
@@ -339,7 +339,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item4}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item4}.png`}
                                 alt={`${searchedParticipant.item4} Icon`}
                               />
                             )}
@@ -352,7 +352,7 @@ const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) =
                             {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
                               <img
                                 className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${searchedParticipant.item5}.png`}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item5}.png`}
                                 alt={`${searchedParticipant.item5} Icon`}
                               />
                             )}
