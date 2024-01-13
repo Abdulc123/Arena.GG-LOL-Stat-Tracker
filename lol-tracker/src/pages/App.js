@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/App.css';
 import Backdrop from '../components/Backdrop';
@@ -16,12 +16,23 @@ function App() {
   const [playerData, setPlayerData] = useState("");
   const [rankedData, setRankedData] = useState("");
 
-  function handleInputChange(event) {
-    setSearchInput(event.target.value);
-  }
+  useEffect(() => {
+    const pathSegments = window.location.pathname.split('/');
+    const searchParam = pathSegments[pathSegments.indexOf('data') + 1];
 
-  function searchSummonerData() {
+    if (searchParam) {
+      setSearchInput(decodeURIComponent(searchParam));
+      searchSummonerData();
+    }
+  }, []);
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const searchSummonerData = () => {
     setCurrentSummonerName(searchInput);
+
     axios.get("http://localhost:4000/recentGames", { params: { username: searchInput } })
       .then(function (response) {
         setGameList(response.data);

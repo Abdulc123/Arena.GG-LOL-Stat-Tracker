@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/Home.css';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const searchInput = document.getElementById("search-inp").value;
+    navigate(`/data/${searchInput}`);
+  };
+
   return (
     <div className="Home">
       <div className="container">
@@ -23,7 +30,7 @@ const Home = () => {
 
         <div className="contenir">
           <input type="text" className="search" id="search-inp" placeholder="Search..." />
-          <button className="search-btn" id="search-inp-btn">&#x027A4;</button>
+          <button className="search-btn" id="search-inp-btn" onClick={handleSearch}>&#x027A4;</button>
         </div>
 
         <div className="text">
