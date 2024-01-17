@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../css/App.css';
 
 // queueIDS for determining what type of match
@@ -114,305 +114,372 @@ function csperminute(gameDurationInSeconds) {
   return minutes
 }
 
+{/*Helps with dropdown container toggle */}
+class DropdownContent extends Component {
+  render() {
+    return 
+  }
+}
 
-const MatchHistory = ({ gameList, currentSummonerName, searchInput, version }) => (
-  <div class="column">
-    {gameList.length !== 0 ? (
-      <>
-        {gameList.map((gameData, index) => {
-          const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
-          const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
-          const runePrimaryKeystone = keystoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
+{/*Helps with dropdown container toggle */}
+class MatchHistory extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeDropdownIndex: null,
+    };
+  }
 
-          return (
-            <div key={index} className="match-summary-box">
+  toggleDropdown = (index) => {
+    this.setState((prevState) => ({
+      activeDropdownIndex: prevState.activeDropdownIndex === index ? null : index,
+    }));
+  };
 
-              <div className="content-container">
+  render() {
+    const { gameList, currentSummonerName, searchInput, version } = this.props;
+    const { activeDropdownIndex } = this.state;
 
-                <div className="group-one">
-                  <div className="g1-row-one">
-                    <div className="queue-type-box">
-                      <p>{determineGameMode(gameData.info.queueId)}</p>
+    return (
+      <div class="column">
+      {gameList.length !== 0 ? (
+        <>
+          {gameList.map((gameData, index) => {
+            const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
+            const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
+            const runePrimaryKeystone = keystoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
+
+            return (
+              <div key={index} className="match-summary-box">
+
+                <div className="content-container">
+
+                  <div className="group-one">
+                    <div className="g1-row-one">
+                      <div className="queue-type-box">
+                        <p>{determineGameMode(gameData.info.queueId)}</p>
+                      </div>
+
+                      <div className="date-box">
+                        <p>{calculateTimeAgo(gameData.info.gameCreation)}</p>
+                      </div>
                     </div>
 
-                    <div className="date-box">
-                      <p>{calculateTimeAgo(gameData.info.gameCreation)}</p>
-                    </div>
-                  </div>
-
-                  <div className="g1-row-two">
-                    <p> ? LP * </p>
-                  </div>
-
-                  <div className="g1-row-three">
-                    <div className="win-or-loss-box">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                          <p className={searchedParticipant?.win ? 'win' : 'loss'}>
-                            {searchedParticipant?.win ? 'Win' : 'Loss'}
-                          </p>
-                        </>
-                      )}
+                    <div className="g1-row-two">
+                      <p> ? LP * </p>
                     </div>
 
-                    <div className="match-duration-box">
-                      <p>{formatGameDuration(gameData.info.gameDuration)}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="group-two">
-                  <div className="g2-row-one">
-                    <div className="g2-champion-container">
-                      <div className="g2-champion-face">
+                    <div className="g1-row-three">
+                      <div className="win-or-loss-box">
                         {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            <img
-                              className="icon"
-                              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${searchedParticipant?.championName === 'FiddleSticks' ? 'Fiddlesticks' : searchedParticipant?.championName}.png`}
-                              alt={`${searchedParticipant?.championName} Icon`}
-                            />
-                            <div className="champion-level">
-                              {searchedParticipant?.champLevel}
+                            <p className={searchedParticipant?.win ? 'win' : 'loss'}>
+                              {searchedParticipant?.win ? 'Win' : 'Loss'}
+                            </p>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="match-duration-box">
+                        <p>{formatGameDuration(gameData.info.gameDuration)}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="group-two">
+                    <div className="g2-row-one">
+                      <div className="g2-champion-container">
+                        <div className="g2-champion-face">
+                          {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                            <>
+                              <img
+                                className="icon"
+                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${searchedParticipant?.championName === 'FiddleSticks' ? 'Fiddlesticks' : searchedParticipant?.championName}.png`}
+                                alt={`${searchedParticipant?.championName} Icon`}
+                              />
+                              <div className="champion-level">
+                                {searchedParticipant?.champLevel}
+                              </div>
+                            </>
+
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="g2-row-two">
+                      <div className="summoner-spells-column">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                          <>
+                            <div className="summoner-spell">
+                              <img
+                                className="icon1"
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
+                                alt={`${summonerSpellMapping[searchedParticipant?.summoner1Id]} Icon`}
+                              />
+                            </div>
+                            <div className="summoner-spell">
+                              <img
+                                className="icon2"
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
+                                alt={`${summonerSpellMapping[searchedParticipant?.summoner2Id]} Icon`}
+                              />
                             </div>
                           </>
-
                         )}
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="g2-row-two">
-                    <div className="summoner-spells-column">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                          <div className="summoner-spell">
-                            <img
-                              className="icon1"
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
-                              alt={`${summonerSpellMapping[searchedParticipant?.summoner1Id]} Icon`}
-                            />
-                          </div>
-                          <div className="summoner-spell">
-                            <img
-                              className="icon2"
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
-                              alt={`${summonerSpellMapping[searchedParticipant?.summoner2Id]} Icon`}
-                            />
-                          </div>
-                        </>
-                      )}
-                    </div>
+                      <div className="runes-column">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                          <>
+                            <div className="single-rune">
+                              <img
+                                className="icon1"
+                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
+                                alt={`${runePrimaryKeystone} Icon`}
+                              />
+                            </div>
+                            <div className="single-rune">
+                              <img
+                                className="icon2"
+                                src={`https://static.bigbrain.gg/assets/lol/runes/${searchedParticipant.perks.styles[1].style}.png`}
+                                alt={`${searchedParticipant.perks.styles[1].style} Icon`}
+                              />
+                            </div>
+                          </>
+                        )}
+                      </div>
 
-                    <div className="runes-column">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                          <div className="single-rune">
-                            <img
-                              className="icon1"
-                              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
-                              alt={`${runePrimaryKeystone} Icon`}
-                            />
-                          </div>
-                          <div className="single-rune">
-                            <img
-                              className="icon2"
-                              src={`https://static.bigbrain.gg/assets/lol/runes/${searchedParticipant.perks.styles[1].style}.png`}
-                              alt={`${searchedParticipant.perks.styles[1].style} Icon`}
-                            />
-                          </div>
-                        </>
-                      )}
                     </div>
 
                   </div>
 
-                </div>
-
-                <div className="group-three">
-                  <div className="g3-kda">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                            {searchedParticipant?.kills}/{searchedParticipant?.deaths}/{searchedParticipant?.assists}
-                        </>
-                      )}
-                  </div>
-                  <div className="g3-kda-ratio">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                            {((searchedParticipant?.kills + searchedParticipant?.assists) / searchedParticipant?.deaths).toFixed(2)} KDA
-                        </>
-                      )}
-                  </div>
-                  <div className="g3-cs">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                            {searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled} CS ({((searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled) / csperminute(gameData.info.gameDuration)).toFixed(1)})
-                        </>
-                      )}
-                  </div>
-                  <div className="g3-vision-score">
-                      {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                        <>
-                            {searchedParticipant?.visionScore} Vision
-                        </>
-                      )}
-                  </div>
-
-                </div>
-
-  
-
-                <div className="group-four">
-                  <div className="item-container">
-                    <div className="item-row-1">
-                      <div className="item-0">
-                        {searchedParticipant && searchedParticipant.item0 !== 0 && (
+                  <div className="group-three">
+                    <div className="g3-kda">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0 !== 0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item0}.png`}
-                                alt={`${searchedParticipant.item0} Icon`}
-                              />
-                            )}
+                              {searchedParticipant?.kills}/{searchedParticipant?.deaths}/{searchedParticipant?.assists}
                           </>
                         )}
-                      </div>
-                      <div className="item-1">
-                        {searchedParticipant && searchedParticipant.item1 !== 0 && (
-                          <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item1}.png`}
-                                alt={`${searchedParticipant.item1} Icon`}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
-                      <div className="item-2">
-                        {searchedParticipant && searchedParticipant.item2 !== 0 && (
-                          <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item2}.png`}
-                                alt={`${searchedParticipant.item2} Icon`}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
-                      <div className="item-6">
-                        {searchedParticipant && searchedParticipant.item6 !== 0 && (
-                          <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item6}.png`}
-                                alt={`${searchedParticipant.item6} Icon`}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
                     </div>
-                    <div className="item-row-2">
-                      <div className="item-3">
-                        {searchedParticipant && searchedParticipant.item3 !== 0 && (
+                    <div className="g3-kda-ratio">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item3}.png`}
-                                alt={`${searchedParticipant.item3} Icon`}
-                              />
-                            )}
+                              {((searchedParticipant?.kills + searchedParticipant?.assists) / searchedParticipant?.deaths).toFixed(2)} KDA
                           </>
                         )}
-                      </div>
-                      <div className="item-4">
-                        {searchedParticipant && searchedParticipant.item4 !== 0 && (
+                    </div>
+                    <div className="g3-cs">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item4}.png`}
-                                alt={`${searchedParticipant.item4} Icon`}
-                              />
-                            )}
+                              {searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled} CS ({((searchedParticipant?.totalMinionsKilled + searchedParticipant?.neutralMinionsKilled) / csperminute(gameData.info.gameDuration)).toFixed(1)})
                           </>
                         )}
-                      </div>
-                      <div className="item-5">
-                        {searchedParticipant && searchedParticipant.item5 !== 0 && (
+                    </div>
+                    <div className="g3-vision-score">
+                        {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                              <img
-                                className="item-image"
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item5}.png`}
-                                alt={`${searchedParticipant.item5} Icon`}
-                              />
-                            )}
+                              {searchedParticipant?.visionScore} Vision
                           </>
                         )}
-                      </div>
                     </div>
 
                   </div>
-                </div>
 
-                <div className="group-five">
-                  <div className="champion-icon-and-summoner-name-column">
-                    {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
-                      <div key={participantIndex} className="champion-icon-and-summoner-name-row">
-                        <div className="champion-img-container">
-                          <img
-                            className="icon"
-                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
-                            alt={`${data.championName} Icon`}
-                          />
-                          <div className="summoner-name-container">
-                            <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
-                          </div>
+    
+
+                  <div className="group-four">
+                    <div className="item-container">
+                      <div className="item-row-1">
+                        <div className="item-0">
+                          {searchedParticipant && searchedParticipant.item0 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0 !== 0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item0}.png`}
+                                  alt={`${searchedParticipant.item0} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="item-1">
+                          {searchedParticipant && searchedParticipant.item1 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item1}.png`}
+                                  alt={`${searchedParticipant.item1} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="item-2">
+                          {searchedParticipant && searchedParticipant.item2 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item2}.png`}
+                                  alt={`${searchedParticipant.item2} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="item-6">
+                          {searchedParticipant && searchedParticipant.item6 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item6}.png`}
+                                  alt={`${searchedParticipant.item6} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
                         </div>
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="champion-icon-and-summoner-name-column">
-                    {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
-                      <div key={participantIndex} className="champion-icon-and-summoner-name-row">
-                        <div className="champion-img-container">
-                          <img
-                            className="icon"
-                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
-                            alt={`${data.championName} Icon`}
-                          />
-                          <div className="summoner-name-container">
-                            <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
-                          </div>
+                      <div className="item-row-2">
+                        <div className="item-3">
+                          {searchedParticipant && searchedParticipant.item3 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item3}.png`}
+                                  alt={`${searchedParticipant.item3} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="item-4">
+                          {searchedParticipant && searchedParticipant.item4 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item4}.png`}
+                                  alt={`${searchedParticipant.item4} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="item-5">
+                          {searchedParticipant && searchedParticipant.item5 !== 0 && (
+                            <>
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item5}.png`}
+                                  alt={`${searchedParticipant.item5} Icon`}
+                                />
+                              )}
+                            </>
+                          )}
                         </div>
                       </div>
-                    ))}
+
+                    </div>
+                  </div>
+
+                  <div className="group-five">
+                    <div className="champion-icon-and-summoner-name-column">
+                      {gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
+                        <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                          <div className="champion-img-container">
+                            <img
+                              className="icon"
+                              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+                              alt={`${data.championName} Icon`}
+                            />
+                            <div className="summoner-name-container">
+                              <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="champion-icon-and-summoner-name-column">
+                      {gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
+                        <div key={participantIndex} className="champion-icon-and-summoner-name-row">
+                          <div className="champion-img-container">
+                            <img
+                              className="icon"
+                              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+                              alt={`${data.championName} Icon`}
+                            />
+                            <div className="summoner-name-container">
+                              <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className={`dropdown-triangle ${activeDropdownIndex === index ? 'upside-down' : ''}`} onClick={() => this.toggleDropdown(index)}>
+                    <p> V </p>
+                  </div>
+
+                  {/* Dropdown Content */}
+                  {activeDropdownIndex === index && (
+                      <>
+                        <DropdownContent />
+                        <div className="dropdown-box">
+                          <div className = "ally-side-container">
+                            <div className = "ally-header" >
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                              <>
+                                <p className={searchedParticipant?.win ? 'win' : 'loss'}>
+                                  {searchedParticipant?.win ? 'Victory' : 'Defeat'}
+                                </p>
+                              </>
+                              )}
+                            </div>
+                            <div className = "ally-match-summary-container">
+                              <p> data for ally team here</p>
+                            </div>
+
+                          </div>
+
+                          <div className = "enemy-side-container">
+                            <div className = "enemy-header"> 
+                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                              <>
+                                <p className={searchedParticipant?.win ? 'loss' : 'win'}>
+                                  {searchedParticipant?.win ? 'Defeat' : 'Victory'}
+                                </p>
+                              </>
+                              )}
+                            </div>
+                            <div className = "enemy-match-summary-container">
+                              <p> data for enemy team here</p>
+                              
+                            </div>
+                          </div>
+
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
-
-                <div className="dropdown-container">
-                  <p> V </p>
-                </div>
-
-              </div>
-            </div>
-          );
-        })}
-      </>
-    ) : (
-      <p>We have no data!</p>
-    )}
-  </div>
-);
+              );
+            })}
+          </>
+        ) : (
+          <p>We have no data!</p>
+        )}
+      </div>
+    );
+  }
+}
 
 export default MatchHistory;

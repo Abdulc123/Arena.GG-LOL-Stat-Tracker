@@ -735,7 +735,7 @@ p {
 
 /* 5v5 player layout, with champion icons*/
 .group-five {
-  width: 28%;
+  width: 30%;
   height: auto; 
   display: flex;
   justify-content: center;
@@ -812,13 +812,109 @@ p {
   margin-bottom: 10%; /* Add spacing between summoner names */
 }
 
-
-.dropdown-container{
-  width: 3%;
+/* Small triangle toggle */
+.dropdown-triangle{
+  width: 5%;
   height: 6%; /* Add a fixed height for better visibility */
   display: flex;
   justify-content: center;
-  border: 1px solid #a5189c;
+  border: 1px solid #3218a5;
+  cursor: pointer;
+  /* Add default transition for smooth effect */
+  transition: background-color 0.3s ease;
+  transition: transform .8s ease;
+}
+/*Flip triangle upside down*/
+.upside-down {
+  transform: rotate(180deg);
+}
+
+/* Hover effect */
+.dropdown-triangle:hover {
+  background-color: #b4aeb9; /* Change to the color you want on hover */
+}
+
+/* Actual Dropdown box container when match summary box is clicked*/
+.dropdown-box {
+  display: flex; /* Make the container a flex container */
+  flex-direction: column; /* Stack the child elements vertically */
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #05f821;
 }
 
 
+.ally-side-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #f31404;
+}
+
+.ally-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  border: 2px solid #f31404;
+  padding: 1%;
+}
+/* Color the text based on win/loss */
+.ally-header p.win {
+  color: blue;
+  font-weight: bold;
+}
+
+.ally-header p.loss {
+  color: red;
+  font-weight: bold;
+}
+
+.ally-match-summary-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #6004f3;
+}
+
+
+.enemy-side-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border: 2px solid #1004f3;
+}
+
+.enemy-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  border: 2px solid #2004f3;
+  padding: 1%;
+}
+/* Color the text based on win/loss */
+.enemy-header p.win {
+  color: blue;
+  font-weight: bold;
+}
+
+.enemy-header p.loss {
+  color: red;
+  font-weight: bold;
+}
+
+.enemy-match-summary-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #f31404;
+}
