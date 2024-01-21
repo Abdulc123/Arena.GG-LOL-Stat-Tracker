@@ -100,6 +100,7 @@ function calculateTimeAgo(gameCreationTimestamp) {
   }
 }
 
+
 function formatGameDuration(gameDurationInSeconds) {
   const minutes = Math.floor(gameDurationInSeconds / 60)
   const seconds = gameDurationInSeconds % 60
@@ -146,9 +147,10 @@ class MatchHistory extends Component {
         <>
           {gameList.map((gameData, index) => {
             const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
+            const searchedParticipantIndex = gameData.info.participants.findIndex(participant => participant.summonerName === searchInput);
             const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
             const runePrimaryKeystone = keystoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
-
+          
             return (
               <div key={index} className="match-summary-box">
 
@@ -400,7 +402,7 @@ class MatchHistory extends Component {
                               alt={`${data.championName} Icon`}
                             />
                             <div className="summoner-name-container">
-                              <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                              <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
                             </div>
                           </div>
                         </div>
@@ -417,7 +419,7 @@ class MatchHistory extends Component {
                               alt={`${data.championName} Icon`}
                             />
                             <div className="summoner-name-container">
-                              <p className={searchInput === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+                              <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
                             </div>
                           </div>
                         </div>
@@ -435,7 +437,8 @@ class MatchHistory extends Component {
                         <DropdownContent />
                         <div className="dropdown-box">
                           <div className = "ally-side-container">
-                            <div className = "ally-header" >
+                            <div className = "ally-header-container" >
+                              <div className = "ally-match-result">
                               {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                               <>
                                 <p className={searchedParticipant?.win ? 'win' : 'loss'}>
@@ -443,22 +446,153 @@ class MatchHistory extends Component {
                                 </p>
                               </>
                               )}
+                              </div>
+                              <div>KDA</div>
+                              <div>Damage</div>
+                              <div>Gold</div>
+                              <div>CS</div>
+                              <div>Wards</div>
+                              <div>Items</div>
                             </div>
-                            <div className = "ally-match-summary-container">
-                              <p> data for ally team here</p>
-                            </div>
+                            
+                            <div className="ally-match-summary-container">
+                              {searchedParticipantIndex < 5 ? (
+                                // Output data for ally teammates, index 0,5
+                                gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
+                                  <div key={participantIndex} className="ally-match-summary-row">
+                                    <div className="ms-champion-face">
+                                          <img
+                                            className="icon"
+                                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+                                            alt={`${data.championName} Icon`}
+                                          />
+                                          <div className="champion-level">{data.champLevel}</div>
+                                    </div>
 
+                                    <div className="g2-row-two">
+                                      <div className="summoner-spells-column">
+                                          <>
+                                            <div className="summoner-spell">
+                                              <img
+                                                className="icon1"
+                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
+                                                alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
+                                              />
+                                            </div>
+                                            <div className="summoner-spell">
+                                              <img
+                                                className="icon2"
+                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
+                                                alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
+                                              />
+                                            </div>
+                                          </>
+                                        
+                                      </div>
+
+                                      <div className="runes-column">
+                                          <>
+                                            <div className="single-rune">
+                                              <img
+                                                className="icon1"
+                                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
+                                                alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
+                                              />
+                                            </div>
+                                            <div className="single-rune">
+                                              <img
+                                                className="icon2"
+                                                src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
+                                                alt={`${data.perks.styles[1].style} Icon`}
+                                              />
+                                            </div>
+                                          </>
+                                      </div>
+
+                                    </div>
+
+                                  </div>
+                                ))
+
+                              ) : (
+                                // Output data for enemy players, 5,10
+                                gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
+                                  <div key={participantIndex} className="ally-match-summary-row">
+                                    <div className="ms-champion-face">
+                                          <img
+                                            className="icon"
+                                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+                                            alt={`${data.championName} Icon`}
+                                          />
+                                          <div className="champion-level">{data.champLevel}</div>
+                                    </div>
+
+                                    <div className="g2-row-two">
+                                      <div className="summoner-spells-column">
+                                          <>
+                                            <div className="summoner-spell">
+                                              <img
+                                                className="icon1"
+                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
+                                                alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
+                                              />
+                                            </div>
+                                            <div className="summoner-spell">
+                                              <img
+                                                className="icon2"
+                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
+                                                alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
+                                              />
+                                            </div>
+                                          </>
+                                        
+                                      </div>
+
+                                      <div className="runes-column">
+                                          <>
+                                            <div className="single-rune">
+                                              <img
+                                                className="icon1"
+                                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
+                                                alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
+                                              />
+                                            </div>
+                                            <div className="single-rune">
+                                              <img
+                                                className="icon2"
+                                                src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
+                                                alt={`${data.perks.styles[1].style} Icon`}
+                                              />
+                                            </div>
+                                          </>
+                                      </div>
+
+                                    </div>
+
+                                  </div>
+                                ))
+                              )}
+                            </div>
+                            
                           </div>
 
                           <div className = "enemy-side-container">
-                            <div className = "enemy-header"> 
-                              {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
-                              <>
-                                <p className={searchedParticipant?.win ? 'loss' : 'win'}>
-                                  {searchedParticipant?.win ? 'Defeat' : 'Victory'}
-                                </p>
-                              </>
-                              )}
+                            <div className= "enemy-header-container">
+                              <div className = "enemy-match-result"> 
+                                {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
+                                <>
+                                  <p className={searchedParticipant?.win ? 'loss' : 'win'}>
+                                    {searchedParticipant?.win ? 'Defeat' : 'Victory'}
+                                  </p>
+                                </>
+                                )}
+                              </div>
+                              <div>KDA</div>
+                              <div>Damage</div>
+                              <div>Gold</div>
+                              <div>CS</div>
+                              <div>Wards</div>
+                              <div>Items</div>
                             </div>
                             <div className = "enemy-match-summary-container">
                               <p> data for enemy team here</p>

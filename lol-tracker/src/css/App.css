@@ -842,6 +842,7 @@ p {
   width: 100%;
   height: auto;
   border: 2px solid #05f821;
+  
 }
 
 
@@ -854,23 +855,36 @@ p {
   border: 2px solid #f31404;
 }
 
-.ally-header {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: auto;
-  border: 2px solid #f31404;
-  padding: 1%;
-}
-/* Color the text based on win/loss */
-.ally-header p.win {
-  color: blue;
-  font-weight: bold;
+.ally-header-container{
+  display: grid;
+  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
 }
 
-.ally-header p.loss {
+.ally-match-result {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  flex-wrap: wrap;
+
+}
+/* Color the text based on win/loss */
+.ally-match-result p.win {
+  color: blue;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.ally-match-result p.loss {
   color: red;
   font-weight: bold;
+  font-size: 1em;
 }
 
 .ally-match-summary-container {
@@ -883,6 +897,39 @@ p {
 }
 
 
+.ally-match-summary-row{
+  display: grid;
+  grid-template-columns: 6% 8.5% 15% 15% 13% 7% 8% 7% 20%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
+/* Container for the champion image */
+.ms-champion-face {
+  display: flex;
+  width: 85%;
+  height: auto;
+  overflow: hidden;
+  margin-top: .5%;
+  margin-left: 3%;
+  border-radius: 15%;
+  position: relative;
+}
+
+/* Style for the champion face */
+.ms-champion-face .icon {
+  width: 100%; /* Take the full width of the outer container */
+  height: auto;
+  overflow: hidden;
+  transform: scale(1.1);
+  object-fit: cover;
+}
+
+
 .enemy-side-container {
   display: flex;
   flex-direction: column;
@@ -891,21 +938,32 @@ p {
   border: 2px solid #1004f3;
 }
 
-.enemy-header {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+.enemy-header-container{
+  display: grid;
+  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
+}
+
+.enemy-match-result {
   height: auto;
-  border: 2px solid #2004f3;
-  padding: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  flex-wrap: wrap;
+
 }
 /* Color the text based on win/loss */
-.enemy-header p.win {
+.enemy-match-result p.win {
   color: blue;
   font-weight: bold;
 }
 
-.enemy-header p.loss {
+.enemy-match-result p.loss {
   color: red;
   font-weight: bold;
 }
