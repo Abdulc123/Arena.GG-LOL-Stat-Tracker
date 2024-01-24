@@ -849,7 +849,6 @@ p {
 .ally-side-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2%;
   width: 100%;
   height: auto;
   border: 2px solid #f31404;
@@ -890,7 +889,6 @@ p {
 .ally-match-summary-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2%;
   width: 100%;
   height: auto;
   border: 2px solid #6004f3;
@@ -971,8 +969,7 @@ p {
 .enemy-match-summary-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2%;
   width: 100%;
   height: auto;
-  border: 2px solid #f31404;
+  border: 2px solid #04aff3;
 }

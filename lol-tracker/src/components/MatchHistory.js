@@ -70,6 +70,7 @@ const keystoneMapping = {
   8369: 'FirstStrike',
 };
 
+
 // Determines the game mode type based on unique queueID
 function determineGameMode(queueId) {
   return gameModes[queueId] || 'Unknown Mode';
@@ -140,7 +141,62 @@ class MatchHistory extends Component {
   render() {
     const { gameList, currentSummonerName, searchInput, version } = this.props;
     const { activeDropdownIndex } = this.state;
+    // Match summary rendering for ally team and enemy team
+    const renderPlayer = (data, participantIndex) => (
+      <div key={participantIndex} className="ally-match-summary-row">
+      <div className="ms-champion-face">
+            <img
+              className="icon"
+              src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+              alt={`${data.championName} Icon`}
+            />
+            <div className="champion-level">{data.champLevel}</div>
+      </div>
 
+      <div className="g2-row-two">
+        <div className="summoner-spells-column">
+            <>
+              <div className="summoner-spell">
+                <img
+                  className="icon1"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
+                  alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
+                />
+              </div>
+              <div className="summoner-spell">
+                <img
+                  className="icon2"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
+                  alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
+                />
+              </div>
+            </>
+          
+        </div>
+
+        <div className="runes-column">
+            <>
+              <div className="single-rune">
+                <img
+                  className="icon1"
+                  src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
+                  alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
+                />
+              </div>
+              <div className="single-rune">
+                <img
+                  className="icon2"
+                  src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
+                  alt={`${data.perks.styles[1].style} Icon`}
+                />
+              </div>
+            </>
+        </div>
+
+      </div>
+
+    </div>
+    );
     return (
       <div class="column">
       {gameList.length !== 0 ? (
@@ -458,119 +514,10 @@ class MatchHistory extends Component {
                             <div className="ally-match-summary-container">
                               {searchedParticipantIndex < 5 ? (
                                 // Output data for ally teammates, index 0,5
-                                gameData.info.participants.slice(0, 5).map((data, participantIndex) => (
-                                  <div key={participantIndex} className="ally-match-summary-row">
-                                    <div className="ms-champion-face">
-                                          <img
-                                            className="icon"
-                                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
-                                            alt={`${data.championName} Icon`}
-                                          />
-                                          <div className="champion-level">{data.champLevel}</div>
-                                    </div>
-
-                                    <div className="g2-row-two">
-                                      <div className="summoner-spells-column">
-                                          <>
-                                            <div className="summoner-spell">
-                                              <img
-                                                className="icon1"
-                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
-                                                alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
-                                              />
-                                            </div>
-                                            <div className="summoner-spell">
-                                              <img
-                                                className="icon2"
-                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
-                                                alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
-                                              />
-                                            </div>
-                                          </>
-                                        
-                                      </div>
-
-                                      <div className="runes-column">
-                                          <>
-                                            <div className="single-rune">
-                                              <img
-                                                className="icon1"
-                                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
-                                                alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
-                                              />
-                                            </div>
-                                            <div className="single-rune">
-                                              <img
-                                                className="icon2"
-                                                src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
-                                                alt={`${data.perks.styles[1].style} Icon`}
-                                              />
-                                            </div>
-                                          </>
-                                      </div>
-
-                                    </div>
-
-                                  </div>
-                                ))
-
+                                gameData.info.participants.slice(0, 5).map(renderPlayer)
                               ) : (
                                 // Output data for enemy players, 5,10
-                                gameData.info.participants.slice(5, 10).map((data, participantIndex) => (
-                                  <div key={participantIndex} className="ally-match-summary-row">
-                                    <div className="ms-champion-face">
-                                          <img
-                                            className="icon"
-                                            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
-                                            alt={`${data.championName} Icon`}
-                                          />
-                                          <div className="champion-level">{data.champLevel}</div>
-                                    </div>
-
-                                    <div className="g2-row-two">
-                                      <div className="summoner-spells-column">
-                                          <>
-                                            <div className="summoner-spell">
-                                              <img
-                                                className="icon1"
-                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
-                                                alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
-                                              />
-                                            </div>
-                                            <div className="summoner-spell">
-                                              <img
-                                                className="icon2"
-                                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
-                                                alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
-                                              />
-                                            </div>
-                                          </>
-                                        
-                                      </div>
-
-                                      <div className="runes-column">
-                                          <>
-                                            <div className="single-rune">
-                                              <img
-                                                className="icon1"
-                                                src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
-                                                alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
-                                              />
-                                            </div>
-                                            <div className="single-rune">
-                                              <img
-                                                className="icon2"
-                                                src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
-                                                alt={`${data.perks.styles[1].style} Icon`}
-                                              />
-                                            </div>
-                                          </>
-                                      </div>
-
-                                    </div>
-
-                                  </div>
-                                ))
+                                gameData.info.participants.slice(5, 10).map(renderPlayer)
                               )}
                             </div>
                             
@@ -594,10 +541,16 @@ class MatchHistory extends Component {
                               <div>Wards</div>
                               <div>Items</div>
                             </div>
+
                             <div className = "enemy-match-summary-container">
-                              <p> data for enemy team here</p>
-                              
-                            </div>
+                              {searchedParticipantIndex < 5 ? (
+                                // Output data for enemy players, index 0,5
+                                gameData.info.participants.slice(5, 10).map(renderPlayer)
+                              ) : (
+                                // Output data for enemy players, 5,10
+                                gameData.info.participants.slice(0, 5).map(renderPlayer)
+                              )}
+                            </div>            
                           </div>
 
                         </div>
