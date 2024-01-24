@@ -735,7 +735,7 @@ p {
 
 /* 5v5 player layout, with champion icons*/
 .group-five {
-  width: 28%;
+  width: 30%;
   height: auto; 
   display: flex;
   justify-content: center;
@@ -812,13 +812,167 @@ p {
   margin-bottom: 10%; /* Add spacing between summoner names */
 }
 
-
-.dropdown-container{
-  width: 3%;
+/* Small triangle toggle */
+.dropdown-triangle{
+  width: 5%;
   height: 6%; /* Add a fixed height for better visibility */
   display: flex;
   justify-content: center;
-  border: 1px solid #a5189c;
+  border: 1px solid #3218a5;
+  cursor: pointer;
+  /* Add default transition for smooth effect */
+  transition: background-color 0.3s ease;
+  transition: transform .8s ease;
+}
+/*Flip triangle upside down*/
+.upside-down {
+  transform: rotate(180deg);
+}
+
+/* Hover effect */
+.dropdown-triangle:hover {
+  background-color: #b4aeb9; /* Change to the color you want on hover */
+}
+
+/* Actual Dropdown box container when match summary box is clicked*/
+.dropdown-box {
+  display: flex; /* Make the container a flex container */
+  flex-direction: column; /* Stack the child elements vertically */
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #05f821;
+  
 }
 
 
+.ally-side-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #f31404;
+}
+
+.ally-header-container{
+  display: grid;
+  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
+}
+
+.ally-match-result {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  flex-wrap: wrap;
+
+}
+/* Color the text based on win/loss */
+.ally-match-result p.win {
+  color: blue;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.ally-match-result p.loss {
+  color: red;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.ally-match-summary-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #6004f3;
+}
+
+
+.ally-match-summary-row{
+  display: grid;
+  grid-template-columns: 6% 8.5% 15% 15% 13% 7% 8% 7% 20%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
+/* Container for the champion image */
+.ms-champion-face {
+  display: flex;
+  width: 85%;
+  height: auto;
+  overflow: hidden;
+  margin-top: .5%;
+  margin-left: 3%;
+  border-radius: 15%;
+  position: relative;
+}
+
+/* Style for the champion face */
+.ms-champion-face .icon {
+  width: 100%; /* Take the full width of the outer container */
+  height: auto;
+  overflow: hidden;
+  transform: scale(1.1);
+  object-fit: cover;
+}
+
+
+.enemy-side-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border: 2px solid #1004f3;
+}
+
+.enemy-header-container{
+  display: grid;
+  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+  align-items: center;
+}
+
+.enemy-match-result {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  flex-wrap: wrap;
+
+}
+/* Color the text based on win/loss */
+.enemy-match-result p.win {
+  color: blue;
+  font-weight: bold;
+}
+
+.enemy-match-result p.loss {
+  color: red;
+  font-weight: bold;
+}
+
+.enemy-match-summary-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  width: 100%;
+  height: auto;
+  border: 2px solid #f31404;
+}
