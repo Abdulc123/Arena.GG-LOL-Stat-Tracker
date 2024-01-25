@@ -11,6 +11,7 @@ const version = '14.1.1';
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentSummonerName, setCurrentSummonerName] = useState("");
   const [gameList, setGameList] = useState("");
   const [playerData, setPlayerData] = useState("");
@@ -22,9 +23,15 @@ function App() {
 
     if (searchParam) {
       setSearchInput(decodeURIComponent(searchParam));
-      searchSummonerData();
+      setSearchQuery(decodeURIComponent(searchParam));
     }
   }, []);
+
+  useEffect(() => {
+    if (searchInput) {
+      searchSummonerData();
+    }
+  }, [searchQuery])
 
   const handleInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -53,12 +60,14 @@ function App() {
       }).catch(function (error) {
         console.log(error);
       });
+
+    window.history.pushState({}, '', `/data/${encodeURIComponent(searchInput)}`);
   }
 
   return (
     <div className="App">
       <input type="text" value={searchInput} onChange={handleInputChange}></input>
-      <button onClick={searchSummonerData}>Search</button>
+      <button onClick={() => { setSearchQuery(searchInput); searchSummonerData(); }}>Search</button>
 
       <div className="backdrop-container">
         <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version}  />
@@ -66,7 +75,7 @@ function App() {
         <Dashboard playerData={playerData} />
       </div>
 
-      <div class="bottom-container">
+      <div className="bottom-container">
         <RankedInfo rankedData={rankedData} playerData={playerData} />
         <MatchHistory gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
       </div>
