@@ -35,7 +35,7 @@ section {
     margin: 80px;
 }
 
-p {
+.about-plain {
     color: #666;
     line-height: 1.6;
 }
