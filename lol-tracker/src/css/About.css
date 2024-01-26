@@ -1,0 +1,116 @@
+.About {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#introSection {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+#introText {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#introText h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#introText p {
+    color: #666;
+    line-height: 1.6;
+}
+
+h2 {
+    color: #333;
+}
+
+section {
+    margin: 80px;
+}
+
+p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.teamMembersContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.teamMember {
+    max-width: 200px;
+    margin: 10px;
+}
+
+.teamMember img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.teamMember h3 {
+    margin-top: 10px;
+    color: #333;
+}
+
+.teamMember p {
+    color: #666;
+    margin: 5px 0;
+}
+
+.teamMember .caption {
+    font-style: italic;
+}
+
+footer {
+    background-color: #f0f0f0;
+    margin: 80px;
+    padding: 20px 0;
+}
+
+#footerContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+#footerContent div {
+    width: 45%;
+}
+
+#footerContent h3 {
+    color: #333;
+    font-size: x-large;
+}
+
+#footerContent p {
+    color: #666;
+}
+
+#footerLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#footerLinks h3 {
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+#footerLinks a {
+    color: #333;
+    text-decoration: none;
+}
+
+#footerLinks a:hover {
+    text-decoration: underline;
+}

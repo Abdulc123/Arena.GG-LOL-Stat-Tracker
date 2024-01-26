@@ -32,37 +32,37 @@ span {
 
 @keyframes change {
   0% {
-    background-image: url(../images/image10.jpg);
+    background-image: url(../homeImages/image10.jpg);
     background-size: cover;
   }
 
   10% {
-    background-image: url(../images/image2.jpg);
+    background-image: url(../homeImages/image2.jpg);
     background-size: cover;
   }
 
   30% {
-    background-image: url(../images/image3.jpg);
+    background-image: url(../homeImages/image3.jpg);
     background-size: cover;
   }
 
   50% {
-    background-image: url(../images/image4.jpg);
+    background-image: url(../homeImages/image4.jpg);
     background-size: cover;
   }
 
   70% {
-    background-image: url(../images/image5.jpeg);
+    background-image: url(../homeImages/image5.jpeg);
     background-size: cover;
   }
 
   90% {
-    background-image: url(../images/image6.jpg);
+    background-image: url(../homeImages/image6.jpg);
     background-size: cover;
   }
 
   100% {
-    background-image: url(../images/image10.jpg);
+    background-image: url(../homeImages/image10.jpg);
     background-size: cover;
   }
 }
