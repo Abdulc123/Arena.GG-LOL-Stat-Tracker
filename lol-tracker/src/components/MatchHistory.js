@@ -116,6 +116,14 @@ function csperminute(gameDurationInSeconds) {
   return minutes
 }
 
+function formatGold(value) {
+  if (value >= 1000) {
+    return (value / 1000).toFixed(1) + 'k';
+  } else {
+    return value.toString();
+  }
+}
+
 {/*Helps with dropdown container toggle */}
 class DropdownContent extends Component {
   render() {
@@ -194,6 +202,108 @@ class MatchHistory extends Component {
         </div>
 
       </div>
+
+      <div>
+        Name and Rank
+      </div>
+
+      <div>
+        <div className="ms-kda">
+          {data?.kills}/{data?.deaths}/{data?.assists}
+        </div>
+        <div className="ms-kda-ratio">
+          <b>{((data?.kills + data?.assists) / data?.deaths).toFixed(2)}</b>&nbsp;KDA
+        </div>
+      </div>
+
+      <div>
+        {(data?.totalDamageDealtToChampions).toLocaleString()}
+      </div>
+
+      <div>
+        {formatGold(data?.goldEarned)}
+      </div>
+
+      <div>
+      {data?.totalMinionsKilled + data?.neutralMinionsKilled} CS
+      </div>
+
+      <div>
+        {data?.wardsPlaced}
+      </div>
+
+      <div className="ms-items">
+                    <div className="ms-item-container">
+                      <div className="ms-item-row-1">
+                        <div className="item-0">
+                          {data?.item0 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item0}.png`}
+                                  alt={`${data.item0} Icon`}
+                                />
+                          )}
+                        </div>
+                        <div className="item-1">
+                          {data?.item1 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item1}.png`}
+                                  alt={`${data.item1} Icon`}
+                                />
+                          )}
+                        </div>
+                        <div className="item-2">
+                          {data?.item2 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item2}.png`}
+                                  alt={`${data.item2} Icon`}
+                                />
+                          )}
+                        </div>
+                        <div className="item-6">
+                          {data?.item6 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item6}.png`}
+                                  alt={`${data.item6} Icon`}
+                                />
+                          )}
+                        </div>
+                      </div>
+                      <div className="ms-item-row-2">
+                        <div className="item-3">
+                          {data?.item3 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item3}.png`}
+                                  alt={`${data.item3} Icon`}
+                                />
+                          )}
+                        </div>
+                        <div className="item-4">
+                          {data?.item4 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item4}.png`}
+                                  alt={`${data.item4} Icon`}
+                                />
+                          )}
+                        </div>
+                        <div className="item-5">
+                          {data?.item5 !== 0 && (
+                                <img
+                                  className="item-image"
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item5}.png`}
+                                  alt={`${data.item5} Icon`}
+                                />
+                          )}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
 
     </div>
     );

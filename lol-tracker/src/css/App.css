@@ -856,12 +856,14 @@ p {
 
 .ally-header-container{
   display: grid;
-  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  grid-template-columns: 31% 15% 13% 7% 7% 12.5% 13.5%;
   color: #000000;
   font-size: 1em;
   font-weight: 500;
   text-align: center;
   align-items: center;
+  max-height: 12%; /* Adjust the value as needed */
+  overflow: hidden;
 }
 
 .ally-match-result {
@@ -897,13 +899,13 @@ p {
 
 .ally-match-summary-row{
   display: grid;
-  grid-template-columns: 6% 8.5% 15% 15% 13% 7% 8% 7% 20%;
+  grid-template-columns: 6% 8.5% 16% 15% 14% 6% 8% 12% 18%;
   color: #000000;
   font-size: 1em;
-  font-weight: 500;
   text-align: center;
   align-items: center;
-  margin-bottom: 1%;
+  margin-bottom: .5%;
+  overflow: hidden;
 }
 
 /* Container for the champion image */
@@ -938,12 +940,14 @@ p {
 
 .enemy-header-container{
   display: grid;
-  grid-template-columns: 31% 15% 13% 7% 7% 6% 21%;
+  grid-template-columns: 31% 15% 13% 7% 7% 12.5% 13.5%;
   color: #000000;
   font-size: 1em;
   font-weight: 500;
   text-align: center;
   align-items: center;
+  max-height: 12%; /* Adjust the value as needed */
+  overflow: hidden;
 }
 
 .enemy-match-result {
@@ -972,4 +976,55 @@ p {
   width: 100%;
   height: auto;
   border: 2px solid #04aff3;
+}
+
+.ms-kda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 15%;
+  border: 1px solid #182fa5;
+}
+
+.ms-kda-ratio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid #182fa5;
+}
+
+.ms-items {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #18a542;
+  flex-wrap: wrap;
+}
+
+.ms-item-container {
+  width: auto;
+  height:auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #df0f0f;
+}
+
+.ms-item-row-1 {
+  width:70%;
+  height:40%;
+  display:flex;
+  border: 1px solid #a0a518;
+  
+}
+
+.ms-item-row-2 {
+  width:70%;
+  height:40%;
+  display:flex;
+  border: 1px solid #a0a518;
 }
