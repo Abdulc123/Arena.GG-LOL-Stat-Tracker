@@ -1,4 +1,4 @@
-import React from 'react';
+import {useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Home.css';
 
@@ -10,6 +10,10 @@ const Home = () => {
     navigate(`/data/${searchInput}`);
   };
 
+  useEffect(() => {
+    document.title = 'Arena.GG';
+}, []);
+
   return (
     <div className="Home">
       <div className="container">
@@ -19,9 +23,9 @@ const Home = () => {
             <li>
               <Link to="/about">About</Link>
               <ul>
-                <li><Link to="#">Our Story</Link></li>
-                <li><Link to="#">Mission</Link></li>
-                <li><Link to="#">Team</Link></li>
+                <li><Link to="/about#ourStory">Our Story</Link></li>
+                <li><Link to="/about#teamMission">Team Mission</Link></li>
+                <li><Link to="/about#meeTheTeam">Meet The Team</Link></li>
               </ul>
             </li>
             <li><Link to="/data">Service</Link></li>

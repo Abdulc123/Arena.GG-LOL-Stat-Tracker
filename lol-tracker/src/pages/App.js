@@ -22,8 +22,10 @@ function App() {
     const searchParam = pathSegments[pathSegments.indexOf('data') + 1];
 
     if (searchParam) {
-      setSearchInput(decodeURIComponent(searchParam));
-      setSearchQuery(decodeURIComponent(searchParam));
+      const decodedSearchParam = decodeURIComponent(searchParam);
+      setSearchInput(decodedSearchParam);
+      setSearchQuery(decodedSearchParam);
+      document.title = decodedSearchParam;
     }
   }, []);
 
@@ -70,7 +72,7 @@ function App() {
       <button onClick={() => { setSearchQuery(searchInput); searchSummonerData(); }}>Search</button>
 
       <div className="backdrop-container">
-        <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version}  />
+        <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
         <PlayerInfo playerData={playerData} version={version} />
         <Dashboard playerData={playerData} />
       </div>
