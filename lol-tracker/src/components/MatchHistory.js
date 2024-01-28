@@ -147,7 +147,7 @@ class MatchHistory extends Component {
   };
 
   render() {
-    const { gameList, currentSummonerName, searchInput, version } = this.props;
+    const { gameList, rankedData, currentSummonerName, searchInput, version } = this.props;
     const { activeDropdownIndex } = this.state;
     // Match summary rendering for ally team and enemy team
     const renderPlayer = (data, participantIndex) => (
@@ -204,7 +204,22 @@ class MatchHistory extends Component {
       </div>
 
       <div>
-        Name and Rank
+        <div className="ms-rank-and-summonername-row">
+            <div className="ms-summoner-name-container">
+              <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+            </div>
+
+            <div className="ms-rank-image-container">
+              <img
+                className="icon"
+                src={`https://static.bigbrain.gg/assets/lol/ranks/s13/mini/${rankedData[0]?.tier.toLowerCase()}.svg`}
+                alt={`${rankedData[0]?.tier} Icon`}
+              />
+              <div className = "ms-rank-type">
+                {rankedData[0]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[0].rank} 
+              </div>
+            </div>
+          </div>
       </div>
 
       <div>

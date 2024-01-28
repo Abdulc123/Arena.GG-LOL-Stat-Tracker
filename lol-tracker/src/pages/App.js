@@ -79,7 +79,7 @@ function App() {
 
       <div className="bottom-container">
         <RankedInfo rankedData={rankedData} playerData={playerData} />
-        <MatchHistory gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
+        <MatchHistory gameList={gameList} rankedData={rankedData} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
       </div>
     </div>
   );

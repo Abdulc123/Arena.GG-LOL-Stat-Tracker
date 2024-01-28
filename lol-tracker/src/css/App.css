@@ -856,7 +856,7 @@ p {
 
 .ally-header-container{
   display: grid;
-  grid-template-columns: 31% 15% 13% 7% 7% 12.5% 13.5%;
+  grid-template-columns: 31% 15% 13% 7% 8% 12.5% 13.5%;
   color: #000000;
   font-size: 1em;
   font-weight: 500;
@@ -899,12 +899,12 @@ p {
 
 .ally-match-summary-row{
   display: grid;
-  grid-template-columns: 6% 8.5% 16% 15% 14% 6% 8% 12% 18%;
+  grid-template-columns: 6% 8.5% 16% 15% 14% 6% 9.5% 11.5% 18%;
   color: #000000;
   font-size: 1em;
   text-align: center;
   align-items: center;
-  margin-bottom: .5%;
+  margin-bottom: .1%;
   overflow: hidden;
 }
 
@@ -940,7 +940,7 @@ p {
 
 .enemy-header-container{
   display: grid;
-  grid-template-columns: 31% 15% 13% 7% 7% 12.5% 13.5%;
+  grid-template-columns: 31% 15% 13% 7% 8% 12.5% 13.5%;
   color: #000000;
   font-size: 1em;
   font-weight: 500;
@@ -977,6 +977,78 @@ p {
   height: auto;
   border: 2px solid #04aff3;
 }
+
+/* Creates rows in the columns to hold the icon and name containers*/
+.ms-rank-and-summonername-row {
+  border: 1px solid #a51886;
+  width: 100%; /* Equal width for both columns */
+  height: auto;
+}
+
+.ms-rank-image-container {
+  display: flex;
+  width: 80%;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #19b43d;
+  margin-left: 2.48%;
+}
+
+/* Style for the champion icons */
+.ms-rank-image-container .icon {
+  width: 20%; /* Set your desired width */
+  height: auto; /* Set your desired height */
+  border-radius: 20px;
+}
+
+.ms-rank-type {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 1%;
+  width: 100%;
+  height: auto;
+  border: 1px solid #182fa5;
+}
+
+/* Style for the summoner-name-container */
+.ms-summoner-name-container {
+  display: flex;
+  align-items: center; /* Center vertically within the container */
+  border: 1px solid #182fa5;
+  width: 100%; /* Adjust the width as needed */
+  height: auto;
+  overflow: hidden; /* Hide any content that overflows the container */
+}
+
+/* Style for the text inside the summoner-name-column */
+.ms-summoner-name-container p {
+  margin: 0;
+  cursor: pointer; /* Add a pointer cursor to indicate the clickability */
+  font-size: 1em;
+  margin-left: 3%;
+  text-align: left;
+  align-items: baseline;
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  text-overflow: ellipsis; /* Display an ellipsis (...) for overflow text */
+  overflow: hidden; /* Hide any content that overflows the container */
+}
+
+/* Underline the summoner name on hover */
+.ms-summoner-name-container p:hover {
+  text-decoration: underline;
+}
+
+/* Style the summoner name in bold when it matches the search text */
+.ms-summoner-name-container p.bold {
+  font-weight: bold;
+}
+
+/* Style for the summoner container */
+.ms-summoner-name-container .summoner {
+  margin-bottom: 10%; /* Add spacing between summoner names */
+}
+
 
 .ms-kda {
   display: flex;
