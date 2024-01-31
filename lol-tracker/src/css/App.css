@@ -360,14 +360,50 @@ p {
 
 .recently-played-with-container {
   width: 100%;
-  height: auto; 
+  height: auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 1.2em;
-  border: 1px solid #ccc;
-  margin-bottom: 2%;
+  border: 1px solid #2b18a5;
+
 }
+
+.rpw-title {
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  display: flex;
+  font-size: 1.2em;
+  border: 1px solid #2b18a5;
+}
+
+.rpw-subheader {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  height: 5%;
+  font-size: 0.8em;
+  border: 1px solid #2b18a5;
+}
+
+
+.rpw-row-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border: 1px solid #2b18a5;
+}
+
+.rpw-row {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  height:auto;
+  font-size: 0.8em;
+  border: 1px solid #2b18a5;
+}
+
+
+
 /* Game boxes */
 .match-summary-box {
   display: flex; /* Make the container a flex container */

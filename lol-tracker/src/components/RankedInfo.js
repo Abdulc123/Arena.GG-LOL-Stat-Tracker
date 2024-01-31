@@ -106,9 +106,41 @@ const RankedInfo = ({ rankedData, playerData }) => (
           <p>Champion Stats Placeholder</p>
         </div>
 
-        <div className="recently-played-with-container">
-          <p>Recently Played with ____ in Past 20 Games Placeholder </p>
+        <div className="rpw-title">
+          Recently Played With
         </div>
+        <div className="recently-played-with-container">
+          <div className="rpw-subheader">
+            Summoner
+          </div>
+          <div className="rpw-subheader">
+            Played
+          </div>
+          <div className="rpw-subheader">
+            W-L
+          </div>
+          <div className="rpw-subheader">
+            Win Ratio
+          </div>
+        </div>
+
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            DoubleLift
+          </div>
+          <div className="rpw-row">
+            12
+          </div>
+          <div className="rpw-row">
+            9-3
+          </div>
+          <div className="rpw-row">
+            75%
+          </div>
+        </div>
+        
+
+        
         {/* Additional content related to playerData */}
       </>
     ) : (
