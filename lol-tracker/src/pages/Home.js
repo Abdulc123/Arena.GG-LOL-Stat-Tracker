@@ -22,13 +22,13 @@ const Home = () => {
             <Link to="/">
               <img src="../images/FullLogo-White.png" alt="Home" className="navbar-icon" />
             </Link>
-            <li><Link to="/data">Data</Link></li>
+            <li><Link to="/data" className="navbar-link">Data</Link></li>
             <li>
-              <Link to="/about">About Us</Link>
+              <Link to="/about" className="navbar-link">About Us</Link>
               <ul>
-                <li><Link to="/about#ourStory">Our Story</Link></li>
-                <li><Link to="/about#teamMission">Team Mission</Link></li>
-                <li><Link to="/about#meeTheTeam">Meet The Team</Link></li>
+                <li><Link to="/about#ourStory" className="navbar-link">Our Story</Link></li>
+                <li><Link to="/about#teamMission" className="navbar-link">Team Mission</Link></li>
+                <li><Link to="/about#meeTheTeam" className="navbar-link">Meet The Team</Link></li>
               </ul>
             </li>
           </ul>

@@ -133,6 +133,10 @@ a {
   background-color: #555;
 }
 
+.navbar-link {
+  cursor: pointer;
+}
+
 .container {
   width: 100%;
   min-height: 100vh;
