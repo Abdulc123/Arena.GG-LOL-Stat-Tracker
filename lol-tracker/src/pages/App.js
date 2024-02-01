@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/App.css';
 import Backdrop from '../components/Backdrop';
@@ -18,6 +19,7 @@ function App() {
   const [rankedData, setRankedData] = useState("");
 
   useEffect(() => {
+    document.title = "Arena.GG";
     const pathSegments = window.location.pathname.split('/');
     const searchParam = pathSegments[pathSegments.indexOf('data') + 1];
 
@@ -32,6 +34,7 @@ function App() {
   useEffect(() => {
     if (searchInput) {
       searchSummonerData();
+      document.title = searchQuery;
     }
   }, [searchQuery])
 
@@ -68,8 +71,27 @@ function App() {
 
   return (
     <div className="App">
-      <input type="text" value={searchInput} onChange={handleInputChange}></input>
-      <button onClick={() => { setSearchQuery(searchInput); searchSummonerData(); }}>Search</button>
+      <nav className="appNav">
+        <div className="appNav-links">
+          <Link to="/" className="appNav-link">
+            <img src="../images/FullLogo.png" alt="Home" className="appNav-icon"/>
+          </Link>
+          <Link to="/data" className="appNav-link">Data</Link>
+          <Link to="/about" className="appNav-link">About Us</Link>
+        </div>
+        <div className="search-bar-container">
+          <input type="text" value={searchInput} placeholder="Enter Champion Name..." onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setSearchQuery(searchInput);
+                searchSummonerData();
+                e.target.blur(); 
+              }
+            }}
+          />
+          <button onClick={() => { setSearchQuery(searchInput); searchSummonerData(); }}>Search</button>
+        </div>
+      </nav>
 
       <div className="backdrop-container">
         <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />

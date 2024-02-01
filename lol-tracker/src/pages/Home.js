@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Home.css';
 
@@ -12,29 +12,39 @@ const Home = () => {
 
   useEffect(() => {
     document.title = 'Arena.GG';
-}, []);
+  }, []);
 
   return (
     <div className="Home">
       <div className="container">
-        <nav>
+        <nav className="navbar">
           <ul>
-            <li><Link to="/">Home</Link></li>
+            <Link to="/">
+              <img src="../images/FullLogo-White.png" alt="Home" className="navbar-icon" />
+            </Link>
+            <li><Link to="/data">Data</Link></li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about">About Us</Link>
               <ul>
                 <li><Link to="/about#ourStory">Our Story</Link></li>
                 <li><Link to="/about#teamMission">Team Mission</Link></li>
                 <li><Link to="/about#meeTheTeam">Meet The Team</Link></li>
               </ul>
             </li>
-            <li><Link to="/data">Service</Link></li>
           </ul>
         </nav>
 
         <div className="contenir">
-          <input type="text" className="search" id="search-inp" placeholder="Search..." />
+          <input type="text" className="search" id="search-inp" placeholder="Search..."
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearch();
+                e.target.blur(); // Blur the input field
+              }
+            }}
+          />
           <button className="search-btn" id="search-inp-btn" onClick={handleSearch}>&#x027A4;</button>
+
         </div>
 
         <div className="text">

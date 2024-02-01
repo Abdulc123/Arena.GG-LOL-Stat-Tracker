@@ -8,6 +8,45 @@ p {
   color:#000000;
 }
 
+.appNav {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  box-shadow: 0 0 10px #000;
+  z-index: 1000;
+}
+
+.appNav-icon {
+  width: 140px;
+  cursor: pointer;
+}
+
+.appNav-links {
+  display: flex;
+  align-items: center;
+}
+
+.appNav-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  margin-right: 20px;
+}
+
+.search-bar-container {
+  padding-right: 20px;
+  display: flex;
+  align-items: right;
+}
+
+input {
+  margin-right: 10px;
+}
 
 .backdrop-container {
   position: relative; /* Make the container a positioning context */

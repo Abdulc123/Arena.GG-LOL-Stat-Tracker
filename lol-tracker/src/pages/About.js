@@ -10,6 +10,16 @@ const About = () => {
 
   return (
     <div>
+      <nav className="aboutNav">
+        <div className="aboutNav-links">
+          <Link to="/" className="aboutNav-link">
+            <img src="../images/FullLogo.png" alt="Home" className="aboutNav-icon"/>
+          </Link>
+          <Link to="/data" className="aboutNav-link">Data</Link>
+          <Link to="/about" className="aboutNav-link">About Us</Link>
+        </div>
+      </nav>
+
       <section id="introSection">
         <div id="introText">
           <h1>Welcome to Arena.GG</h1>

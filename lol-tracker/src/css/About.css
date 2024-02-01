@@ -5,6 +5,36 @@
     box-sizing: border-box;
 }
 
+.aboutNav {
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 0 10px #000;
+    z-index: 1000;
+  }
+  
+  .aboutNav-icon {
+    width: 140px;
+    cursor: pointer;
+  }
+  
+  .aboutNav-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .aboutNav-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    margin-right: 20px;
+  }
+
 #introSection {
     background-color: #f0f0f0;
     padding: 20px;

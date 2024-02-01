@@ -67,17 +67,22 @@ span {
   }
 }
 
-nav {
+.navbar {
   background-color: #333 transparent;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 10px;
   width: 100%;
-  height: 45px;
   position: fixed;
   top: 0;
   box-shadow: 0 0 10px #000;
+}
+
+.navbar-icon {
+  width: 140px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 ul {
@@ -100,7 +105,7 @@ a {
   font-weight: bold;
 }
 
-nav ul ul {
+.navbar ul ul {
   display: none;
   position: absolute;
   top: 100%;
@@ -109,22 +114,22 @@ nav ul ul {
   z-index: 999;
 }
 
-nav ul li:hover>ul {
+.navbar ul li:hover>ul {
   display: inherit;
 }
 
-nav ul ul li {
+.navbar ul ul li {
   width: 100%;
   float: none;
 }
 
-nav ul ul a {
+.navbar ul ul a {
   padding: 10px;
   color: white;
   display: block;
 }
 
-nav ul ul a:hover {
+.navbar ul ul a:hover {
   background-color: #555;
 }
 
