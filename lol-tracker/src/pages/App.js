@@ -8,7 +8,7 @@ import Dashboard from '../components/Dashboard';
 import RankedInfo from '../components/RankedInfo';
 import MatchHistory from '../components/MatchHistory';
 
-const version = '14.1.1';
+const version = '14.2.1';
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -87,6 +87,7 @@ function App() {
                 searchSummonerData();
                 e.target.blur(); 
               }
+              
             }}
           />
           <button onClick={() => { setSearchQuery(searchInput); searchSummonerData(); }}>Search</button>

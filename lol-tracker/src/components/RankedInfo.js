@@ -6,7 +6,7 @@ function getWinRate(wins, losses) {
   return Math.round(winRate);
 }
 
-function generateRankedContent(data, index, ranktype) {
+function generateRankedContent(data, index, rankType) {
   if (data[index]) {
 
     return (
@@ -15,7 +15,7 @@ function generateRankedContent(data, index, ranktype) {
           <div className="rank-content-header">
             <div className="title">
               <div className="bluebar"></div>
-              <div className="queue-type"> Ranked {ranktype}</div>
+              <div className="queue-type"> Ranked {rankType}</div>
             </div>
             <div className="button-placeholder"> <p> v </p> </div>
           </div>
@@ -62,7 +62,7 @@ function generateRankedContent(data, index, ranktype) {
             <div className="rank-content-header">
               <div className="title">
                 <div className="bluebar"></div>
-                <div className="queue-type"> Ranked {ranktype} </div>
+                <div className="queue-type"> Ranked {rankType} </div>
               </div>
               <div className="unranked-box"> <p> Unranked </p> </div>
             </div>
