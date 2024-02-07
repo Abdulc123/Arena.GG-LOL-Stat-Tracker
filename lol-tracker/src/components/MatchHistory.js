@@ -214,31 +214,6 @@ class MatchHistory extends Component {
               <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
             </div>
 
-            <div className="ms-rank-image-container">
-              {rankedData && rankedData[0] ? (
-                <>
-                  <img
-                    className="icon"
-                    src={`https://static.bigbrain.gg/assets/lol/ranks/s13/mini/${rankedData[0]?.tier.toLowerCase()}.svg`}
-                    alt={`${rankedData[0]?.tier} Icon`}
-                  />
-                  <div className="ms-rank-type">
-                    {rankedData[0]?.tier.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} {rankedData[0].rank}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <img
-                    className="icon"
-                    src={`https://static.bigbrain.gg/assets/lol/ranks/s13/mini/unranked.svg`}
-                    alt={`Unranked Icon`}
-                  />
-                  <div className="ms-rank-type">
-                    {"Unranked"}
-                  </div>
-                </>
-              )}
-            </div>
           </div>
         </div>
 
