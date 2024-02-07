@@ -113,6 +113,7 @@ footer {
 }
 
 #footerContent div {
+    padding-left: 50px;
     width: 45%;
 }
 

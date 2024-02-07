@@ -47,9 +47,9 @@ const Home = () => {
 
         </div>
 
-        <div className="text">
-          <span className="first-child">League <span className="mid">of</span></span>
-          <span className="last-child">Legends</span>
+        <div className="arena">
+          <span className="last-child">Arena.GG</span>
+          <img src="../images/Logo.png" alt="Home" className="logo"></img>
         </div>
       </div>
     </div>
