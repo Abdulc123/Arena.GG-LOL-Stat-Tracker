@@ -122,7 +122,22 @@ input {
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This ensures that the image covers the entire container without cropping */
+  object-fit: cover;
+  z-index: 1; /* Ensure the image is above other elements */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1; /* Ensure the image is above other elements */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1; /* Ensure the image is above other elements */
 }
 
 /* Summoner Top container text style */
@@ -273,7 +288,7 @@ input {
 
 .unranked-box {
   display: flex;
-  width: 50%;
+  width: 30%;
   height: auto;
   font-size: 1em;
   font-weight: 500;
@@ -1062,16 +1077,15 @@ input {
 
 .ms-rank-image-container {
   display: flex;
-  width: 80%;
+  width: 35%;
+  justify-content: right;
   height: auto;
   overflow: hidden;
-  border: 1px solid #19b43d;
-  margin-left: 2.48%;
 }
 
 /* Style for the champion icons */
 .ms-rank-image-container .icon {
-  width: 20%; /* Set your desired width */
+  width: 35%; /* Set your desired width */
   height: auto; /* Set your desired height */
   border-radius: 20px;
 }
@@ -1093,6 +1107,7 @@ input {
   border: 1px solid #182fa5;
   width: 100%; /* Adjust the width as needed */
   height: auto;
+  font-size: 1.2em;
   overflow: hidden; /* Hide any content that overflows the container */
 }
 

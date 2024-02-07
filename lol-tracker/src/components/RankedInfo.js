@@ -54,49 +54,69 @@ function generateRankedContent(data, index, rankType) {
         </div>
       </div>
     );
-    } else {
-      // Error Handling Output if no solo/duo rank available
-      return (
-        <div className="rank-content">
-          <div className="queue-container">
-            <div className="rank-content-header">
-              <div className="title">
-                <div className="bluebar"></div>
-                <div className="queue-type"> Ranked {rankType} </div>
-              </div>
-              <div className="unranked-box"> <p> Unranked </p> </div>
+    }}
+
+function generateUnrankedContent(rankType) {
+    return (
+      <div className="rank-content">
+        <div className="queue-container">
+          <div className="rank-content-header">
+            <div className="title">
+              <div className="bluebar"></div>
+              <div className="queue-type"> Ranked {rankType} </div>
+            </div>
+            <div className="ms-rank-image-container">
+                <>
+                  <img
+                    className="icon"
+                    src={`https://static.bigbrain.gg/assets/lol/ranks/s13/mini/unranked.svg`}
+                    alt={`Unranked Icon`}
+                  />
+                </>
+            </div>
+            <div className="unranked-box"> <p> Unranked </p> 
             </div>
           </div>
         </div>
-      );
-    }
-    }
-
+      </div>
+    );
+}
 const RankedInfo = ({ rankedData, playerData }) => (
-  <div class="column">
-    {rankedData && (
+  <div className="column">
+    {rankedData && rankedData.length > 0 ? (
       <>
-        {/* Display Solo/Duo ranked data */}
         {rankedData[0] && rankedData[1] ? (
           <>
-            {/* Output something different when both rankedData[0] and rankedData[1] are available */}
-            {/* Display Solo/Duo ranked data */}
             {generateRankedContent(rankedData, 1, "Solo/Duo")}
-
-            {/* Display Flex ranked data */}
             {generateRankedContent(rankedData, 0, "Flex")}
           </>
         ) : (
           <>
-            {/* Display Solo/Duo ranked data */}
-            {generateRankedContent(rankedData, 0, "Solo/Duo")}
-
-            {/* Display Flex ranked data */}
-            {generateRankedContent(rankedData, 1, "Flex")}
+            {rankedData[0] && rankedData[0].queueType === "RANKED_SOLO_5x5" ? (
+              <>
+                {generateRankedContent(rankedData, 0, "Solo/Duo")}
+                {generateUnrankedContent("Flex")}
+              </>
+            ) : (
+              <>
+                {generateUnrankedContent("Solo/Duo")}
+                {generateRankedContent(rankedData, 0, "Flex")}
+              </>
+            )}
           </>
         )}
       </>
+    ) : (
+      // Handle the case when rankedData is not available
+      <>
+        {generateUnrankedContent("Solo/Duo")}
+        {generateUnrankedContent("Flex")}
+      </>
     )}
+
+    
+    
+
 
 
     {playerData ? (
