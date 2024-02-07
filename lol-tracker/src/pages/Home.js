@@ -28,7 +28,7 @@ const Home = () => {
               <ul>
                 <li><Link to="/about#ourStory" className="navbar-link">Our Story</Link></li>
                 <li><Link to="/about#teamMission" className="navbar-link">Team Mission</Link></li>
-                <li><Link to="/about#meeTheTeam" className="navbar-link">Meet The Team</Link></li>
+                <li><Link to="/about#meetTheTeam" className="navbar-link">Meet The Team</Link></li>
               </ul>
             </li>
           </ul>

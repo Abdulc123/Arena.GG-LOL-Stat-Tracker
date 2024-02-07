@@ -113,6 +113,7 @@ a {
 .navbar ul ul li {
   width: 100%;
   float: none;
+  z-index: 999;
 }
 
 .navbar ul ul a {
@@ -212,39 +213,42 @@ input[type="text"] {
   -webkit-text-stroke: 1px black;
 }
 
-.arena{
- font-size: 5em;
- position: absolute;
- transform: translate(-45%, -30%);
- top: 32%;
- left: 50%;
- color:white;
- color: #e0dfdc;
-    background-color: transparent;
-    letter-spacing: .1em;
-    text-shadow: 
-      0 -1px 0 #fff, 
-      0 1px 0 #2e2e2e, 
-      0 2px 0 #2c2c2c, 
-      0 3px 0 #2a2a2a, 
-      0 4px 0 #282828, 
-      0 5px 0 #262626, 
-      0 6px 0 #242424, 
-      0 7px 0 #222, 
-      0 8px 0 #202020, 
-      0 9px 0 #1e1e1e, 
-      0 10px 0 #1c1c1c, 
-      0 11px 0 #1a1a1a, 
-      0 12px 0 #181818, 
-      0 13px 0 #161616, 
-      0 14px 0 #141414, 
-      0 15px 0 #121212, 
-      0 22px 30px rgba(0, 0, 0, 0.9);
+.arena {
+  z-index: 100;
+  font-size: 5em;
+  position: absolute;
+  transform: translate(-45%, -30%);
+  top: 32%;
+  left: 50%;
+  color: white;
+  color: #e0dfdc;
+  background-color: transparent;
+  letter-spacing: .1em;
+  text-shadow:
+    0 -1px 0 #fff,
+    0 1px 0 #2e2e2e,
+    0 2px 0 #2c2c2c,
+    0 3px 0 #2a2a2a,
+    0 4px 0 #282828,
+    0 5px 0 #262626,
+    0 6px 0 #242424,
+    0 7px 0 #222,
+    0 8px 0 #202020,
+    0 9px 0 #1e1e1e,
+    0 10px 0 #1c1c1c,
+    0 11px 0 #1a1a1a,
+    0 12px 0 #181818,
+    0 13px 0 #161616,
+    0 14px 0 #141414,
+    0 15px 0 #121212,
+    0 22px 30px rgba(0, 0, 0, 0.9);
 }
 
-.logo{
-  width: 125x; /* Adjust the width as needed */
-  height: 125px; /* Maintains the aspect ratio */
+.logo {
+  width: 125x;
+  /* Adjust the width as needed */
+  height: 125px;
+  /* Maintains the aspect ratio */
   margin-right: 6.5em;
   text-shadow: 5px 100px 100px rgb(0, 0, 0);
 }
