@@ -23,14 +23,7 @@ const Home = () => {
               <img src="../images/FullLogo-White.png" alt="Home" className="navbar-icon" />
             </Link>
             <li><Link to="/data" className="navbar-link">Data</Link></li>
-            <li>
-              <Link to="/about" className="navbar-link">About Us</Link>
-              <ul>
-                <li><Link to="/about#ourStory" className="navbar-link">Our Story</Link></li>
-                <li><Link to="/about#teamMission" className="navbar-link">Team Mission</Link></li>
-                <li><Link to="/about#meetTheTeam" className="navbar-link">Meet The Team</Link></li>
-              </ul>
-            </li>
+            <li><Link to="/about" className="navbar-link">About Us</Link></li>
           </ul>
         </nav>
 
