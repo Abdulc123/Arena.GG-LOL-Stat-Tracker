@@ -9,14 +9,14 @@ const About = () => {
   }, []);
 
   return (
-    <div>
+    <div className='About'>
       <nav className="aboutNav">
         <div className="aboutNav-links">
           <Link to="/" className="aboutNav-link">
             <img src="../images/FullLogo.png" alt="Home" className="aboutNav-icon"/>
           </Link>
           <Link to="/data" className="aboutNav-link">Data</Link>
-          <Link to="/about" className="aboutNav-link">About Us</Link>
+          <Link to="/about#meetTheTeam" className="aboutNav-link">About Us</Link>
         </div>
       </nav>
 
