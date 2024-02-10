@@ -664,13 +664,7 @@ input {
 }
 
 /* Summoner spell 1 image style  */
-.summoner-spell .icon1{
-  width: 80%;
-  height: auto;
-  border-radius: 20%;
-}
-
-/* Summoner spell 2 image style */
+.summoner-spell .icon1,
 .summoner-spell .icon2{
   width: 80%;
   height: auto;
@@ -698,19 +692,30 @@ input {
 }
 
 /* Attributes for rune 1 */
-.single-rune .icon1{
-  width: 80%;
-  height: auto;
-  border-radius: 20%;
-}
-
-/* Attributes for rune 2 */
+.single-rune .icon1,
 .single-rune .icon2{
   width: 80%;
   height: auto;
   border-radius: 20%;
 }
 
+.augment-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border: 1px solid #a0a518;
+  justify-content: center;
+  padding: 2%;
+}
+
+.augment-container .icon1,
+.augment-container .icon2,
+.augment-container .icon3,
+.augment-container .icon4 {
+  width: 80%;
+  height: auto;
+  border-radius: 20%;
+}
 
 
 
@@ -1107,7 +1112,7 @@ input {
   border: 1px solid #182fa5;
   width: 100%; /* Adjust the width as needed */
   height: auto;
-  font-size: 1.2em;
+  font-size: 1.1em;
   overflow: hidden; /* Hide any content that overflows the container */
 }
 
