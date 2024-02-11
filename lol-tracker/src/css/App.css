@@ -566,7 +566,7 @@ input {
 
 /* Summoners champion, level, abilities, and runes*/
 .group-two {
-  width: 12%;
+  width: 14%;
   height: auto; 
   display: flex;
   flex-direction: column;
@@ -770,7 +770,7 @@ input {
  
 /* Items bought from shop */
 .group-four {
-  width: 16%;
+  width: 18%;
   height: auto;
   display: flex;
   justify-content: center;
@@ -1093,6 +1093,24 @@ input {
   width: 35%; /* Set your desired width */
   height: auto; /* Set your desired height */
   border-radius: 20px;
+}
+
+.ms-augment-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border: 1px solid #a0a518;
+  justify-content: center;
+  padding: 2%;
+}
+
+.ms-augment-container .icon1,
+.ms-augment-container .icon2,
+.ms-augment-container .icon3,
+.ms-augment-container .icon4 {
+  width: 90%;
+  height: auto;
+  border-radius: 20%;
 }
 
 .ms-rank-type {
