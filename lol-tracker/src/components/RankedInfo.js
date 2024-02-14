@@ -146,16 +146,58 @@ const RankedInfo = ({ rankedData, playerData }) => (
 
         <div className="rpw-row-container">
           <div className="rpw-row">
-            DoubleLift
+            Riyen
           </div>
           <div className="rpw-row">
-            12
+            13
           </div>
           <div className="rpw-row">
-            9-3
+            
           </div>
           <div className="rpw-row">
-            75%
+            
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            Plastique
+          </div>
+          <div className="rpw-row">
+            9
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            dirty willy
+          </div>
+          <div className="rpw-row">
+            9
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            SOJU
+          </div>
+          <div className="rpw-row">
+            8
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
           </div>
         </div>
         
