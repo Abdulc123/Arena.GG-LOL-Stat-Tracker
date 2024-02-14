@@ -5,7 +5,7 @@ const axios = require('axios');
 var app = express();
 app.use(cors());
 
-const API_KEY = "RGAPI-6131ccd3-1285-4333-a518-9881c27cb9cb";
+const API_KEY = "RGAPI-ac940c57-4e38-406b-94dc-1901019c8b2c";
 
 function getPlayerPUUID(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
@@ -42,7 +42,7 @@ app.get('/ranked', async (req, res) => {
     res.json(rankedData)
 })
 
-
+const { getRecentPlayers } = require('./RecentlyPlayedWith.js');
 
 // GET recentGames
 // GET localhost:4000/recentGames
@@ -66,6 +66,7 @@ app.get('/recentGames', async (req, res) => {
             .catch(err => err)
         matchDataArray.push(matchData);
     }
+    const recentPlayers = getRecentPlayers(matchDataArray, playerName);
     res.json(matchDataArray);
 });
 
