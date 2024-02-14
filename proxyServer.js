@@ -5,7 +5,7 @@ const axios = require('axios');
 var app = express();
 app.use(cors());
 
-const API_KEY = "RGAPI-ac940c57-4e38-406b-94dc-1901019c8b2c";
+const API_KEY = "RGAPI-ce287b1f-7f68-4d4c-91a9-4c9cf437e8cd";
 
 function getPlayerPUUID(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
