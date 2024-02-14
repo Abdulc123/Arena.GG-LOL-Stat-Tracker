@@ -42,7 +42,7 @@ app.get('/ranked', async (req, res) => {
     res.json(rankedData)
 })
 
-const { getRecentPlayers } = require('./RecentlyPlayedWith.js');
+//const { getRecentPlayers } = require('./RecentlyPlayedWith.js');
 
 // GET recentGames
 // GET localhost:4000/recentGames
@@ -66,7 +66,7 @@ app.get('/recentGames', async (req, res) => {
             .catch(err => err)
         matchDataArray.push(matchData);
     }
-    const recentPlayers = getRecentPlayers(matchDataArray, playerName);
+    //const recentPlayers = getRecentPlayers(matchDataArray, playerName);
     res.json(matchDataArray);
 });
 
