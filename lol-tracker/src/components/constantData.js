@@ -18361,4 +18361,4 @@ export const itemDetails = {
         ]
       }
     ]
-  }
+}

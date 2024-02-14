@@ -255,7 +255,7 @@ input {
 
 .title {
   display: flex;
-  width: 60%;
+  width: 80%;
   height: auto;
   padding-left: 2%;
   justify-content: left;
@@ -728,6 +728,7 @@ input {
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
+  font-size: 1.2em
 }
 
 .g3-kda {
