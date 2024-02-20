@@ -42,6 +42,11 @@ app.get('/ranked', async (req, res) => {
     res.json(rankedData)
 })
 
+<<<<<<< HEAD
+=======
+//const { getRecentPlayers } = require('./RecentlyPlayedWith.js');
+
+>>>>>>> 2a5eec885dd7520ea669ee87d9fa632508827f47
 // GET recentGames
 // GET localhost:4000/recentGames
 app.get('/recentGames', async (req, res) => {
@@ -64,6 +69,10 @@ app.get('/recentGames', async (req, res) => {
             .catch(err => err)
         matchDataArray.push(matchData);
     }
+<<<<<<< HEAD
+=======
+    //const recentPlayers = getRecentPlayers(matchDataArray, playerName);
+>>>>>>> 2a5eec885dd7520ea669ee87d9fa632508827f47
     res.json(matchDataArray);
 });
 

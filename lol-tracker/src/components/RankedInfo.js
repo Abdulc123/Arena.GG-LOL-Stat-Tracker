@@ -151,6 +151,7 @@ const RankedInfo = ({ rankedData, playerData }) => (
           </div>
           <div className="rpw-row">
             
+<<<<<<< HEAD
           </div>
         </div>
         <div className="rpw-row-container">
@@ -193,8 +194,53 @@ const RankedInfo = ({ rankedData, playerData }) => (
           </div>
           <div className="rpw-row">
             
+=======
+>>>>>>> 2a5eec885dd7520ea669ee87d9fa632508827f47
           </div>
         </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            Plastique
+          </div>
+          <div className="rpw-row">
+            9
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            dirty willy
+          </div>
+          <div className="rpw-row">
+            9
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            SOJU
+          </div>
+          <div className="rpw-row">
+            8
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+          <div className="rpw-row">
+            
+          </div>
+        </div>
+
         
 
         
