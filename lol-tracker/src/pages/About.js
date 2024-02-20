@@ -63,7 +63,7 @@ const About = () => {
           />
           <TeamMember
             name="Caleb Liang"
-            role="Full Stack Developer"
+            role="Lead Developer"
             caption="Loves diving into data to uncover valuable insights for gamers."
             imageSrc="../images/CalebIcon.jpg"
           />
