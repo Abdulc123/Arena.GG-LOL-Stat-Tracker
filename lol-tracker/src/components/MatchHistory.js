@@ -204,7 +204,7 @@ const MatchHistory = ({ gameList, rankedData, currentSummonerName, searchInput, 
   
           <div>
             <div className="ms-rank-and-summonername-row">
-              <div className="ms-summoner-name-container" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
+              <div className="ms-summoner-name-container" onClick={() => handleSummonerNameClick(data.summonerName)}>
                 <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
               </div>
   
@@ -622,7 +622,7 @@ const MatchHistory = ({ gameList, rankedData, currentSummonerName, searchInput, 
                     <div className="group-five">
                       <div className="champion-icon-and-summoner-name-column">
                         {gameData.info.participants.slice(dataSlice[0], dataSlice[1]).map((data, participantIndex) => (
-                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
+                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => handleSummonerNameClick(data.summonerName)}>
                             <div className="champion-img-container">
                               <img
                                 className="icon"
@@ -639,7 +639,7 @@ const MatchHistory = ({ gameList, rankedData, currentSummonerName, searchInput, 
 
                       <div className="champion-icon-and-summoner-name-column">
                         {gameData.info.participants.slice(dataSlice[1], dataSlice[2]).map((data, participantIndex) => (
-                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
+                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => handleSummonerNameClick(data.summonerName)}>
                             <div className="champion-img-container">
                               <img
                                 className="icon"
