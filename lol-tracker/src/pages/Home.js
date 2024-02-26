@@ -6,7 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    const searchInput = document.getElementById("search-inp").value;
+    const searchInput = encodeURIComponent(document.getElementById("search-inp").value);
     navigate(`/data/${searchInput}`);
   };
 

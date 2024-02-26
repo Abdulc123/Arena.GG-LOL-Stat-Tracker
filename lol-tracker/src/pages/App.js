@@ -12,8 +12,10 @@ const version = '14.2.1';
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
+  const [searchTag, setSearchTag] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentSummonerName, setCurrentSummonerName] = useState("");
+  const [currentSummonerTag, setCurrentSummonerTag] = useState("");
   const [gameList, setGameList] = useState("");
   const [playerData, setPlayerData] = useState("");
   const [rankedData, setRankedData] = useState("");
@@ -43,30 +45,38 @@ function App() {
   };
 
   const searchSummonerData = () => {
-    setCurrentSummonerName(searchInput);
+    if (searchInput.includes('#')) {
+      setSearchInput(searchInput.substring(0, searchInput.indexOf('#')));
+      setSearchTag(searchInput.substring(searchInput.indexOf('#') + 1));
+    } else {
+      setSearchTag("");
+    }
 
-    axios.get("http://localhost:4000/recentGames", { params: { username: searchInput } })
+    setCurrentSummonerTag(searchTag);
+
+    axios.get("http://localhost:4000/recentGames", { params: { username: searchInput, tagline: searchTag } })
       .then(function (response) {
         setGameList(response.data);
       }).catch(function (error) {
         console.log(error);
       });
 
-    axios.get("http://localhost:4000/player", { params: { username: searchInput } })
+    axios.get("http://localhost:4000/player", { params: { username: searchInput, tagline: searchTag } })
       .then(function (response) {
         setPlayerData(response.data);
+        setCurrentSummonerName(response.data.name);
       }).catch(function (error) {
         console.log(error);
       });
 
-    axios.get("http://localhost:4000/ranked", { params: { username: searchInput } })
+    axios.get("http://localhost:4000/ranked", { params: { username: searchInput, tagline: searchTag } })
       .then(function (response) {
         setRankedData(response.data);
       }).catch(function (error) {
         console.log(error);
       });
 
-    window.history.pushState({}, '', `/data/${encodeURIComponent(searchInput)}`);
+    window.history.pushState({}, '', `/data/${encodeURIComponent(searchQuery)}`);
   }
 
   return (
@@ -95,14 +105,14 @@ function App() {
       </nav>
 
       <div className="backdrop-container">
-        <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
+        <Backdrop playerData={playerData} gameList={gameList} currentSummonerName={currentSummonerName} currentSummonerTag={currentSummonerTag} version={version} />
         <PlayerInfo playerData={playerData} version={version} />
         <Dashboard playerData={playerData} />
       </div>
 
       <div className="bottom-container">
         <RankedInfo rankedData={rankedData} playerData={playerData} />
-        <MatchHistory gameList={gameList} rankedData={rankedData} currentSummonerName={currentSummonerName} searchInput={searchInput} version={version} />
+        <MatchHistory gameList={gameList} currentSummonerName={currentSummonerName} version={version} />
       </div>
     </div>
   );
