@@ -55,7 +55,7 @@ const Backdrop = ({ currentSummonerName, version, playerData }) => {
     return mostRecentGameData ? mostRecentGameData.info.participants.find(participant => participant.summonerName === currentSummonerName).championName : "Kayn";
   };
 
-  const mostPlayedChamp = calculateMostPlayedChampion();
+  //const mostPlayedChamp = calculateMostPlayedChampion();
   const mostRecentPlayedChamp = calculateMostRecentChampion();
 
   // Check if playerData is available before fetching recent games
