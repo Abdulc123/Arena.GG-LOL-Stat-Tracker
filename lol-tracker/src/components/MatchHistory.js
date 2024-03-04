@@ -58,7 +58,7 @@ function formatGold(value) {
 
 
 /*Helps with dropdown container toggle */
-const MatchHistory = ({ gameList, rankedData, currentSummonerName, searchInput, version }) => {
+const MatchHistory = ({ gameList, currentSummonerName, version }) => {
   const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
 
   const handleSummonerNameClick = (summonerName) => {
@@ -419,7 +419,7 @@ const MatchHistory = ({ gameList, rankedData, currentSummonerName, searchInput, 
           <>
             {gameList.map((gameData, index) => {
               const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
-              const searchedParticipantIndex = gameData.info.participants.findIndex(participant => participant.summonerName === searchInput);
+              const searchedParticipantIndex = gameData.info.participants.findIndex(participant => participant.summonerName === currentSummonerName);
               const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
               const runePrimaryKeystone = keyStoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
               const dataSlice = chooseSlice(gameData);

@@ -5,17 +5,32 @@ const axios = require('axios');
 var app = express();
 app.use(cors());
 
-const API_KEY = "RGAPI-946cb045-0515-4f1a-86b4-6c4c904c04c1";
+const API_KEY = "RGAPI-c2cc69ff-f49a-4193-ad8d-b41d157bd024";
 
-function getPlayerPUUID(playerName) {
+function getPlayerPUUIDbyName(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
         console.log(response.data);
         return response.data.puuid
     }).catch(err => err);
 };
 
-function getSummonerID(playerName) {
+function getPlayerPUUIDbyRiotID(playerName, playerTag) {
+    return axios.get("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/" + playerName + "/" + playerTag + "?api_key=" + API_KEY).then(response => {
+        console.log(response.data);
+        return response.data.puuid
+    }).catch(err => err);
+};
+
+function getSummonerIDbyName(playerName) {
     return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY).then(response => {
+        console.log(response.data);
+        return response.data.id
+    }).catch(err => err);
+};
+
+function getSummonerIDbyRiotID(playerName, playerTag) {
+    const PUUID = getPlayerPUUIDbyRiotID(playerName, playerTag);
+    return axios.get("https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-puuid/" + PUUID + "?api_key=" + API_KEY).then(response => {
         console.log(response.data);
         return response.data.id
     }).catch(err => err);
@@ -23,7 +38,16 @@ function getSummonerID(playerName) {
 
 app.get('/player', async (req, res) => {
     const playerName = req.query.username;
-    const API_CALL = "https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-name/" + playerName + "?api_key=" + API_KEY
+    const playerTag = req.query.tagline;
+
+    let PUUID;
+    if (playerTag === "") {
+        PUUID = await getPlayerPUUIDbyName(playerName)
+    } else {
+        PUUID = await getPlayerPUUIDbyRiotID(playerName, playerTag)
+    }
+
+    const API_CALL = "https://na1.api.riotgames.com" + "/lol/summoner/v4/summoners/by-puuid/" + PUUID + "?api_key=" + API_KEY
     const playerData = await axios.get(API_CALL)
         .then(response => response.data)
         .catch(err => err)
@@ -33,7 +57,15 @@ app.get('/player', async (req, res) => {
 
 app.get('/ranked', async (req, res) => {
     const playerName = req.query.username;
-    const summonerID = await getSummonerID(playerName)
+    const playerTag = req.query.tagline;
+
+    let summonerID;
+    if (playerTag === "") {
+        summonerID = await getSummonerIDbyName(playerName)
+    } else {
+        summonerID = await getSummonerIDbyRiotID(playerName, playerTag)
+    }
+
     const API_CALL = "https://na1.api.riotgames.com" + "/lol/league/v4/entries/by-summoner/" + summonerID + "?api_key=" + API_KEY
     const rankedData = await axios.get(API_CALL)
         .then(response => response.data)
@@ -48,11 +80,17 @@ app.get('/ranked', async (req, res) => {
 // GET localhost:4000/recentGames
 app.get('/recentGames', async (req, res) => {
     const playerName = req.query.username;
+    const playerTag = req.query.tagline;
     // PUUID
-    const PUUID = await getPlayerPUUID(playerName);
-    const API_CALL = "https://americas.api.riotgames.com" + "/lol/match/v5/matches/by-puuid/" + PUUID + "/ids" + "?api_key=" + API_KEY
+    let PUUID;
+    if (playerTag === "") {
+        PUUID = await getPlayerPUUIDbyName(playerName)
+    } else {
+        PUUID = await getPlayerPUUIDbyRiotID(playerName, playerTag)
+    }
 
     // get API_CALL
+    const API_CALL = "https://americas.api.riotgames.com" + "/lol/match/v5/matches/by-puuid/" + PUUID + "/ids" + "?api_key=" + API_KEY
     const gameIDs = await axios.get(API_CALL)
         .then(response => response.data)
         .catch(err => err)
