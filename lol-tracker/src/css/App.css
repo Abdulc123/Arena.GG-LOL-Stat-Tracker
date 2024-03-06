@@ -3,7 +3,6 @@
   background-color: #070721;
 }
 
-
 p {
   font-size: 1em;
   padding: 0;
@@ -18,9 +17,9 @@ p {
   padding: 10px;
   width: 100%;
   position: fixed;
-  top: 10;
-  box-shadow: 0 0 10px #000;
+  box-shadow: 0 0 10px black;
   z-index: 1000;
+  top: 0;
 }
 
 .appNav-icon {
@@ -36,7 +35,7 @@ p {
 .appNav-link {
   cursor: pointer;
   text-decoration: none;
-  color: black;
+  color: white;
   margin-right: 20px;
 }
 
@@ -54,8 +53,7 @@ input {
   position: relative; /* Make the container a positioning context */
   width: 100%;
   height: auto;
-  border: 1px solid #ffffff;
-  margin-top: 1%;
+  border: 1px solid #ffffff00;
   margin-bottom: 1%;
 }
 

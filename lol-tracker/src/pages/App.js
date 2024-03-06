@@ -84,7 +84,7 @@ function App() {
       <nav className="appNav">
         <div className="appNav-links">
           <Link to="/" className="appNav-link">
-            <img src="../images/FullLogo.png" alt="Home" className="appNav-icon"/>
+            <img src="../images/FullLogo-White.png" alt="Home" className="appNav-icon"/>
           </Link>
           <Link to="/data" className="appNav-link">Data</Link>
           <Link to="/about" className="appNav-link">About Us</Link>

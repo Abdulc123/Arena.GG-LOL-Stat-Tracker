@@ -7,11 +7,11 @@ const Dashboard = ({ playerData }) => (
       // Render navigation content when playerData is available
       <>
         <div className="overview-bar">
-          <p> Overview | Main Champion Stats</p>
+          <p></p>
         </div>
 
         <div className="dashboard-bar">
-          <p> Dashboard PlaceHolder</p>
+          <p></p>
         </div>
         {/* Additional content related to playerData */}
       </>
