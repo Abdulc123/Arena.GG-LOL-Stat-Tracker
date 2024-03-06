@@ -255,7 +255,7 @@ input {
 
 .title {
   display: flex;
-  width: 60%;
+  width: 80%;
   height: auto;
   padding-left: 2%;
   justify-content: left;
@@ -651,6 +651,7 @@ input {
   flex-direction: column;
   margin-right: 2px;
   border: 1px solid #27df0f;
+  justify-content: center;
 }
 
 /* Container for the image of each summoner spell */
@@ -658,15 +659,18 @@ input {
   width: 100%;
   height: auto;
   display: flex;
+  margin-top: 1%;
   border: 1px solid #182fa5;
   justify-content: center;
-  padding: 2%;
+  display: inline-block;
+  position: relative;
 }
 
 /* Summoner spell 1 image style  */
 .summoner-spell .icon1,
 .summoner-spell .icon2{
-  width: 80%;
+  width: 75%;
+  margin-top: 3%;
   height: auto;
   border-radius: 20%;
 }
@@ -679,6 +683,8 @@ input {
   flex-direction: column;
   margin-right: 2px;
   border: 1px solid #df0f0f;
+  justify-content: center;
+  margin-top: 1%;
 }
 
 /* Image containers for each rune */
@@ -688,6 +694,8 @@ input {
   display: flex;
   border: 1px solid #a0a518;
   justify-content: center;
+  display: inline-block;
+  position: relative;
   padding: 2%;
 }
 
@@ -706,13 +714,15 @@ input {
   border: 1px solid #a0a518;
   justify-content: center;
   padding: 2%;
+  display: inline-block;
+  position: relative;
 }
 
 .augment-container .icon1,
 .augment-container .icon2,
 .augment-container .icon3,
 .augment-container .icon4 {
-  width: 80%;
+  width: 85%;
   height: auto;
   border-radius: 20%;
 }
@@ -728,6 +738,7 @@ input {
   justify-content: center;
   align-items: center;
   border: 1px solid #18a542;
+  font-size: 1.2em
 }
 
 .g3-kda {
@@ -805,20 +816,19 @@ input {
 .item-0,
 .item-1,
 .item-2,
+.item-3,
+.item-4,
+.item-5,
 .item-6 {
   width:25%;
   height:100%;
   border:1px solid #182fa5;
+  justify-content: center;
+  display: inline-block;
+  position: relative;
 
 }
 
-.item-3,
-.item-4,
-.item-5 {
-  width:25%;
-  height:100%;
-  border: 1px solid #182fa5;
-}
 
 .item-image {
   max-width: 100%;
@@ -1000,7 +1010,6 @@ input {
   text-align: center;
   align-items: center;
   margin-bottom: .1%;
-  overflow: hidden;
 }
 
 /* Container for the champion image */
@@ -1102,6 +1111,8 @@ input {
   border: 1px solid #a0a518;
   justify-content: center;
   padding: 2%;
+  display: inline-block;
+  position: relative;
 }
 
 .ms-augment-container .icon1,
@@ -1187,7 +1198,6 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #18a542;
   flex-wrap: wrap;
 }
 
@@ -1196,7 +1206,6 @@ input {
   height:auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid #df0f0f;
 }
 
 .ms-item-row-1 {
@@ -1213,3 +1222,84 @@ input {
   display:flex;
   border: 1px solid #a0a518;
 }
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  max-width: 350px; /* Set your desired max-width */
+  overflow: hidden; /* Ensure content is contained within the tooltip */
+  z-index: 999;
+}
+
+.summoner-spell:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  width: max-content;
+  transition-delay: .5s;
+  height: auto; /* Set height to auto to allow the tooltip to grow/shrink based on content */
+}
+
+.single-rune:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  width: max-content;
+  transition-delay: .5s;
+  height: auto; /* Set height to auto to allow the tooltip to grow/shrink based on content */
+}
+
+.item-0:hover .tooltip,
+.item-1:hover .tooltip,
+.item-2:hover .tooltip,
+.item-3:hover .tooltip,
+.item-4:hover .tooltip,
+.item-5:hover .tooltip,
+.item-6:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  width: max-content;
+  transition-delay: .5s;
+  height: auto; /* Set height to auto to allow the tooltip to grow/shrink based on content */
+}
+
+.ms-augment-container:hover .tooltip,
+.augment-container:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  width: max-content;
+  transition-delay: .5s;
+  height: auto; /* Set height to auto to allow the tooltip to grow/shrink based on content */
+}
+
+.header-tooltip {
+  color:#1c195d;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.description-tooltip{
+  font-family: sans-serif;
+  font-size: .9em;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.gold-description{
+  font-family: sans-serif;
+  font-weight: 200;
+  columns: gold;
+  font-size: .9em;
+  text-align: left;
+  margin-bottom: 0;
+}
+

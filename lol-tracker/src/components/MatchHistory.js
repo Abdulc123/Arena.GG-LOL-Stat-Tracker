@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { gameModes, summonerSpellMapping, runeStyleMapping, keystoneMapping, augmentMapping, itemDetails, summonerSpellDescription, runeDescription } from '../components/constantData';
+import React, { useState} from 'react';
+import { gameModes, summonerSpellMapping, runeStyleMapping, keyStoneMapping, augmentMapping, itemDetails, summonerSpellDescription, summonerSpellNames, runeDescription, keyStoneNames } from '../components/constantData';
 import '../css/App.css';
 
 
@@ -56,286 +56,372 @@ function formatGold(value) {
   }
 }
 
-/*Helps with dropdown container toggle */
-class DropdownContent extends Component {
-  render() {
-    return;
-  }
-}
 
 /*Helps with dropdown container toggle */
-class MatchHistory extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDropdownIndex: null,
-    };
-  }
+const MatchHistory = ({ gameList, currentSummonerName, version }) => {
+  const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
 
-  handleSummonerNameClick = (summonerName) => {
+  const handleSummonerNameClick = (summonerName) => {
     const url = `/data/${summonerName}`;
     window.location.href = url;
   };
 
-  toggleDropdown = (index) => {
-    this.setState((prevState) => ({
-      activeDropdownIndex: prevState.activeDropdownIndex === index ? null : index,
-    }));
+  const toggleDropdown = (index) => {
+    setActiveDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-
-  render() {
-    const { gameList, rankedData, currentSummonerName, searchInput, version } = this.props;
-    const { activeDropdownIndex } = this.state;
-
-    
-    // Decides data slicing based on if its regular or Arena
-    function chooseSlice(datax) {
-      if (datax.info && datax.info.queueId) {
-        if (determineGameMode(datax.info.queueId) === "Arena") {
-          return [0, 4, 8];
-        } else {
-          return [0, 5, 10];
-        }
+  // Decides data slicing based on if its regular or Arena
+  function chooseSlice(datax) {
+    if (datax.info && datax.info.queueId) {
+      if (determineGameMode(datax.info.queueId) === "Arena") {
+        return [0, 4, 8];
       } else {
-        // Handle the case where datax.info or datax.info.queueId is undefined
         return [0, 5, 10];
       }
+    } else {
+      // Handle the case where datax.info or datax.info.queueId is undefined
+      return [0, 5, 10];
     }
-    function chooseAugmentDropdown(DATA, x) {
-      // Check if DATA and DATA.info.queueId are defined, and if playerAugmentX is not undefined
-      if (
-        DATA &&
-        (DATA)['playerAugment' + x] !== undefined
-      ) {
-        let augmentEntry = augmentMapping[(DATA)['playerAugment' + x]];
-    
-        if (augmentEntry && augmentEntry.length > 0) {
-          return augmentEntry[0];
-        } else {
-          return "Unknown";
-        }
-      } else {
+  }
+  
+  function chooseAugmentDropdownHelper(DATA, x) {
+    // Check if DATA and DATA.info.queueId are defined, and if playerAugmentX is not undefined
+    if (
+      DATA &&
+      (DATA)['playerAugment' + x] !== undefined
+    ) {
+      let augmentEntry = augmentMapping[(DATA)['playerAugment' + x]];
+  
+      if (augmentEntry && augmentEntry.length > 0) { 
+        return augmentEntry;
+      } 
+      else {
         return "Unknown";
       }
+    } else {
+      return "Unknown";
     }
-    
-    // Match summary rendering for ally team and enemy team
-    const renderPlayer = (data, participantIndex) => (
-      <div key={participantIndex} className="ally-match-summary-row">
-        <div className="ms-champion-face">
-          <img
-            className="icon"
-            src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
-            alt={`${data.championName} Icon`}
-          />
-          <div className="champion-level">{data.champLevel}</div>
+  }
+
+  // Renders item descriptions
+  const renderItemDescription = (itemID) => (
+    <div className="tooltip">
+      <div className="header-tooltip">
+        {itemDetails.data[itemID]?.name || "Unknown Item"}
+      </div>
+      <div className = "description-tooltip">
+        <p>{itemDetails.data[itemID]?.plaintext}</p>
+      </div>
+      <div className= "description-tooltip" dangerouslySetInnerHTML={{ __html: itemDetails.data[itemID]?.description || "Unknown Item" }}>
+      </div>
+      <div className ="gold-description">
+        <p>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.base})</p>
+      </div>
+    </div>
+  );
+
+  // Match summary rendering for ally team and enemy team
+  const renderPlayer = (data, participantIndex) => (
+    <div key={participantIndex} className="ally-match-summary-row">
+      <div className="ms-champion-face">
+        <img
+          className="icon"
+          src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/champion/${data.championName === 'FiddleSticks' ? 'Fiddlesticks' : data.championName}.png`}
+          alt={`${data.championName} Icon`}
+        />
+        <div className="champion-level">{data.champLevel}</div>
+      </div>
+
+      <div className="g2-row-two">
+        <div className="summoner-spells-column">
+          <>
+            <div className="summoner-spell">
+              <img
+                className="icon1"
+                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
+                alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
+              />
+              <div className="tooltip">
+                <div className = "header-tooltip">
+                  {summonerSpellNames[data.summoner1Id]}
+                </div>
+                <div className = "description-tooltip">
+                  {summonerSpellDescription[summonerSpellMapping[data?.summoner1Id]]}
+                </div>
+              </div>
+            </div>
+            <div className="summoner-spell">
+              <img
+                className="icon2"
+                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
+                alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
+              />
+              <div className="tooltip">
+                <div className = "header-tooltip">
+                  {summonerSpellNames[data.summoner2Id]}
+                </div>
+                <div className = "description-tooltip">
+                  {summonerSpellDescription[summonerSpellMapping[data?.summoner2Id]]}
+                </div>
+              </div>
+            </div>
+          </>
+
         </div>
 
-        <div className="g2-row-two">
-          <div className="summoner-spells-column">
+        {/*Check if keystone exists in keyStoneMapping, if so output runes, else dont (fixes Arena layout) */}
+        {data.perks.styles[0] && data.perks.styles[0].selections[0].perk in keyStoneMapping ? (
+          <div className="runes-column">
             <>
-              <div className="summoner-spell">
+              <div className="single-rune">
                 <img
                   className="icon1"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner1Id]}.png`}
-                  alt={`${summonerSpellMapping[data.summoner1Id]} Icon`}
+                  src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keyStoneMapping[data.perks.styles[0].selections[0].perk]}/${keyStoneMapping[data.perks.styles[0].selections[0].perk]}${keyStoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
+                  alt={`${keyStoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
                 />
+                <div className = "tooltip">
+                  <div className = "header-tooltip">  
+                    {runeDescription[data?.perks.styles[0].selections[0].perk][0]}
+                  </div>
+                  <div className = "description-tooltip">
+                    {runeDescription[data?.perks.styles[0].selections[0].perk][1]}
+                  </div>
+                </div>
               </div>
-              <div className="summoner-spell">
+              <div className="single-rune">
                 <img
                   className="icon2"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[data.summoner2Id]}.png`}
-                  alt={`${summonerSpellMapping[data.summoner2Id]} Icon`}
+                  src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
+                  alt={`${data.perks.styles[1].style} Icon`}
                 />
+                 <div className = "tooltip">
+                    <div className = "header-tooltip">
+                      {runeDescription[data.perks.styles[1].style][0]}
+                    </div>
+                    <div className = "description-tooltip">
+                      {runeDescription[data.perks.styles[1].style][1]}
+                    </div>
+                </div>
               </div>
             </>
-
           </div>
-
-          {/*Check if keystone exists in keystonemapping, if so output runes, else dont (fixes Arena layout) */}
-          {data.perks.styles[0] && data.perks.styles[0].selections[0].perk in keystoneMapping ? (
+        ) : (
+          <>
+          {data.playerAugment1 !== 0 && data.playerAugment2 !== 0 && (
             <div className="runes-column">
-              <>
-                <div className="single-rune">
-                  <img
-                    className="icon1"
-                    src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runeStyleMapping[data.perks.styles[0].style]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}/${keystoneMapping[data.perks.styles[0].selections[0].perk]}${keystoneMapping[data.perks.styles[0].selections[0].perk] === 'LethalTempo' ? 'Temp' : ''}.png`}
-                    alt={`${keystoneMapping[data.perks.styles[0].selections[0].perk]} Icon`}
-                  />
-                </div>
-                <div className="single-rune">
-                  <img
-                    className="icon2"
-                    src={`https://static.bigbrain.gg/assets/lol/runes/${data.perks.styles[1].style}.png`}
-                    alt={`${data.perks.styles[1].style} Icon`}
-                  />
-                </div>
-              </>
-            </div>
-          ) : (
-            <>
-            {data.playerAugment1 !== 0 && data.playerAugment2 !== 0 && (
-              <div className="runes-column">
-                {/* Content for the first case */}
-                <div className="ms-augment-container">
-                  <img
-                    className="icon1"
-                    src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdown(data, 1)}.png`}
-                    alt={`${chooseAugmentDropdown(data, 1)} Augment Icon`}
-                  />
-                </div>
-                <div className="ms-augment-container">
-                  <img
-                    className="icon2"
-                    src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdown(data, 2)}.png`}
-                    alt={`${chooseAugmentDropdown(data, 2)} Augment Icon`}
-                  />
+              {/* Content for the first case */}
+              <div className="ms-augment-container">
+                <img
+                  className="icon1"
+                  src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdownHelper(data, 1)[0]}.png`}
+                  alt={`${chooseAugmentDropdownHelper(data, 1)[0]} Augment Icon`}
+                />
+                <div className="tooltip">
+                  <div className = "header-tooltip">
+                    {chooseAugmentDropdownHelper(data, 1)[1] || "Unknown Augment"}
+                  </div>
+                  <div className = "description-tooltip">
+                    {chooseAugmentDropdownHelper(data, 1)[2]}
+                  </div>
                 </div>
               </div>
-              )}
-          
-          {data.playerAugment3 !== 0 && data.playerAugment4 !== 0 && (
-              <div className="runes-column">
-                {/* Content for the first case */}
-                <div className="ms-augment-container">
-                  <img
-                    className="icon1"
-                    src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdown(data, 3)}.png`}
-                    alt={`${chooseAugmentDropdown(data, 3)} Augment Icon`}
-                  />
+              <div className="ms-augment-container">
+                <img
+                  className="icon2"
+                  src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdownHelper(data, 2)[0]}.png`}
+                  alt={`${chooseAugmentDropdownHelper(data, 2)[0]} Augment Icon`}
+                />
+                <div className="tooltip">
+                  <div className = "header-tooltip">
+                    {chooseAugmentDropdownHelper(data, 2)[1] || "Unknown Augment"}
+                  </div>
+                  <div className = "description-tooltip">
+                    {chooseAugmentDropdownHelper(data, 2)[2]}
+                  </div>
                 </div>
-                <div className="ms-augment-container">
-                  <img
-                    className="icon2"
-                    src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdown(data, 4)}.png`}
-                    alt={`${chooseAugmentDropdown(data , 4)} Augment Icon`}
-                  />
-                </div>
-              </div>
-              )}
-            </>
-          )}
-
-        </div>
-
-        <div>
-          <div className="ms-rank-and-summonername-row">
-            <div className="ms-summoner-name-container" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
-              <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
-            </div>
-
-          </div>
-        </div>
-
-        <div>
-          <div className="ms-kda">
-            {data?.kills}/{data?.deaths}/{data?.assists}
-          </div>
-          <div className="ms-kda-ratio">
-            <b>{((data?.kills + data?.assists) / data?.deaths).toFixed(2)}</b>&nbsp;KDA
-          </div>
-        </div>
-
-        <div>
-          {(data?.totalDamageDealtToChampions).toLocaleString()}
-        </div>
-
-        <div>
-          {formatGold(data?.goldEarned)}
-        </div>
-
-        <div>
-          {data?.totalMinionsKilled + data?.neutralMinionsKilled} CS
-        </div>
-
-        <div>
-          {data?.wardsPlaced}
-        </div>
-
-        <div className="ms-items">
-          <div className="ms-item-container">
-            <div className="ms-item-row-1">
-              <div className="item-0">
-                {data?.item0 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item0}.png`}
-                    alt={`${data.item0} Icon`}
-                  />
-                )}
-              </div>
-              <div className="item-1">
-                {data?.item1 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item1}.png`}
-                    alt={`${data.item1} Icon`}
-                  />
-                )}
-              </div>
-              <div className="item-2">
-                {data?.item2 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item2}.png`}
-                    alt={`${data.item2} Icon`}
-                  />
-                )}
-              </div>
-              <div className="item-6">
-                {data?.item6 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item6}.png`}
-                    alt={`${data.item6} Icon`}
-                  />
-                )}
               </div>
             </div>
-            <div className="ms-item-row-2">
-              <div className="item-3">
-                {data?.item3 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item3}.png`}
-                    alt={`${data.item3} Icon`}
-                  />
-                )}
+            )}
+        
+        {data.playerAugment3 !== 0 && data.playerAugment4 !== 0 && (
+            <div className="runes-column">
+              {/* Content for the first case */}
+              <div className="ms-augment-container">
+                <img
+                  className="icon1"
+                  src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdownHelper(data, 3)[0]}.png`}
+                  alt={`${chooseAugmentDropdownHelper(data, 3)[0]} Augment Icon`}
+                />
+                <div className="tooltip">
+                  <div className = "header-tooltip">
+                    {chooseAugmentDropdownHelper(data, 3)[1] || "Unknown Augment"}
+                  </div>
+                  <div className = "description-tooltip">
+                    {chooseAugmentDropdownHelper(data, 3)[2]}
+                  </div>
+                </div>
               </div>
-              <div className="item-4">
-                {data?.item4 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item4}.png`}
-                    alt={`${data.item4} Icon`}
-                  />
-                )}
-              </div>
-              <div className="item-5">
-                {data?.item5 !== 0 && (
-                  <img
-                    className="item-image"
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item5}.png`}
-                    alt={`${data.item5} Icon`}
-                  />
-                )}
+              <div className="ms-augment-container">
+                <img
+                  className="icon2"
+                  src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugmentDropdownHelper(data, 4)[0]}.png`}
+                  alt={`${chooseAugmentDropdownHelper(data , 4)[0]} Augment Icon`}
+                />
+                <div className="tooltip">
+                  <div className = "header-tooltip">
+                    {chooseAugmentDropdownHelper(data, 4)[1] || "Unknown Augment"}
+                  </div>
+                  <div className = "description-tooltip">
+                    {chooseAugmentDropdownHelper(data, 4)[2]}
+                  </div>
+                </div>
               </div>
             </div>
-
-          </div>
-        </div>
+            )}
+          </>
+        )}
 
       </div>
-    );
+
+      <div>
+        <div className="ms-rank-and-summonername-row">
+          <div className="ms-summoner-name-container" onClick={() => handleSummonerNameClick(data.summonerName)}>
+            <p className={currentSummonerName === data.summonerName ? "bold" : ""}>{data.summonerName}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div>
+        <div className="ms-kda">
+          {data?.kills}/{data?.deaths}/{data?.assists}
+        </div>
+        <div className="ms-kda-ratio">
+          <b>{((data?.kills + data?.assists) / data?.deaths).toFixed(2)}</b>&nbsp;KDA
+        </div>
+      </div>
+
+      <div>
+        {(data?.totalDamageDealtToChampions).toLocaleString()}
+      </div>
+
+      <div>
+        {formatGold(data?.goldEarned)}
+      </div>
+
+      <div>
+        {data?.totalMinionsKilled + data?.neutralMinionsKilled} CS
+      </div>
+
+      <div>
+        {data?.wardsPlaced}
+      </div>
+
+      <div className="ms-items">
+        <div className="ms-item-container">
+          <div className="ms-item-row-1">
+            <div className="item-0">
+              {data?.item0 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item0}.png`}
+                  alt={`${data.item0} Icon`}
+                />
+                {renderItemDescription(data.item0)}
+              </>
+              )}
+            </div>
+            <div className="item-1">
+              {data?.item1 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item1}.png`}
+                  alt={`${data.item1} Icon`}
+                />
+                {renderItemDescription(data.item1)}
+              </>
+              )}
+            </div>
+            <div className="item-2">
+              {data?.item2 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item2}.png`}
+                  alt={`${data.item2} Icon`}
+                />
+                {renderItemDescription(data.item2)}
+              </>
+              )}
+            </div>
+            <div className="item-6">
+              {data?.item6 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item6}.png`}
+                  alt={`${data.item6} Icon`}
+                />
+                {renderItemDescription(data.item6)}
+              </>
+              )}
+            </div>
+          </div>
+          <div className="ms-item-row-2">
+            <div className="item-3">
+              {data?.item3 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item3}.png`}
+                  alt={`${data.item3} Icon`}
+                />
+                {renderItemDescription(data.item3)}
+              </>
+              )}
+            </div>
+            <div className="item-4">
+              {data?.item4 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item4}.png`}
+                  alt={`${data.item4} Icon`}
+                />
+                {renderItemDescription(data.item4)}
+              </>
+              )}
+            </div>
+            <div className="item-5">
+              {data?.item5 !== 0 && (
+                <>
+                <img
+                  className="item-image"
+                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${data.item5}.png`}
+                  alt={`${data.item5} Icon`}
+                />
+                {renderItemDescription(data.item5)}
+              </>
+              )}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  );
+
     return (
       <div class="column">
         {gameList.length !== 0 ? (
           <>
             {gameList.map((gameData, index) => {
               const searchedParticipant = gameData.info.participants.find(participant => participant.summonerName === currentSummonerName);
-              const searchedParticipantIndex = gameData.info.participants.findIndex(participant => participant.summonerName === searchInput);
+              const searchedParticipantIndex = gameData.info.participants.findIndex(participant => participant.summonerName === currentSummonerName);
               const runePrimaryPath = runeStyleMapping[searchedParticipant?.perks.styles[0].style];
-              const runePrimaryKeystone = keystoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
+              const runePrimaryKeystone = keyStoneMapping[searchedParticipant?.perks.styles[0].selections[0].perk];
               const dataSlice = chooseSlice(gameData);
               
               function chooseAugment(x) {
@@ -347,7 +433,7 @@ class MatchHistory extends Component {
                   let augmentEntry = augmentMapping[searchedParticipant['playerAugment' + x]];
                   
                   if (augmentEntry && augmentEntry.length > 0) {
-                    return augmentEntry[0];
+                    return augmentEntry;
                   } else {
                     return "Unknown"; // Corrected the spelling of 'Unknown'
                   }
@@ -418,19 +504,35 @@ class MatchHistory extends Component {
                         <div className="summoner-spells-column">
                           {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                             <>
-                              <div className="summoner-spell">
+                              <div className="summoner-spell" >
                                 <img
                                   className="icon1"
                                   src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner1Id]}.png`}
                                   alt={`${summonerSpellMapping[searchedParticipant?.summoner1Id]} Icon`}
                                 />
+                                <div className="tooltip">
+                                  <div className = "header-tooltip">
+                                    {summonerSpellNames[searchedParticipant?.summoner1Id]}
+                                  </div>
+                                  <div className = "description-tooltip">
+                                  {summonerSpellDescription[summonerSpellMapping[searchedParticipant?.summoner1Id]]}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="summoner-spell">
+                              <div className="summoner-spell" >
                                 <img
                                   className="icon2"
                                   src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summonerSpellMapping[searchedParticipant?.summoner2Id]}.png`}
                                   alt={`${summonerSpellMapping[searchedParticipant?.summoner2Id]} Icon`}
                                 />
+                                <div className="tooltip">
+                                  <div className = "header-tooltip">
+                                    {summonerSpellNames[searchedParticipant?.summoner2Id]}
+                                  </div>
+                                  <div className = "description-tooltip">
+                                    {summonerSpellDescription[summonerSpellMapping[searchedParticipant?.summoner2Id]]}
+                                  </div>
+                                </div>
                               </div>
                             </>
                           )}
@@ -445,6 +547,15 @@ class MatchHistory extends Component {
                                   src={`https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/small-perk-images/Styles/${runePrimaryPath}/${runePrimaryKeystone}/${runePrimaryKeystone}${runePrimaryKeystone === 'LethalTempo' ? 'Temp' : ''}.png`}
                                   alt={`${runePrimaryKeystone} Icon`}
                                 />
+                              <div className = "tooltip">
+                                <div className = "header-tooltip">  
+                                  {runeDescription[searchedParticipant?.perks.styles[0].selections[0].perk][0]}
+                                </div>
+                                <div className = "description-tooltip">
+                                  {runeDescription[searchedParticipant?.perks.styles[0].selections[0].perk][1]}
+                                </div>
+                              </div>
+
                               </div>
                               <div className="single-rune">
                                 <img
@@ -452,6 +563,14 @@ class MatchHistory extends Component {
                                   src={`https://static.bigbrain.gg/assets/lol/runes/${searchedParticipant.perks.styles[1].style}.png`}
                                   alt={`${searchedParticipant.perks.styles[1].style} Icon`}
                                 />
+                                <div className = "tooltip">
+                                  <div className = "header-tooltip">
+                                    {runeDescription[searchedParticipant.perks.styles[1].style][0]}
+                                  </div>
+                                  <div className = "description-tooltip">
+                                    {runeDescription[searchedParticipant.perks.styles[1].style][1]}
+                                  </div>
+                              </div>
                               </div>
                             </>
                           </div>
@@ -463,16 +582,32 @@ class MatchHistory extends Component {
                             <div className="augment-container">
                               <img
                                 className="icon1"
-                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(1)}.png`}
-                                alt={`${chooseAugment(1)} Augment Icon`}
+                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(1)[0]}.png`}
+                                alt={`${chooseAugment(1)[0]} Augment Icon`}
                               />
+                              <div className="tooltip">
+                                <div className = "header-tooltip">
+                                  {chooseAugment(1)[1] || "Unknown Augment"}
+                                </div>
+                                <div className = "description-tooltip">
+                                  {chooseAugment(1)[2]}
+                                </div>
+                              </div>
                             </div>
                             <div className="augment-container">
                               <img
                                 className="icon2"
-                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(2)}.png`}
-                                alt={`${chooseAugment(2)} Augment Icon`}
+                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(2)[0]}.png`}
+                                alt={`${chooseAugment(2)[0]} Augment Icon`}
                               />
+                              <div className="tooltip">
+                                <div className = "header-tooltip">
+                                  {chooseAugment(2)[1] || "Unknown Augment"}
+                                </div>
+                                <div className = "description-tooltip">
+                                  {chooseAugment(2)[2]}
+                                </div>
+                              </div>
                             </div>
                           </div>
                           )}
@@ -483,16 +618,32 @@ class MatchHistory extends Component {
                             <div className="augment-container">
                               <img
                                 className="icon1"
-                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(3)}.png`}
-                                alt={`${chooseAugment(3)} Augment Icon`}
+                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(3)[0]}.png`}
+                                alt={`${chooseAugment(3)[0]} Augment Icon`}
                               />
+                              <div className="tooltip">
+                                <div className = "header-tooltip">
+                                  {chooseAugment(3)[1] || "Unknown Augment"}
+                                </div>
+                                <div className = "description-tooltip">
+                                  {chooseAugment(3)[2]}
+                                </div>
+                              </div>
                             </div>
                             <div className="augment-container">
                               <img
                                 className="icon2"
-                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(4)}.png`}
-                                alt={`${chooseAugment(4)} Augment Icon`}
+                                src={`https://opgg-static.akamaized.net/meta/images/arena/augments/large/${chooseAugment(4)[0]}.png`}
+                                alt={`${chooseAugment(4)[0]} Augment Icon`}
                               />
+                              <div className="tooltip">
+                                <div className = "header-tooltip">
+                                  {chooseAugment(4)[1] || "Unknown Augment"}
+                                </div>
+                                <div className = "description-tooltip">
+                                  {chooseAugment(4)[2]}
+                                </div>
+                              </div>
                             </div>
                           </div>
                           )}
@@ -540,11 +691,14 @@ class MatchHistory extends Component {
                             {searchedParticipant && searchedParticipant.item0 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0 !== 0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item0}.png`}
-                                    alt={`${searchedParticipant.item0} Icon`}
-                                  />
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item0}.png`}
+                                      alt={`${searchedParticipant.item0} Icon`}
+                                    />
+                                    {renderItemDescription(searchedParticipant.item0)}
+                                  </>
                                 )}
                               </>
                             )}
@@ -553,40 +707,49 @@ class MatchHistory extends Component {
                             {searchedParticipant && searchedParticipant.item1 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item1}.png`}
-                                    alt={`${searchedParticipant.item1} Icon`}
-                                  />
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item1}.png`}
+                                      alt={`${searchedParticipant.item1} Icon`}
+                                      />
+                                      {renderItemDescription(searchedParticipant.item1)}
+                                 </>
                                 )}
                               </>
-                            )}
+                             )}
                           </div>
                           <div className="item-2">
                             {searchedParticipant && searchedParticipant.item2 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item2}.png`}
-                                    alt={`${searchedParticipant.item2} Icon`}
-                                  />
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item2}.png`}
+                                      alt={`${searchedParticipant.item2} Icon`}
+                                    />
+                                    {renderItemDescription(searchedParticipant.item2)}
+                                  </>
                                 )}
                               </>
-                            )}
+                              )}
                           </div>
                           <div className="item-6">
                             {searchedParticipant && searchedParticipant.item6 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item6}.png`}
-                                    alt={`${searchedParticipant.item6} Icon`}
-                                  />
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item6}.png`}
+                                      alt={`${searchedParticipant.item6} Icon`}
+                                    />
+                                    {renderItemDescription(searchedParticipant.item6)}
+                                  </>
                                 )}
                               </>
-                            )}
+                              )}
                           </div>
                         </div>
                         <div className="item-row-2">
@@ -594,24 +757,30 @@ class MatchHistory extends Component {
                             {searchedParticipant && searchedParticipant.item3 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
+                                  <>
                                   <img
                                     className="item-image"
                                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item3}.png`}
                                     alt={`${searchedParticipant.item3} Icon`}
                                   />
-                                )}
+                                  {renderItemDescription(searchedParticipant.item3)}
                               </>
+                              )}
+                            </>
                             )}
                           </div>
                           <div className="item-4">
                             {searchedParticipant && searchedParticipant.item4 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item4}.png`}
-                                    alt={`${searchedParticipant.item4} Icon`}
-                                  />
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item4}.png`}
+                                      alt={`${searchedParticipant.item4} Icon`}
+                                    />
+                                    {renderItemDescription(searchedParticipant.item4)}
+                                  </>
                                 )}
                               </>
                             )}
@@ -620,13 +789,16 @@ class MatchHistory extends Component {
                             {searchedParticipant && searchedParticipant.item5 !== 0 && (
                               <>
                                 {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName && participant.item0) && (
-                                  <img
-                                    className="item-image"
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item5}.png`}
-                                    alt={`${searchedParticipant.item5} Icon`}
-                                  />
-                                )}
-                              </>
+                                  <>
+                                    <img
+                                      className="item-image"
+                                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${searchedParticipant.item5}.png`}
+                                      alt={`${searchedParticipant.item5} Icon`}
+                                    />
+                                    {renderItemDescription(searchedParticipant.item5)}
+                                </>
+                              )}
+                            </>
                             )}
                           </div>
                         </div>
@@ -637,7 +809,7 @@ class MatchHistory extends Component {
                     <div className="group-five">
                       <div className="champion-icon-and-summoner-name-column">
                         {gameData.info.participants.slice(dataSlice[0], dataSlice[1]).map((data, participantIndex) => (
-                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
+                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => handleSummonerNameClick(data.summonerName)}>
                             <div className="champion-img-container">
                               <img
                                 className="icon"
@@ -654,7 +826,7 @@ class MatchHistory extends Component {
 
                       <div className="champion-icon-and-summoner-name-column">
                         {gameData.info.participants.slice(dataSlice[1], dataSlice[2]).map((data, participantIndex) => (
-                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => this.handleSummonerNameClick(data.summonerName)}>
+                          <div key={participantIndex} className="champion-icon-and-summoner-name-row" onClick={() => handleSummonerNameClick(data.summonerName)}>
                             <div className="champion-img-container">
                               <img
                                 className="icon"
@@ -670,14 +842,13 @@ class MatchHistory extends Component {
                       </div>
                     </div>
 
-                    <div className={`dropdown-triangle ${activeDropdownIndex === index ? 'upside-down' : ''}`} onClick={() => this.toggleDropdown(index)}>
+                    <div className={`dropdown-triangle ${activeDropdownIndex === index ? 'upside-down' : ''}`} onClick={() => toggleDropdown(index)}>
                       <p> V </p>
                     </div>
 
                     {/* Dropdown Content */}
                     {activeDropdownIndex === index && (
                       <>
-                        <DropdownContent />
                         <div className="dropdown-box">
                           <div className="ally-side-container">
                             <div className="ally-header-container" >
@@ -753,7 +924,6 @@ class MatchHistory extends Component {
         )}
       </div>
     );
-  }
-}
+  };
 
 export default MatchHistory;

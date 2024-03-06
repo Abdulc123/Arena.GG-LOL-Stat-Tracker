@@ -114,11 +114,6 @@ const RankedInfo = ({ rankedData, playerData }) => (
       </>
     )}
 
-    
-    
-
-
-
     {playerData ? (
       // Render navigation content when playerData is available
       <>
@@ -146,30 +141,58 @@ const RankedInfo = ({ rankedData, playerData }) => (
 
         <div className="rpw-row-container">
           <div className="rpw-row">
-            Riyen
+            Plastique
           </div>
           <div className="rpw-row">
-            13
+            17
           </div>
           <div className="rpw-row">
-            
+            11-6
           </div>
           <div className="rpw-row">
-            
+            65%
           </div>
         </div>
         <div className="rpw-row-container">
           <div className="rpw-row">
-            Plastique
+            Riyen
           </div>
           <div className="rpw-row">
-            9
+            16
           </div>
           <div className="rpw-row">
-            
+            9-7
           </div>
           <div className="rpw-row">
-            
+            56%
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            Soju
+          </div>
+          <div className="rpw-row">
+            12
+          </div>
+          <div className="rpw-row">
+            8-4
+          </div>
+          <div className="rpw-row">
+            67%
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            Thangerang
+          </div>
+          <div className="rpw-row">
+            7
+          </div>
+          <div className="rpw-row">
+            4-3
+          </div>
+          <div className="rpw-row">
+            57%
           </div>
         </div>
         <div className="rpw-row-container">
@@ -177,13 +200,27 @@ const RankedInfo = ({ rankedData, playerData }) => (
             dirty willy
           </div>
           <div className="rpw-row">
-            9
+            5
           </div>
           <div className="rpw-row">
-            
+            2-3
           </div>
           <div className="rpw-row">
-            
+            40%
+          </div>
+        </div>
+        <div className="rpw-row-container">
+          <div className="rpw-row">
+            A Nut
+          </div>
+          <div className="rpw-row">
+            5
+          </div>
+          <div className="rpw-row">
+            4-1
+          </div>
+          <div className="rpw-row">
+            80%
           </div>
         </div>
         <div className="rpw-row-container">
@@ -191,17 +228,15 @@ const RankedInfo = ({ rankedData, playerData }) => (
             SOJU
           </div>
           <div className="rpw-row">
-            8
+            3
           </div>
           <div className="rpw-row">
-            
+            1-2
           </div>
           <div className="rpw-row">
-            
-          </div>
-        </div>
-        
-
+            33%
+          </div>         
+        </div>   
         
         {/* Additional content related to playerData */}
       </>
