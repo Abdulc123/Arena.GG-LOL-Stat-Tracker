@@ -17,7 +17,7 @@ function generateRankedContent(data, index, rankType) {
               <div className="bluebar"></div>
               <div className="queue-type"> Ranked {rankType}</div>
             </div>
-            <div className="button-placeholder"> <p> v </p> </div>
+            <div className="button-placeholder"> <p> </p> </div>
           </div>
         </div>
 

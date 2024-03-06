@@ -114,14 +114,15 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
       <div className= "description-tooltip" dangerouslySetInnerHTML={{ __html: itemDetails.data[itemID]?.description || "Unknown Item" }}>
       </div>
       <div className ="gold-description">
-        <p>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.base})</p>
+        <p> <font color='#eec316'>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.base}) </font> </p>
       </div>
     </div>
   );
 
   // Match summary rendering for ally team and enemy team
   const renderPlayer = (data, participantIndex) => (
-    <div key={participantIndex} className="ally-match-summary-row">
+    <div key={participantIndex} className="match-summary-row"
+      style={{ backgroundColor: data?.win ? '#202B5E' : '#3E223B' }}>
       <div className="ms-champion-face">
         <img
           className="icon"
@@ -293,7 +294,7 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
 
       <div>
         <div className="ms-kda">
-          {data?.kills}/{data?.deaths}/{data?.assists}
+          {data?.kills}/<font color = "#ff3e3e">{data?.deaths}</font>/{data?.assists}
         </div>
         <div className="ms-kda-ratio">
           <b>{((data?.kills + data?.assists) / data?.deaths).toFixed(2)}</b>&nbsp;KDA
@@ -444,9 +445,8 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
 
               return (
                 <div key={index} className="match-summary-box">
-
-                  <div className="content-container">
-
+                  <div className = "content-container"
+                    style={{ backgroundColor: searchedParticipant?.win ? '#202B5E' : '#3E223B' }}>
                     <div className="group-one">
                       <div className="g1-row-one">
                         <div className="queue-type-box">
@@ -657,7 +657,7 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
                       <div className="g3-kda">
                         {gameData.info.participants.find(participant => participant.summonerName === currentSummonerName) && (
                           <>
-                            {searchedParticipant?.kills}/{searchedParticipant?.deaths}/{searchedParticipant?.assists}
+                            {searchedParticipant?.kills} / <font color = "#ff3e3e"> {searchedParticipant?.deaths} </font> / {searchedParticipant?.assists}
                           </>
                         )}
                       </div>
