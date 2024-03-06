@@ -8,20 +8,32 @@ function getRecentPlayers(matchDataArray, playerName) {
     const recentPlayers = {};
     matchDataArray.forEach(matchData => {
         const { metadata, info } = matchData;
-        const { participants } = info;
+        const { participants, teams } = info;
         const playerIndex = participants.findIndex(participant => participant.summonerName === playerName);
-        const teamId = participants[playerIndex].teamId;
-        
+        const playerTeamId = participants[playerIndex].teamId;
+        const playerWin = teams.find(team => team.teamId === playerTeamId).win === 'Win';
+
         participants.forEach(participant => {
-            if (participant.teamId === teamId && participant.summonerName !== playerName) {
-                if (!recentPlayers[participant.summonerName]) {
-                    recentPlayers[participant.summonerName] = 1;
+            if (participant.teamId !== playerTeamId && participant.summonerName !== playerName) {
+                const teammateName = participant.summonerName;
+                if (!recentPlayers[teammateName]) {
+                    recentPlayers[teammateName] = { gamesPlayed: 1, wins: 0, losses: 0 };
                 } else {
-                    recentPlayers[participant.summonerName]++;
+                    recentPlayers[teammateName].gamesPlayed++;
+                }
+                if (playerWin) {
+                    recentPlayers[teammateName].wins++;
+                } else {
+                    recentPlayers[teammateName].losses++;
                 }
             }
         });
     });
+
+    Object.values(recentPlayers).forEach(player => {
+        player.winRate = player.wins / player.gamesPlayed;
+    });
+    
     return recentPlayers;
 }
 
