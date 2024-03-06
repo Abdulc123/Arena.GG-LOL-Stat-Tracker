@@ -114,7 +114,7 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
       <div className= "description-tooltip" dangerouslySetInnerHTML={{ __html: itemDetails.data[itemID]?.description || "Unknown Item" }}>
       </div>
       <div className ="gold-description">
-        <p> <font color='#eec316'>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.base}) </font> </p>
+        <p> <font color='#eec316'>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.sell}) </font> </p>
       </div>
     </div>
   );
