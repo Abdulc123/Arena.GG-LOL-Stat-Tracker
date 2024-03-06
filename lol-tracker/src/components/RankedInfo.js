@@ -118,7 +118,7 @@ const RankedInfo = ({ rankedData, playerData }) => (
       // Render navigation content when playerData is available
       <>
         <div className="champion-stats-side-container">
-          <p>Champion Stats Placeholder</p>
+          <p></p>
         </div>
 
         <div className="rpw-title">
