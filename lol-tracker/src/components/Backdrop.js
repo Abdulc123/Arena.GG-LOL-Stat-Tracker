@@ -8,7 +8,6 @@ const Backdrop = ({ currentSummonerName, currentSummonerTag, version, playerData
   const bannerVersion = "1";
 
   // Function to calculate the most played champion
-  /*
   const calculateMostPlayedChampion = () => {
     if (!Array.isArray(gameList) || gameList.length === 0) {
       return "Kayn"; // Default champion if gameList is empty
@@ -38,8 +37,8 @@ const Backdrop = ({ currentSummonerName, currentSummonerTag, version, playerData
 
     return mostPlayedChampion || "Kayn"; // Default champion if unable to determine
   };
-  */
 
+  /*
   const calculateMostRecentChampion = () => {
     if (!Array.isArray(gameList) || gameList.length === 0) {
       return "Kayn"; // Default champion if gameList is empty
@@ -56,9 +55,10 @@ const Backdrop = ({ currentSummonerName, currentSummonerTag, version, playerData
     // Return the championName from the most recent game, or "Kayn" if no game is found
     return mostRecentGameData ? mostRecentGameData.info.participants.find(participant => participant.summonerName === currentSummonerName).championName : "Kayn";
   };
+  */
 
-  //const mostPlayedChamp = calculateMostPlayedChampion();
-  const mostRecentPlayedChamp = calculateMostRecentChampion();
+  const mostPlayedChamp = calculateMostPlayedChampion();
+  //const mostRecentPlayedChamp = calculateMostRecentChampion();
 
   // Check if playerData is available before fetching recent games
   useEffect(() => {
@@ -85,9 +85,9 @@ const Backdrop = ({ currentSummonerName, currentSummonerTag, version, playerData
     return (
       <div>
         {loading && <div className="loading-circle"></div>}
-        {!loading && mostRecentPlayedChamp && (
+        {!loading && mostPlayedChamp && (
           <div className="champ-background-image" 
-            style={{ backgroundImage: `url('https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/splash/${mostRecentPlayedChamp}_${bannerVersion}.jpg')` }}
+            style={{ backgroundImage: `url('https://static.bigbrain.gg/assets/lol/riot_static/${version}/img/splash/${mostPlayedChamp}_${bannerVersion}.jpg')` }}
           ></div>
         )}
       </div>
