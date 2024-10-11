@@ -114,7 +114,7 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
       <div className= "description-tooltip" dangerouslySetInnerHTML={{ __html: itemDetails.data[itemID]?.description || "Unknown Item" }}>
       </div>
       <div className ="gold-description">
-        <p> <font color='#eec316'>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.sell}) </font> </p>
+        <p> <font color='#eec316'>Gold: {itemDetails.data[itemID]?.gold.total} ({itemDetails.data[itemID]?.gold.base}) </font> </p>
       </div>
     </div>
   );
@@ -294,7 +294,7 @@ const MatchHistory = ({ gameList, currentSummonerName, version }) => {
 
       <div>
         <div className="ms-kda">
-          {data?.kills}/<font color = "#ff3e3e">{data?.deaths}</font>/{data?.assists}
+          {data?.kills}/<font color = "#ff3e3e">{data?.deaths}</font>/ {data?.assists}
         </div>
         <div className="ms-kda-ratio">
           <b>{((data?.kills + data?.assists) / data?.deaths).toFixed(2)}</b>&nbsp;KDA
